@@ -17,6 +17,10 @@ export default mongoose.model(
         required: true,
         minlength: 8, // Enforce minimum password length
       },
+      token:{
+        type: String,
+        required: false,
+      },
       role: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role",
