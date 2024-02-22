@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 export default mongoose.model(
     "User",
     new mongoose.Schema({
@@ -14,7 +15,7 @@ export default mongoose.model(
       password: {
         type: String,
         required: true,
-        minlength: 6, // Enforce minimum password length
+        minlength: 8, // Enforce minimum password length
       },
       role: {
         type: mongoose.Schema.Types.ObjectId,

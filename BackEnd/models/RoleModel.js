@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+// const db = mongoose.connection;
 export default mongoose.model(
     "Role",
     new mongoose.Schema({
@@ -5,11 +7,18 @@ export default mongoose.model(
         type: String,
         required: true,
         unique: true,
-      },
-      permissions: {
-        type: [String],
-        default: [],
+        enum: ["user", "admin"],
+        default: "user",
       },
     })
   );
-  
+
+  // enter default data into the roles collection
+  // db.roles.insertMany([
+  //   {
+  //     name: "user",
+  //   },
+  //   {
+  //     name: "admin",
+  //   },
+  // ]);
