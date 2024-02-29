@@ -15,6 +15,8 @@ export const loginUser = async (req, res, next) => {
 
         //if user exists, then match password
         if (user && (await bcrypt.compare(password, user.password))) {
+
+            //token generation
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 86400 })
             user.token = token;
             user.password = undefined;
