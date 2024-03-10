@@ -13,9 +13,12 @@ connectDB(); //connecting to DataBase
 
 const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
+
+app.use(express.json({limit: "14kb"}))
 app.use(cookieParser())
 routes(app)
 
