@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card,Box, Text, Button , Heading} from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
+import { FaSign } from 'react-icons/fa';
 
 function Signup() {
   return (
@@ -53,7 +54,7 @@ function Signup() {
           </div>
           <div className="mt-6">
             <Button color="indigo" type="submit" variant="outline"  className="w-full">
-              Sign up
+              Sign up <FaSign/>
             </Button>
           </div>
           <p className="mt-4 text-sm text-gray-600 text-center">

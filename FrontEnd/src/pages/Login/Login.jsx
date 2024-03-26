@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, Text,Box, Button,Heading } from '@radix-ui/themes';
 import { SunIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
+import { IoLogIn } from 'react-icons/io5';
+import { FiLogIn } from 'react-icons/fi';
 
 function Login() {
   return (
@@ -58,7 +60,7 @@ function Login() {
           </div>
           <div className="mt-6">
             <Button type="submit" variant="surface" className="w-full">
-              Log in
+              Log in <FiLogIn/>
             </Button>
           </div>
         </form>

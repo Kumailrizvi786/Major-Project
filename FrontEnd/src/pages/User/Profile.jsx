@@ -1,7 +1,8 @@
 import React from 'react';
-import { Badge, Code, DataList,SegmentedControl,Switch, Flex, IconButton, Link, Separator } from '@radix-ui/themes';
+import { Badge, Code, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
-import { FaLock } from 'react-icons/fa';
+import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
+import { FiEdit } from 'react-icons/fi';
 
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
@@ -69,7 +70,12 @@ function Profile() {
             </Flex>
             {/* Edit profile button */}
             <Flex justify="center" className="mt-4">
-              <Link href="#" color="gray">Edit Profile</Link>
+              <Link href="#" color="gray">
+              <Button size="2" color="indigo" variant="soft">
+              <FiEdit />
+    Edit profile
+  </Button>
+              </Link>
             </Flex>
           </div>
 
