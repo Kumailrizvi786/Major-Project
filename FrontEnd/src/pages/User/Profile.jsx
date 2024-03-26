@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Code, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+import { Badge, Heading, Code, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
@@ -165,7 +165,7 @@ function Profile() {
 
       {/* Reading list */}
       <div className="container mx-auto px-32 py-8">
-        <h2 className="text-2xl font-bold text-gray-800">Reading List</h2>
+        <Heading as="h2" className="text-2xl font-bold">Reading List</Heading>
         <p className="text-gray-500 mt-2">List of all your reading sessions</p>
         <div className="flex justify-center">
         {/* including segmented control */}
@@ -187,7 +187,7 @@ function Profile() {
           {data.map((item) => (
             <div key={item.id} className="border border-gray-200 rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
+                <Heading as="h3" className="text-lg font-semibold ">{item.title}</Heading>
                 <span className="text-gray-500">{item.date}</span>
               </div>
               <div className="flex justify-between items-center mt-2">

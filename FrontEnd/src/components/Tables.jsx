@@ -66,7 +66,7 @@ function Tables() {
 
   {/* now using map array */}
   {data.slice(0,3).map((item) => (
-  <Card className='mt-2'>
+  <Card key={item.rank} className='mt-2'>
     <Flex gap="3" align="center">
       <Avatar
         size="3"
