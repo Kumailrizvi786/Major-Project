@@ -11,7 +11,7 @@ function Tables() {
     { rank: 1, name: 'Mohd Maaz', speed: '250 w/m' },
     { rank: 2, name: 'Syed Kumail Rizvi', speed: '248 w/m' },
     { rank: 3, name: 'Sahil Ali', speed: '238 w/m' },
-    { rank: 4, name: 'Zainab Fatima', speed: '235 w/m' },
+    { rank: 4, name: 'Lucky Ali', speed: '235 w/m' },
     { rank: 5, name: 'Ayesha Siddiqua', speed: '230 w/m' },
     { rank: 6, name: 'Sana Fatima', speed: '225 w/m' },
     { rank: 7, name: 'Zeba Shaikh', speed: '220 w/m' },

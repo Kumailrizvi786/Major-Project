@@ -1,6 +1,6 @@
 import React from 'react';
-import { DropdownMenu, Link,Avatar } from '@radix-ui/themes';
-
+import { DropdownMenu,Avatar } from '@radix-ui/themes';
+import { Link } from 'react-router-dom';
 function Dropdown() {
   return (
     <DropdownMenu.Root>
@@ -19,7 +19,9 @@ function Dropdown() {
       </DropdownMenu.Trigger>
       {/* Dropdown Content */}
       <DropdownMenu.Content variant="soft">
+        <Link to="/profile" color="gray">
         <DropdownMenu.Item shortcut="⌘ P">Profile</DropdownMenu.Item>
+        </Link>
         <DropdownMenu.Item shortcut="⌘ E">Exercise</DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item shortcut="⌘ R">Result</DropdownMenu.Item>

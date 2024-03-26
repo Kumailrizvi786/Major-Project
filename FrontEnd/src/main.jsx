@@ -18,6 +18,7 @@ import Exercise from './pages/Exercise.jsx';
 import Leaderboard from './pages/Leaderboard.jsx';
 import Contact from './pages/Contact.jsx';
 import Layout from './Layout.jsx';
+import Profile from './pages/User/Profile.jsx';
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact/>,
+      },
+      {
+        path: "/profile",
+        element: <Profile/>,
       },
     ],
     errorElement: <ErrorPage />
