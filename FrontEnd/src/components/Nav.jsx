@@ -25,7 +25,7 @@ function Nav({ onThemeChange, getCurrentTheme}) {
       </Heading>
     </div>
     {/* </div> */}
-  <nav className="flex justify-center space-x-2">
+  <nav className="flex justify-center space-x-4">
         <Link to="/" color="gray">Home</Link>
         <Link to="/explore" color="gray">Explore</Link>
         <DropdownMenu.Root>
