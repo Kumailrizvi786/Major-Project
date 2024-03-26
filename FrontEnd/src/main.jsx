@@ -21,6 +21,7 @@ import Layout from './Layout.jsx';
 import Profile from './pages/User/Profile.jsx';
 import Instruction from './pages/Practice/Instruction.jsx';
 import TwoFactor from './pages/Login/TwoFactor.jsx';
+import ForgetPassword from './pages/Login/ForgetPassword.jsx';
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/twofactor",
         element: <TwoFactor/>,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword/>,
       },
     ],
     errorElement: <ErrorPage />
