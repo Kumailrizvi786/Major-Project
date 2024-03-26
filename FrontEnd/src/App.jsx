@@ -25,9 +25,6 @@ export default function App() {
 <Theme appearance={themeMode}>
   <Nav onThemeChange={toggleTheme} />
   <Hero/>
-  <Login/>
-
-  <Signup/>
   < Tables/>
   <MyApp />
   <Toaster/>

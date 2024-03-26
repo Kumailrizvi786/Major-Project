@@ -1,11 +1,11 @@
 import React from 'react'
 import  {TextField, Box, IconButton, Kbd} from '@radix-ui/themes';
 import {DotsHorizontalIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
-function Search() {
+function Search({text}) {
   return (
     <div>
        <Box maxWidth="250px">
-    <TextField.Root placeholder="Search the docs…" size="2">
+    <TextField.Root placeholder={text} size="2">
       <TextField.Slot>
         <MagnifyingGlassIcon height="16" width="16" />
       </TextField.Slot>
