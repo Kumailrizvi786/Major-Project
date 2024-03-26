@@ -11,7 +11,7 @@ function Nav({ onThemeChange }) {
   <div className="flex justify-between items-center">
     {/* <Section></Section> */}
     {/* <div> */}
-  <Heading align="left" as="div">Read For Speed</Heading>
+  <Heading align="left" as="div" className='text-[#3859C7]'>Read For Speed</Heading>
     {/* </div> */}
   <nav className="flex justify-center space-x-2">
         <Link to="/" color="gray">Home</Link>

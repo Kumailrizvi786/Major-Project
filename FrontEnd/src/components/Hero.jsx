@@ -4,9 +4,9 @@ import { Box, Card, Inset, Text, Strong, Heading } from '@radix-ui/themes';
 function Hero() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <Heading size="9" className="text-center ">
-        Enhance your reading speed with RFS
-      </Heading>
+      <Heading size="9"  color="black" className="text-center">
+      Enhance your <span className="text-[#3859C7]">reading speed</span> with RFS
+    </Heading>
       <Heading size="7" className="text-center mb-8">
         We provide different features to enhance the reading speed and improve your comprehension.
       </Heading>
