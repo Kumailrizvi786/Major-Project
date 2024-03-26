@@ -1,11 +1,14 @@
 import React from 'react'
 import  {Container, Box,DropdownMenu, Section,Avatar,IconButton,Tooltip, Heading,Button} from '@radix-ui/themes';
-import {SunIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
+import {SunIcon,MoonIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
 import Dropdown from './Dropdown';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { IoSpeedometerOutline,  IoSpeedometer } from "react-icons/io5";
 import { FaBookReader } from "react-icons/fa";
-function Nav({ onThemeChange }) {
+function Nav({ onThemeChange, getCurrentTheme}) {
+    const theme = getCurrentTheme();
+    console.log(theme)
   return (
     <div>
    <Box style={{ background: 'var(--gray-a2)',boxShadow:'var(--shadow-5)', borderRadius: 'var(--radius-3)' }}>
@@ -53,7 +56,11 @@ function Nav({ onThemeChange }) {
         <div className="flex items-center space-x-4 mr-4">
         <Tooltip content="Change theme">
           <IconButton size="1" variant="ghost">
-          <SunIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/>
+            {
+                // If theme is light, show MoonIcon, else show SunIcon
+                theme === 'light' ? <MoonIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/> : <SunIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/>
+            }
+          {/* <SunIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/> */}
        
         </IconButton>
           </Tooltip>
