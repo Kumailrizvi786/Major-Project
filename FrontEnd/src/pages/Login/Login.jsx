@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Text,Box, Button,Heading } from '@radix-ui/themes';
 import { SunIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
 
 function Login() {
   return (
@@ -50,9 +51,9 @@ function Login() {
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="font-medium text-blue-500 hover:underline">
+              <Link to="/forgetpassword" className="font-medium text-blue-500 hover:underline">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-6">
