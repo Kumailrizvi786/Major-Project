@@ -13,13 +13,13 @@ function Nav({ onThemeChange }) {
   <Heading align="left" as="div">ReadForSpeed</Heading>
     {/* </div> */}
   <nav className="flex justify-center space-x-2">
-        <Link href="#" color="gray">Home</Link>
-        <Link href="#" color="gray">Explore</Link>
+        <Link href="/" color="gray">Home</Link>
+        <Link href="/explore" color="gray">Explore</Link>
         <DropdownMenu.Root>
     <DropdownMenu.Trigger>
       {/* inline icon and link */}
       <div className="flex items-center space-x-1">
-    <Link href="#" color="gray">
+    <Link href="/practice" color="gray">
       Pratice
         {/* <DropdownMenu.TriggerIcon /> */}
         </Link>
