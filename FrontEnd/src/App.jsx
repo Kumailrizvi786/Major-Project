@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import Login from './pages/Login/Login';
 import toast, { Toaster } from "react-hot-toast";
 import Signup from './pages/Signup/Signup';
+import HowItWork from './components/HowItwork';
 
 
 // badge import
@@ -26,6 +27,7 @@ export default function App() {
   <Nav onThemeChange={toggleTheme} />
   <Hero/>
   < Tables/>
+  {/* <HowItWork/> */}
   <MyApp />
   <Toaster/>
 </Theme>

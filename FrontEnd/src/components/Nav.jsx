@@ -3,6 +3,8 @@ import  {Container, Box,DropdownMenu, Section,Avatar,IconButton,Tooltip, Heading
 import {SunIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
 import Dropdown from './Dropdown';
 import { Link } from 'react-router-dom';
+import { IoSpeedometerOutline,  IoSpeedometer } from "react-icons/io5";
+import { FaBookReader } from "react-icons/fa";
 function Nav({ onThemeChange }) {
   return (
     <div>
@@ -11,7 +13,14 @@ function Nav({ onThemeChange }) {
   <div className="flex justify-between items-center">
     {/* <Section></Section> */}
     {/* <div> */}
-  <Heading align="left" as="div" className='text-[#3859C7]'>Read For Speed</Heading>
+    <div className="flex items-center">
+      <IoSpeedometerOutline className="mr-2 text-[#3859C7]" size={24} />
+      {/* <FaBookReader  className="mr-2 text-[#3859C7]" size={24} /> */}
+      
+      <Heading align="left" as="div" className="text-[#3859C7]">
+        Read For Speed
+      </Heading>
+    </div>
     {/* </div> */}
   <nav className="flex justify-center space-x-2">
         <Link to="/" color="gray">Home</Link>
