@@ -21,7 +21,6 @@ function Nav({ onThemeChange, getCurrentTheme}) {
       {/* <FaBookReader  className="mr-2 text-[#3859C7]" size={24} /> */}
       <Link to="/">
       <Heading align="left" as="div" className="text-[#3859C7]">
-    
         Read For Speed
       </Heading>
       </Link>
