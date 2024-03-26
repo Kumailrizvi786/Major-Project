@@ -1,7 +1,8 @@
 import React from 'react'
-import  {Container, Box,Link,DropdownMenu, Section,Avatar,IconButton,Tooltip, Heading,Button} from '@radix-ui/themes';
+import  {Container, Box,DropdownMenu, Section,Avatar,IconButton,Tooltip, Heading,Button} from '@radix-ui/themes';
 import {SunIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
 import Dropdown from './Dropdown';
+import { Link } from 'react-router-dom';
 function Nav({ onThemeChange }) {
   return (
     <div>
@@ -10,11 +11,11 @@ function Nav({ onThemeChange }) {
   <div className="flex justify-between items-center">
     {/* <Section></Section> */}
     {/* <div> */}
-  <Heading align="left" as="div">ReadForSpeed</Heading>
+  <Heading align="left" as="div">Read For Speed</Heading>
     {/* </div> */}
   <nav className="flex justify-center space-x-2">
-        <Link href="/" color="gray">Home</Link>
-        <Link href="/explore" color="gray">Explore</Link>
+        <Link to="/" color="gray">Home</Link>
+        <Link to="/explore" color="gray">Explore</Link>
         <DropdownMenu.Root>
     <DropdownMenu.Trigger>
       {/* inline icon and link */}
@@ -37,8 +38,8 @@ function Nav({ onThemeChange }) {
       </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
-  <Link href="#" color="gray">Leaderboard</Link>
-        <Link href="#" color="gray">Contact</Link>
+  <Link to="leaderboard" color="gray">Leaderboard</Link>
+        <Link to="/contact" color="gray">Contact</Link>
         </nav>
         <div className="flex items-center space-x-4 mr-4">
         <Tooltip content="Change theme">
@@ -47,20 +48,18 @@ function Nav({ onThemeChange }) {
        
         </IconButton>
           </Tooltip>
+          <Link to="/signup">
          <Button color="gray" variant="outline" >
       Sign Up
     </Button>
-          <Button variant="surface">Login</Button>
+    </Link>
 
+    <Link to="/login">
+          <Button variant="surface">Login</Button>
+</Link>
           {/* Light Mode Button */}
           <button aria-label="Toggle Light Mode" className="text-gray-400 hover:text-gray-700 \">
-            {/* Example icon for light mode */}
-            {/* <Avatar
-    src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-    fallback="A"
-    radius="full"
-    onClick={() => alert('Clicked!')}
-  /> */}
+         
   <Dropdown/>
            
           </button>
