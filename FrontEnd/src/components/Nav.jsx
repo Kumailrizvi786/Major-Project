@@ -42,7 +42,12 @@ function Nav({ onThemeChange, getCurrentTheme}) {
       </div>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content variant="soft">
-      <DropdownMenu.Item shortcut="⌘ I">Instruction</DropdownMenu.Item>
+
+      <DropdownMenu.Item shortcut="⌘ I">
+<Link to="/instruction">
+        Instruction
+        </Link>
+        </DropdownMenu.Item>
       <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
       <FaLock/>
       </DropdownMenu.Item>
