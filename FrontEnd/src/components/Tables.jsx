@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import  {TextField, Box,Table,IconButton, Kbd} from '@radix-ui/themes';
 import {DotsHorizontalIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
 import { Flex,Badge,Card,Avatar, DropdownMenu,Section, Text, Button } from '@radix-ui/themes';
+import {toast} from 'react-hot-toast'
 
 function Tables() {
  
@@ -56,11 +57,11 @@ function Tables() {
     </TextField.Root>
   </Box>
  {/* including  top three user profiles as cards */}
-  <div className="flex justify-between mt-4">
+  <div className="flex justify-between mt-6">
     {/* text */}
-    <h3 className="text-xl font-bold">Top 3</h3>
+    <h3 className="text-xl font-bold ml-2">Top 3</h3>
     {/* button */}
-    <button className="text-blue-500">View All</button>
+    <button className="text-blue-500 mr-2" onClick={()=>{toast.error("Please login to get access!")}}>View All</button>
   </div>
 
   {/* now using map array */}
@@ -102,7 +103,7 @@ function Tables() {
           <Table.Body>
 
             {filterData.length == 0? <tr className="text-center">
-  <td colSpan="6">No Data Found</td>
+  <td colSpan="6">User Not Found</td>
 </tr> :filterData.map((item) => (
               <Table.Row key={item.rank}>
                 <Table.RowHeaderCell>{item.rank}</Table.RowHeaderCell>

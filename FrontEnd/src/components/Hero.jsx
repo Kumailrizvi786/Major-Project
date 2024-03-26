@@ -3,14 +3,14 @@ import { Box, Card, Inset, Text, Strong, Heading } from '@radix-ui/themes';
 
 function Hero() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-8 mb-8">
       <Heading size="9"  color="black" className="text-center">
       Enhance your <span className="text-[#3859C7]">reading speed</span> with RFS
     </Heading>
       <Heading size="7" className="text-center mb-8">
         We provide different features to enhance the reading speed and improve your comprehension.
       </Heading>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-8">
         <div className="max-w-xs mx-4">
           <Card size="2">
             <Inset clip="border-box" side="top" pb="current">

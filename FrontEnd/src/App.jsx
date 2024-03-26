@@ -1,14 +1,10 @@
 import '@radix-ui/themes/styles.css';
 import MyApp from './components/MyApp';
-import { Theme } from '@radix-ui/themes';
 import Tables from './components/Tables';
 import Hero from './components/Hero';
 import { useState } from 'react';
-import Nav from './components/Nav';
-import Login from './pages/Login/Login';
 import toast, { Toaster } from "react-hot-toast";
-import Signup from './pages/Signup/Signup';
-import HowItWork from './components/HowItwork';
+
 
 
 // badge import
@@ -23,15 +19,10 @@ export default function App() {
   };
   return (
 <>
-
- 
   <Hero/>
   < Tables/>
-  {/* <HowItWork/> */}
-  <MyApp />
-  <Toaster/>
-
-      
+  {/* <MyApp /> */}
+  <Toaster/>  
    </>
   )
 }

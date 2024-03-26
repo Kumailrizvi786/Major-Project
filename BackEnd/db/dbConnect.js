@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { DB_NAME } from '../utils/constants.js';
-import {Post, Role, User} from "../models/index.js"
+// import {Post, Role, User} from "../models/index.js"
 
 const connectDB = async () => {
     try {
