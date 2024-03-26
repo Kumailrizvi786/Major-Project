@@ -16,21 +16,21 @@ function Tables() {
 
   <Table.Body>
     <Table.Row>
-      <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-      <Table.Cell>danilo@example.com</Table.Cell>
-      <Table.Cell>Developer</Table.Cell>
+      <Table.RowHeaderCell>1</Table.RowHeaderCell>
+      <Table.Cell>Mohd Maaz</Table.Cell>
+      <Table.Cell>250</Table.Cell>
     </Table.Row>
 
     <Table.Row>
-      <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-      <Table.Cell>zahra@example.com</Table.Cell>
-      <Table.Cell>Admin</Table.Cell>
+      <Table.RowHeaderCell>2</Table.RowHeaderCell>
+      <Table.Cell>Syed Kumail Rizvi</Table.Cell>
+      <Table.Cell>248</Table.Cell>
     </Table.Row>
 
     <Table.Row>
-      <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-      <Table.Cell>jasper@example.com</Table.Cell>
-      <Table.Cell>Developer</Table.Cell>
+      <Table.RowHeaderCell>3</Table.RowHeaderCell>
+      <Table.Cell>Sahil Ali</Table.Cell>
+      <Table.Cell>238</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table.Root>
