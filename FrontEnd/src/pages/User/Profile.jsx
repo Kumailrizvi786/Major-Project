@@ -90,7 +90,7 @@ function Profile() {
                   </Badge>
                 </DataList.Value>
               </DataList.Item>
-              <DataList.Item>
+              {/* <DataList.Item>
                 <DataList.Label minWidth="88px">ID</DataList.Label>
                 <DataList.Value>
                   <Flex align="center" gap="2">
@@ -105,7 +105,7 @@ function Profile() {
                     </IconButton>
                   </Flex>
                 </DataList.Value>
-              </DataList.Item>
+              </DataList.Item> */}
               <DataList.Item>
                 <DataList.Label minWidth="88px">Name</DataList.Label>
                 <DataList.Value>
