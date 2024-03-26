@@ -19,6 +19,8 @@ import Leaderboard from './pages/Leaderboard.jsx';
 import Contact from './pages/Contact.jsx';
 import Layout from './Layout.jsx';
 import Profile from './pages/User/Profile.jsx';
+import Instruction from './pages/Practice/Instruction.jsx';
+import TwoFactor from './pages/Login/TwoFactor.jsx';
 
 
 const router = createBrowserRouter([
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile/>,
+      },
+      {
+        path: "/instruction",
+        element: <Instruction/>,
+      },
+      {
+        path: "/twofactor",
+        element: <TwoFactor/>,
       },
     ],
     errorElement: <ErrorPage />
