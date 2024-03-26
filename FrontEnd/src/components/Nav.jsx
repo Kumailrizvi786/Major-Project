@@ -5,7 +5,7 @@ import Dropdown from './Dropdown';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { IoSpeedometerOutline,  IoSpeedometer } from "react-icons/io5";
-import { FaBookReader } from "react-icons/fa";
+import { FaBookReader, FaLock } from "react-icons/fa";
 function Nav({ onThemeChange, getCurrentTheme}) {
     const theme = getCurrentTheme();
     console.log(theme)
@@ -19,30 +19,38 @@ function Nav({ onThemeChange, getCurrentTheme}) {
     <div className="flex items-center">
       <IoSpeedometerOutline className="mr-2 text-[#3859C7]" size={24} />
       {/* <FaBookReader  className="mr-2 text-[#3859C7]" size={24} /> */}
-      
+      <Link to="/">
       <Heading align="left" as="div" className="text-[#3859C7]">
+    
         Read For Speed
       </Heading>
+      </Link>
     </div>
     {/* </div> */}
   <nav className="flex justify-center space-x-4">
         <Link to="/" color="gray">Home</Link>
-        <Link to="/explore" color="gray">Explore</Link>
+        <Link to="/explore" color="gray">Explore 
+      
+        </Link>
         <DropdownMenu.Root>
     <DropdownMenu.Trigger>
       {/* inline icon and link */}
       <div className="flex items-center space-x-1">
-    <Link href="/practice" color="gray">
-      Pratice
-        {/* <DropdownMenu.TriggerIcon /> */}
+    <Link href="/practice" className="flex items-center space-x-1" color="gray">
+      Practice
+        <DropdownMenu.TriggerIcon className='ml-2'/>
         </Link>
       </div>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content variant="soft">
       <DropdownMenu.Item shortcut="⌘ I">Instruction</DropdownMenu.Item>
-      <DropdownMenu.Item shortcut="⌘ E">Exercise</DropdownMenu.Item>
+      <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
+      <FaLock/>
+      </DropdownMenu.Item>
       <DropdownMenu.Separator />
-      <DropdownMenu.Item shortcut="⌘ R">Result</DropdownMenu.Item>
+      <DropdownMenu.Item shortcut="⌘ R" onClick={()=>{toast.error("Please Login to see Results!")}}>Result
+      <FaLock/>
+      </DropdownMenu.Item>
 
       <DropdownMenu.Separator />
       <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
@@ -50,14 +58,15 @@ function Nav({ onThemeChange, getCurrentTheme}) {
       </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
-  <Link to="leaderboard" color="gray">Leaderboard</Link>
+  <Link to="leaderboard" className="flex items-center space-x-1" color="gray" onClick={()=>{toast.error("Please Login to see leaderboard!")}}>
+          Leaderboard <FaLock className='ml-2 mb-1' />
+        </Link>
         <Link to="/contact" color="gray">Contact</Link>
         </nav>
         <div className="flex items-center space-x-4 mr-4">
         <Tooltip content="Change theme">
           <IconButton size="1" variant="ghost">
             {
-                // If theme is light, show MoonIcon, else show SunIcon
                 theme === 'light' ? <MoonIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/> : <SunIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/>
             }
           {/* <SunIcon height="18" width="18" color="gray" variant="outline" onClick={onThemeChange}/> */}
