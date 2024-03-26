@@ -23,14 +23,14 @@ export default function App() {
   };
   return (
 <>
-<Theme appearance={themeMode}>
-  <Nav onThemeChange={toggleTheme} />
+
+ 
   <Hero/>
   < Tables/>
   {/* <HowItWork/> */}
   <MyApp />
   <Toaster/>
-</Theme>
+
       
    </>
   )

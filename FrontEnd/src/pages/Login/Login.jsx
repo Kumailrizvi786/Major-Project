@@ -4,7 +4,7 @@ import { SunIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
 function Login() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-lg rounded-lg">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800">Welcome back!</h2>
