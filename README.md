@@ -23,7 +23,6 @@ Read for Speed is a web application designed to help users enhance their reading
 
 ## Major Project - App Version
 - Checkout the app version of the project [here](https://read-for-speed.herokuapp.com/)
-- The app version of the project is hosted on Heroku.
 
 
 ## Screenshots
@@ -35,8 +34,8 @@ Read for Speed is a web application designed to help users enhance their reading
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/read-for-speed.git
-    cd read-for-speed
+   git clone https://github.com/SahilAli8808/Major-Project.git
+    cd Major-Project
     ```
 2. Install dependencies:
     ```bash
@@ -56,7 +55,7 @@ Read for Speed is a web application designed to help users enhance their reading
     ```bash
     npm run dev
     ```
-5. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
 
 ## Team Members
 
