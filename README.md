@@ -1,6 +1,72 @@
-# Major Project 
+# Major Project - Read for Speed
+
+![Read for Speed Screenshot](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss3.jpg)
+
+Read for Speed is a web application designed to help users enhance their reading speed and comprehension. It provides users with various exercises and tools to improve their reading skills efficiently.
 
 ## Features
+
+- **Speed Reading**: Practice speed reading with adjustable reading speeds.
+- **Comprehension**: Measure comprehension with quizzes and exercises.
+- **Progress Tracking**: Track your reading speed improvement over time.
+- **Customization**: Choose reading materials according to your interests and preferences.
+- **Two-Factor Authentication**: Secure your account with two-factor authentication.
+- **OAuth Sign-Up**: Sign up using GitHub or Google accounts for easier access.
+
+## Tech Stack
+
+- **Frontend**: React.js, Tailwind CSS, Radix UI
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JSON Web Tokens (JWT), OAuth with GitHub and Google
+- **Other Tools**: Redux (for state management), Axios (for API requests), Google Translate API (for language translation)
+
+## Major Project - App Version
+- Checkout the app version of the project [here](https://read-for-speed.herokuapp.com/)
+
+
+## Screenshots
+
+![Read for Speed Screenshot 1](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss3.jpg)
+![Read for Speed Screenshot 2](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss4.jpg)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SahilAli8808/Major-Project.git
+    cd Major-Project
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Create a `.env` file in the root directory and add the following environment variables:
+    ```bash
+    PORT=5000
+    MONGODB_URI=your_mongodb_uri
+    JWT_SECRET=your_jwt_secret
+    GOOGLE_CLIENT_ID=your_google_client_id
+    GOOGLE_CLIENT_SECRET=your_google_client_secret
+    GITHUB_CLIENT_ID=your_github_client_id
+    GITHUB_CLIENT_SECRET=your_github_client_secret
+    ```
+4. Run the development server:
+    ```bash
+    npm run dev
+    ```
+5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
+
+## Our Team 
+Here the table of Contributors of With there Roles.
+
+| Name of Contributors | Profiles                                         | Roles      |
+| :------------------- | :----------------------------------------------- | :--------- |
+| Sahil Ali            | [@Sahilali8808](https://github.com/Sahilali8808) | Full stack |
+| Syed Kumail Rizvi    | [@Kumailrizvi786](https://github.com/Kumailrizvi786) | Fullstack  |
+| Mohd Maaz            | [@maaz](https://github.com/)                         | Fullstack  |
+
+## Extra Features
 - Dynamic Content Generation: Employ generative models such as GPT (Generative Pre-trained Transformer) to dynamically generate personalized reading exercises, prompts, or quizzes tailored to each user's learning goals and preferences.
 - Personalized Learning Paths: Customized reading plans and activities tailored to each user's likes and how well they're doing to help them learn better.
 - Adaptive Learning: Changes the difficulty of reading materials as users get better, so they're always challenged just enough to keep learning.
