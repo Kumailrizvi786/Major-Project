@@ -1,6 +1,6 @@
 # Major Project - Read for Speed
 
-![Read for Speed Screenshot](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss1.jpg)
+![Read for Speed Screenshot](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss3.jpg)
 
 Read for Speed is a web application designed to help users enhance their reading speed and comprehension. It provides users with various exercises and tools to improve their reading skills efficiently.
 
@@ -27,8 +27,8 @@ Read for Speed is a web application designed to help users enhance their reading
 
 ## Screenshots
 
-![Read for Speed Screenshot 1](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss1.jpg)
-![Read for Speed Screenshot 2](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss2.jpg)
+![Read for Speed Screenshot 1](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss3.jpg)
+![Read for Speed Screenshot 2](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss4.jpg)
 
 ## Installation
 
