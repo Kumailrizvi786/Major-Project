@@ -18,11 +18,11 @@ export const registerUser = async (req, res, next) => {
 
         //create new user
         const createdUserObject = await User.create({
-            username: req.body.username,
+            name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
             isEmailVerified: false,
-            role: await Role.findOne({ name: req.body.role }),
+            role: "user",
         })
         const jwtToken = jwt.sign({ id: createdUserObject._id }, process.env.JWT_SECRET, options);
         //add token to user object
@@ -81,6 +81,8 @@ export const loginUser = async (req, res, next) => {
         console.log(err);
     }
 }
+
+
 
 //Logout
 export const logoutUser = async (req, res, next) => {

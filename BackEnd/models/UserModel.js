@@ -38,10 +38,10 @@ import mongoose from 'mongoose';
 
 export default mongoose.model('User', new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       required: true,
-      unique: true
+      // unique: true
     },
     email: {
       type: String,
@@ -62,7 +62,7 @@ export default mongoose.model('User', new mongoose.Schema(
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
-      required: true,
+      required: false,
     },
     age: {
       type: Number,

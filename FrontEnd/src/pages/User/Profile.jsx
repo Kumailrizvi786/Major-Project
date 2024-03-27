@@ -3,7 +3,7 @@ import { Badge, Heading, Code, DataList,SegmentedControl,Switch, Flex,Button, Ic
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
-
+import { toast } from 'react-hot-toast';
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const data = [
@@ -69,6 +69,7 @@ function Profile() {
               <img src="../../../img/sahil.jpg" alt="Profile" className="rounded-full h-40 w-40 object-cover object-center overflow-hidden" />
             </Flex>
             {/* Edit profile button */}
+         
             <Flex justify="center" className="mt-4">
               <Link href="#" color="gray">
               <Button size="2" color="indigo" variant="soft">
@@ -78,9 +79,10 @@ function Profile() {
               </Link>
             </Flex>
           </div>
-
+       
           {/* Right side show all details like email, age, gender, city */}
           <div>
+        
             <DataList.Root>
               <DataList.Item align="center">
                 <DataList.Label minWidth="88px">Status</DataList.Label>
@@ -135,7 +137,7 @@ function Profile() {
                     </Badge>
                     {/* swich for on and off */}
                     {/* <Switch /> */}
-                    <Switch />
+                    <Switch onClick={()=>{toast.success("2FA Settings Saved Successfully!")}} />
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
