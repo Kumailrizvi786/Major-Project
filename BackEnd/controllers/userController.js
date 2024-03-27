@@ -12,9 +12,9 @@ export const registerUser = async (req, res, next) => {
         }
 
         //jwt token options
-        const options = {
-            expiresIn: 86400, // 24 hours
-        }
+        // const options = {
+        //     expiresIn: 86400, // 24 hours
+        // }
 
         //create new user
         const createdUserObject = await User.create({
@@ -24,17 +24,16 @@ export const registerUser = async (req, res, next) => {
             age: req.body.age,
             city: req.body.city,
             isEmailVerified: false,
-            role: "user",
+            role: await Role.findOne({ name: req.body.role }),
         })
-        const jwtToken = jwt.sign({ id: createdUserObject._id }, process.env.JWT_SECRET, options);
+        // const jwtToken = jwt.sign({ id: createdUserObject._id }, process.env.JWT_SECRET, options);
         //add token to user object
-        createdUserObject.token = jwtToken;
+        // createdUserObject.token = jwtToken;
         createdUserObject.password = undefined; //remove password from user object before sending to client
         res.status(200).json(createdUserObject)
     } catch (error) {
         console.error("Error Occured in Registration =>  ", error);
     }
-
 }
 
 //Login
