@@ -1,5 +1,6 @@
 import { FiMoon, FiSun } from 'react-icons/fi'; 
-import { Button, Link,Avatar,DropdownMenu } from '@radix-ui/themes';
+import { Button, Link,Avatar,DropdownMenu, Tooltip,IconButton } from '@radix-ui/themes';
+import {SunIcon, MagnifyingGlassIcon} from '@radix-ui/react-icons';
 const Header = () => {
   return (
     <header className="bg-white text-gray-800 shadow-md py-4">
@@ -38,15 +39,15 @@ const Header = () => {
         </nav>
 
         {/* Sign In and Dark Mode Button */}
+
         <div className="flex items-center space-x-4 mr-4">
-        <FiSun
-          onClick={() => {
-          //  changing apperance to dark
-
-
-          }}
-         />
-         <Button color="gray" variant="outline" highContrast>
+        <Tooltip content="Change theme">
+          <IconButton size="1" variant="ghost">
+          <SunIcon height="18" width="18" color="gray" variant="outline" />
+       
+        </IconButton>
+          </Tooltip>
+         <Button color="gray" variant="outline">
       Sign Up
     </Button>
           <Button variant="surface">Login</Button>
@@ -60,6 +61,8 @@ const Header = () => {
     radius="full"
     onClick={() => alert('Clicked!')}
   />
+
+  
            
           </button>
         </div>

@@ -5,9 +5,9 @@ export default mongoose.model(
     new mongoose.Schema({
       name: {
         type: String,
-        required: true,
-        unique: true,
-        enum: ["user", "admin"],
+        required: false,
+        // unique: true,
+        // enum: ["user", "admin"],
         default: "user",
       },
     })

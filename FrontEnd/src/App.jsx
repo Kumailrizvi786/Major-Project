@@ -1,24 +1,28 @@
 import '@radix-ui/themes/styles.css';
-import Header from './components/Header';
-// import {Badge} from '@radix-ui/themes/src/components';
 import MyApp from './components/MyApp';
-import { Theme } from '@radix-ui/themes';
 import Tables from './components/Tables';
 import Hero from './components/Hero';
+import { useState } from 'react';
+import toast, { Toaster } from "react-hot-toast";
+
+
+
 // badge import
 
 
 
 export default function App() {
+  const [themeMode, setThemeMode] = useState("light");
+  const toggleTheme = () => {
+     toast.success('Theme Changed Successfully');
+    setThemeMode(prevMode => prevMode === "light" ? "dark" : "light");
+  };
   return (
 <>
-<Theme appearance='light'>
-  <Header/>
   <Hero/>
   < Tables/>
-  <MyApp />
-</Theme>
-      
+  {/* <MyApp /> */}
+  <Toaster/>  
    </>
   )
 }
