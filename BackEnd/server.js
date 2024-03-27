@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 import connectDB from "./db/dbConnect.js"
 import express from 'express'
-import bodyParser from 'body-parser';
 import cors from 'cors'
 import {routes} from './routes/indexRoutes.js'
 import cookieParser from 'cookie-parser'

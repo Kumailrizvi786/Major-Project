@@ -21,6 +21,8 @@ export const registerUser = async (req, res, next) => {
             username: req.body.username,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
+            age: req.body.age,
+            city: req.body.city,
             isEmailVerified: false,
             role: await Role.findOne({ name: req.body.role }),
         })
@@ -40,7 +42,7 @@ export const loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!(email && password)) {
-            res.status(400).json({ email: email, password: password }).send("Both Email & Password is required");
+            res.status(400).json({ email: email, password: password }).send("All fields are required");
         }
         // let token = req.cookies.token;
         //check for signup token and email verification

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default mongoose.Schema("Content", new mongoose.Schema({
+export default mongoose.model('Content', new mongoose.Schema({
     contentType: {
       type: String,
       enum: ['text', 'textOnImage'],
