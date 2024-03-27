@@ -1,6 +1,6 @@
 # Major Project - Read for Speed
 
-![Read for Speed Screenshot](screenshot.png)
+![Read for Speed Screenshot](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss1.jpg)
 
 Read for Speed is a web application designed to help users enhance their reading speed and comprehension. It provides users with various exercises and tools to improve their reading skills efficiently.
 
@@ -27,8 +27,8 @@ Read for Speed is a web application designed to help users enhance their reading
 
 ## Screenshots
 
-![Read for Speed Screenshot 1](screenshot1.png)
-![Read for Speed Screenshot 2](screenshot2.png)
+![Read for Speed Screenshot 1](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss1.jpg)
+![Read for Speed Screenshot 2](https://github.com/SahilAli8808/Major-Project/blob/main/FrontEnd/public/screenshot/ss2.jpg)
 
 ## Installation
 
@@ -57,11 +57,14 @@ Read for Speed is a web application designed to help users enhance their reading
     ```
 5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
 
-## Team Members
+## Our Team 
+Here the table of Contributors of With there Roles.
 
-- [Member 1](   )
-- [Member 2](   )
-- [Member 3](   )
+| Name of Contributors | Profiles                                         | Roles      |
+| :------------------- | :----------------------------------------------- | :--------- |
+| Sahil Ali            | [@Sahilali8808](https://github.com/Sahilali8808) | Full stack |
+| Syed Kumail Rizvi    | [@Kumailrizvi786](https://github.com/Kumailrizvi786) | Fullstack  |
+| Mohd Maaz            | [@maaz](https://github.com/)                         | Fullstack  |
 
 ## Extra Features
 - Dynamic Content Generation: Employ generative models such as GPT (Generative Pre-trained Transformer) to dynamically generate personalized reading exercises, prompts, or quizzes tailored to each user's learning goals and preferences.
