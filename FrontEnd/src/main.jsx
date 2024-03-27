@@ -22,6 +22,7 @@ import Profile from './pages/User/Profile.jsx';
 import Instruction from './pages/Practice/Instruction.jsx';
 import TwoFactor from './pages/Login/TwoFactor.jsx';
 import ForgetPassword from './pages/Login/ForgetPassword.jsx';
+import ChangePassword from './pages/Login/ChangePassword.jsx';
 
 
 const router = createBrowserRouter([
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "/forgetpassword",
         element: <ForgetPassword/>,
+      },
+      {
+        path: "/changepassword",
+        element: <ChangePassword/>,
       },
     ],
     errorElement: <ErrorPage />

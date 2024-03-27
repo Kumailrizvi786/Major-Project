@@ -24,7 +24,9 @@ function Dropdown() {
         </Link>
         <DropdownMenu.Item shortcut="⌘ E">Exercise</DropdownMenu.Item>
         <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ R">Result</DropdownMenu.Item>
+        <Link to="/changepassword" color="gray">
+        <DropdownMenu.Item shortcut="⌘ R">Change Password</DropdownMenu.Item>
+        </Link>
         <DropdownMenu.Separator />
         <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
           Logout
