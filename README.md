@@ -35,30 +35,50 @@ Read for Speed is a web application designed to help users enhance their reading
 1. Clone the repository:
    ```bash
    git clone https://github.com/SahilAli8808/Major-Project.git
+   
+   git clone https://github.com/Kumailrizvi786/Major-Project.git
+   
     cd Major-Project
     ```
-2. Install dependencies:
+2. Split Terminal in 2 parts <br>
+   2.1. Front-End
+      ```bash
+         cd FrontEnd
+      ```
+   2.2. Back-End
+      ```bash
+         cd BackEnd
+      ``` 
+3. Install dependencies:
     ```bash
     npm install
     ```
-3. Create a `.env` file in the root directory and add the following environment variables:
+4. Create a `.env` file in the root directory of BackEnd folder and add the following environment variables:
     ```bash
-    PORT=5000
-    MONGODB_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
-    GOOGLE_CLIENT_ID=your_google_client_id
-    GOOGLE_CLIENT_SECRET=your_google_client_secret
-    GITHUB_CLIENT_ID=your_github_client_id
-    GITHUB_CLIENT_SECRET=your_github_client_secret
+   PORT=your_local_port
+   MONGODB_URI= mongodb+srv://<username>:<password>@clusterrfs.ccumhyd.mongodb.net
+   JWT_SECRET=your_local_secret
+   EMAIL_USER = "abc@example.com"
+   EMAIL_PASSWORD = 'some_password'
+   HTML_CONTENT_FOR_EMAIL_VERIFICATION = ''
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
     ```
-4. Run the development server:
-    ```bash
-    npm run dev
-    ```
-5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
+5. Run the development server:<br>
+   For Front-End
+      ```bash
+       npm run dev
+    ``` 
+   For Back-End
+      ```bash
+         npm run start
+      ```
+6. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser.
 
 ## Our Team 
-Here the table of Contributors of With there Roles.
+Table of Contributors Along with there Roles.
 
 | Name of Contributors | Profiles                                         | Roles      |
 | :------------------- | :----------------------------------------------- | :--------- |
