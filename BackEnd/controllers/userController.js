@@ -10,27 +10,22 @@ export const registerUser = async (req, res, next) => {
         if (user) {
             res.status(400).send("User already exists")
         }
-
-        //jwt token options
-        // const options = {
-        //     expiresIn: 86400, // 24 hours
-        // }
-
         //create new user
         const createdUserObject = await User.create({
             name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            age: req.body.age,
-            city: req.body.city,
+            // age: req.body.age,
+            // city: req.body.city,
             isEmailVerified: false,
             role: await Role.findOne({ name: req.body.role }),
         })
-        // const jwtToken = jwt.sign({ id: createdUserObject._id }, process.env.JWT_SECRET, options);
-        //add token to user object
-        // createdUserObject.token = jwtToken;
-        createdUserObject.password = undefined; //remove password from user object before sending to client
-        res.status(200).json(createdUserObject)
+        const responseObject = {
+            name: createdUserObject.name,
+            email: createdUserObject.email,
+            role: createdUserObject.role
+        }
+        return res.status(200).json(responseObject)
     } catch (error) {
         console.error("Error Occured in Registration =>  ", error);
     }

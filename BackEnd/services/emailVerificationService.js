@@ -26,7 +26,7 @@ async function generateAndStoreOTP(email) {
 }
 
 
-export const emailGenerator = async (req, res) => {
+export const generateEmail1 = async (req, res) => {
     try {
         const { email } = req.body;
         const userObj = await User.findOne({ email: email});
