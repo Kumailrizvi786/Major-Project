@@ -1,27 +1,39 @@
-import React from 'react';
-import { Card, Text,Box, Button,Heading } from '@radix-ui/themes';
-import { SunIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import React, { useRef, useState } from 'react';
+import { Card, Text, Box, Button, Heading } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
-import { IoLogIn } from 'react-icons/io5';
 import { FiLogIn } from 'react-icons/fi';
+import ReCAPTCHA from 'react-google-recaptcha';
+// import React, { useState } from "react";
+import { GoogleReCaptchaProvider, GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 function Login() {
+  const [captchaToken, setCaptchaToken] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // Do something with the captchaToken, like sending it to the server for verification
+    console.log('Captcha Token:', captchaToken);
+  };
+
+  const setTokenFunc = (getToken) => {
+    setCaptchaToken(getToken);
+  };
+
   return (
     <div className="flex justify-center items-center mt-8">
-      <Box className="max-w-sm w-full px-6 py-8 rounded-lg" style={{boxShadow:'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
+      <Box className="max-w-sm w-full px-6 py-8 rounded-lg" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
         <div className="text-center">
-          {/* <h2 className="text-2xl font-bold text-gray-800">Welcome back!</h2> */}
-          <Heading as='h2'>Welcome back!</Heading>
+          <Heading as="h2">Welcome back!</Heading>
           <p className="mt-2 text-sm text-gray-500">Please sign in to your account</p>
         </div>
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-500">
               Email Address
             </label>
             <input
               type="email"
-              className="mt-1 w-full px-3 py-2 rounded-lg  border border-gray-300 focus:outline-none focus:border-blue-500"
+              className="mt-1 w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
               id="email"
               placeholder="Enter your email"
               autoComplete="off"
@@ -34,20 +46,23 @@ function Login() {
             </label>
             <input
               type="password"
-              className="mt-1 w-full px-3 py-2 rounded-lg  border border-gray-300 focus:outline-none focus:border-blue-500"
+              className="mt-1 w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
               id="password"
               placeholder="Enter your password"
               autoComplete="off"
               required
             />
           </div>
+          <div className="mt-4 ml-4">
+            <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY}>
+              <GoogleReCaptcha
+                onVerify={setTokenFunc}
+              />
+            </GoogleReCaptchaProvider>
+          </div>
           <div className="mt-6 flex items-center justify-between">
             <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="remember-me"
-                className="w-4 h-4 text-blue-500 rounded focus:ring-blue-400"
-              />
+              <input type="checkbox" id="remember-me" className="w-4 h-4 text-blue-500 rounded focus:ring-blue-400" />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-500">
                 Remember me
               </label>
@@ -60,7 +75,7 @@ function Login() {
           </div>
           <div className="mt-6">
             <Button type="submit" variant="surface" className="w-full">
-              Log in <FiLogIn/>
+              Log in <FiLogIn />
             </Button>
           </div>
         </form>
