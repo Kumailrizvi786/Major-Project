@@ -1,24 +1,61 @@
 import React, { useRef, useState } from 'react';
 import { Card, Text, Box, Button, Heading } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { FiLogIn } from 'react-icons/fi';
 import ReCAPTCHA from 'react-google-recaptcha';
-// import React, { useState } from "react";
-import { GoogleReCaptchaProvider, GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 function Login() {
+  const recaptcha = useRef();
   const [captchaToken, setCaptchaToken] = useState('');
 
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Do something with the captchaToken, like sending it to the server for verification
-    console.log('Captcha Token:', captchaToken);
-  };
 
-  const setTokenFunc = (getToken) => {
-    setCaptchaToken(getToken);
-  };
+    // Retrieve email and password from form fields
+    // const email = event.target.email.value;
+    // const password = event.target.password.value;
 
+    // Perform form validation (e.g., checking if fields are empty)
+
+    // Perform reCAPTCHA validation
+    if (!captchaToken) {
+      toast.error('Please complete the reCAPTCHA verification.');
+      return;
+    }
+     toast.success('Login functionality is not implemented yet.');
+    // // If validation is successful, proceed with form submission
+    // try {
+    //   // Make API call to login endpoint
+    //   const response = await fetch('http://example.com/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       email: email,
+    //       password: password,
+    //       captchaToken: captchaToken,
+    //     }),
+    //   });
+
+    //   // Handle response from server
+    //   if (response.ok) {
+    //     // Login successful, redirect or perform necessary actions
+    //     console.log('Login successful');
+    //   } else {
+    //     // Login failed, display error message
+    //     console.error('Login failed');
+    //     const data = await response.json();
+    //     console.error('Error:', data.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+  };
   return (
     <div className="flex justify-center items-center mt-8">
       <Box className="max-w-sm w-full px-6 py-8 rounded-lg" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
@@ -54,11 +91,10 @@ function Login() {
             />
           </div>
           <div className="mt-4 ml-4">
-            <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY}>
-              <GoogleReCaptcha
-                onVerify={setTokenFunc}
-              />
-            </GoogleReCaptchaProvider>
+            <ReCAPTCHA
+              sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+              onChange={handleCaptchaChange}
+            />
           </div>
           <div className="mt-6 flex items-center justify-between">
             <div className="flex items-center">
