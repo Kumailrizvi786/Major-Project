@@ -10,8 +10,6 @@ function Exercise() {
   const [category, setCategory] = useState('');
   const [generatedContent, setGeneratedContent] = useState('');
 
-  // Function to generate content using ChatGPT
- // Function to generate content using ChatGPT
 const generateContent = async (prompt) => {
   try {
     console.log("generating content")
@@ -32,7 +30,7 @@ const generateContent = async (prompt) => {
       },
       {
         headers: {
-          'Authorization': 'Bearer ' + 'api key here',
+          'Authorization': 'Bearer ' + 'api_key',
           'Content-Type': 'application/json',
         },
       }
