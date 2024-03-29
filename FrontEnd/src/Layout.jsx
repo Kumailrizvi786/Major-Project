@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {
     Outlet
   } from "react-router-dom";
+import Chatbot from './pages/Chatbot/Chatbot';
 function Layout() {
 
 
@@ -37,6 +38,7 @@ function Layout() {
       <div>
         <Theme appearance={themeMode}>
         <Nav onThemeChange={toggleTheme} getCurrentTheme={getCurrentTheme} />
+        <Chatbot/>
         <Outlet/>
         <Toaster/>
         </Theme>

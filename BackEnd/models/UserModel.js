@@ -20,7 +20,8 @@ export default mongoose.model('User', new mongoose.Schema(
       required: true
     },
     city: {
-      type: String
+      type: String,
+      required: false,
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,

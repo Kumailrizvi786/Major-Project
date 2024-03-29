@@ -78,6 +78,10 @@ const router = createBrowserRouter([
         path: "/changepassword",
         element: <ChangePassword/>,
       },
+      {
+        path: "/exercise",
+        element: <Exercise/>,
+      },
     ],
     errorElement: <ErrorPage />
   },

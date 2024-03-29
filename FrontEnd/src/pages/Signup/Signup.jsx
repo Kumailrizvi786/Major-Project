@@ -1,17 +1,93 @@
-import React from 'react';
-import { Box, Button, Card, Heading } from '@radix-ui/themes';
-import { FaSign, FaGithub, FaGoogle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Box, Button, Heading } from '@radix-ui/themes';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { Spinner } from '@radix-ui/themes';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 function Signup() {
+  console.log('Signup render');
+  const [loading , setLoading] = useState(false);
+  const [data, setData] = useState({ name: '', email: '', password: '' });
+
+  const handleChange = (e) => {
+    console.log(e.target.id, e.target.value);
+    setData({ ...data, [e.target.id]: e.target.value });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
+
+    if (!data.name || !data.email || !data.password) {
+      toast.error('All fields are required');
+      return;
+    }
+
+    
+    // Perform form validation
+    // Perform API call to create a new account
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:8080/user/register', {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      });
+      
+      console.log(response.data);
+      console.log(response.status);
+  
+      // Handle response from server
+      if (response.status === 200) {
+        // Login successful, redirect or perform necessary actions
+        console.log('User Register successful');
+        toast.success('User Register successful');
+        // clear form
+        setData({ name: '', email: '', password: '' });
+        // redirect to login page
+        // window.location.href = '/login';
+      } else {
+        // Login failed, display error message
+        console.error('Register failed');
+        console.error('Error:', response.data);
+        toast.error('Register failed: ' + response.data.message);
+      }
+    } catch (error) {
+      // Login failed, display error message
+      console.error('Error:', error);
+      toast.error('Unable to SignUp due to ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <div className="flex justify-center items-center mt-8">
+    <div className="flex justify-center items-center mt-8 mb-4">
       <Box className="max-w-sm w-full px-6 py-6 rounded-lg" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
-        <div className="text-center">
+        <div className="text-center mb-4">
           <Heading as='h2'>Create an account</Heading>
           <p className="mt-2 text-sm text-gray-500">Sign up to get started</p>
         </div>
+       
+        <div className="mb-4 text-center space-y-2 ml-3">
+  <Button color="gray" className="flex items-center px-16 py-5" variant="outline">
+    <FaGithub className="mr-2" />
+    Continue with GitHub
+  </Button>
+  <Button color="red" className="flex items-center px-16 py-5" variant="outline">
+    <FaGoogle className="mr-2" />
+    Continue with Google
+  </Button>
+</div>
 
-        <form className="mt-6">
+
+        <div className="flex items-center justify-center mb-4 space-x-4">
+          <div className="border-t border-gray-300 flex-grow"></div>
+          <span className="text-gray-500">OR</span>
+          <div className="border-t border-gray-300 flex-grow"></div>
+        </div>
+        <form>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-500">
               Name
@@ -22,6 +98,8 @@ function Signup() {
               id="name"
               placeholder="Enter your name"
               autoComplete="name"
+              value={data.name}
+              onChange={handleChange}
               required
             />
           </div>
@@ -35,6 +113,8 @@ function Signup() {
               id="email"
               placeholder="Enter your email"
               autoComplete="email"
+              value={data.email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -48,12 +128,14 @@ function Signup() {
               id="password"
               placeholder="Enter your password"
               autoComplete="new-password"
+              value={data.password}
+              onChange={handleChange}
               required
             />
           </div>
           <div className="mt-6">
-            <Button color="indigo" type="submit" variant="outline" className="w-full">
-              Sign up <FaSign />
+            <Button color="indigo" onClick={handleSubmit} variant="outline" className="w-full" disabled={loading}>
+              Continue to Create Account {loading? <Spinner /> : ''}
             </Button>
           </div>
           <p className="mt-4 text-sm text-gray-600 text-center">
@@ -61,22 +143,6 @@ function Signup() {
           </p>
         </form>
       </Box>
-
-      {/* OR Section */}
-      {/* <Card className="max-w-sm w-full px-6 py-6 rounded-lg ml-4" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
-        <div className="text-center">
-          <Heading as='h2'>OR</Heading>
-          <p className="mt-2 text-sm text-gray-500">Sign up with your social account</p>
-        </div>
-        <div className="mt-6 flex justify-center items-center space-x-4">
-          <Button variant="ghost" className="flex items-center">
-            Sign up with GitHub <FaGithub className="ml-2" />
-          </Button>
-          <Button variant="ghost" className="flex items-center">
-            Sign up with Google <FaGoogle className="ml-2" />
-          </Button>
-        </div>
-      </Card> */}
     </div>
   );
 }

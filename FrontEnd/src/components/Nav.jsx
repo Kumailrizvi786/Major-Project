@@ -49,9 +49,12 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         Instruction
         </Link>
         </DropdownMenu.Item>
+    
+      <Link to="/exercise">
       <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
       <FaLock/>
       </DropdownMenu.Item>
+        </Link>
       <DropdownMenu.Separator />
       <DropdownMenu.Item shortcut="⌘ R" onClick={()=>{toast.error("Please Login to see Results!")}}>Result
       <FaLock/>
@@ -79,13 +82,13 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         </IconButton>
           </Tooltip>
           <Link to="/signup">
-         <Button color="plum" variant="outline" >
+         <Button color="plum" radius='full' variant="outline" >
       Sign Up
     </Button>
     </Link>
 
     <Link to="/login">
-          <Button variant="surface" color='indigo'>Login
+          <Button variant="surface" radius='full' color='indigo'>Login
           <FiLogIn/>
           </Button>
 </Link>

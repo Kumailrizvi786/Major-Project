@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 // .env file import
 import { toast } from 'react-hot-toast';
 import { IoIosRefreshCircle } from 'react-icons/io';
-import { IoSparklesSharp } from 'react-icons/io5';
+import { IoHomeOutline, IoSparklesSharp } from 'react-icons/io5';
+import {Button, Heading} from '@radix-ui/themes';
+import Breadcrumbs from '../components/Breadcrumb';
 
 function Exercise() {
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');
   const [generatedContent, setGeneratedContent] = useState('');
 
-  // Function to generate content using ChatGPT
- // Function to generate content using ChatGPT
 const generateContent = async (prompt) => {
   try {
     console.log("generating content")
@@ -32,7 +32,7 @@ const generateContent = async (prompt) => {
       },
       {
         headers: {
-          'Authorization': 'Bearer ' + 'api key here',
+          'Authorization': 'Bearer ' + 'api_key',
           'Content-Type': 'application/json',
         },
       }
@@ -53,10 +53,15 @@ const generateContent = async (prompt) => {
     console.log(prompt)
     generateContent(prompt);
   };
+  const breadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Exercise', href: '/exercise' },
+  ];
 
   return (
-    <div className="max-w-md mx-auto mt-8 px-4">
-      <h1 className="text-center text-2xl font-bold mb-4">Exercise Page</h1>
+    <div className="max-w-4xl mx-auto mt-8 px-4">
+       <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} /> 
+      <Heading size="8" className="mb-4">Exercise Page</Heading>
       <div className="flex space-x-4 mb-4">
         <select
           value={ageGroup}
@@ -78,12 +83,12 @@ const generateContent = async (prompt) => {
           <option value="science">Science</option>
           <option value="history">History</option>
         </select>
-        <button
+        <Button
           onClick={handleGenerateContent}
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
+          className="mt-1"
         >
           Generate <IoSparklesSharp className="ml-1" />
-        </button>
+        </Button>
       </div>
       <textarea
         value={generatedContent}
@@ -92,18 +97,19 @@ const generateContent = async (prompt) => {
         className="w-full resize-none border rounded-md p-2 focus:outline-none"
       />
       <div className='flex justify-between'>
-      <button
+      <Button
         onClick={() => setGeneratedContent('')}
-        className="mt-4 flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none"
+        className="mt-4"
       >
-        Clear <IoIosRefreshCircle className="ml-1" />
-      </button>
+        Clear
+      </Button>
       {/* button for start reading */}
-      <button
-        className="mt-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none"
-      >
-        Start Reading <IoIosRefreshCircle className="ml-1" />
-      </button>
+      <Button
+        // className="mt-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none"
+        className="mt-4"
+     >
+        Start Reading
+      </Button>
       </div>
 
     </div>
