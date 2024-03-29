@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, Heading } from '@radix-ui/themes';
-import { FaSign, FaGithub, FaGoogle } from 'react-icons/fa';
+import { Box, Button, Heading } from '@radix-ui/themes';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
@@ -55,18 +55,33 @@ function Signup() {
       setLoading(false);
     }
   }
-  
-
 
   return (
-    <div className="flex justify-center items-center mt-8">
+    <div className="flex justify-center items-center mt-8 mb-4">
       <Box className="max-w-sm w-full px-6 py-6 rounded-lg" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
-        <div className="text-center">
+        <div className="text-center mb-4">
           <Heading as='h2'>Create an account</Heading>
           <p className="mt-2 text-sm text-gray-500">Sign up to get started</p>
         </div>
+       
+        <div className="mb-4 text-center space-y-2 ml-3">
+  <Button color="gray" className="flex items-center px-16 py-5" variant="outline">
+    <FaGithub className="mr-2" />
+    Continue with GitHub
+  </Button>
+  <Button color="red" className="flex items-center px-16 py-5" variant="outline">
+    <FaGoogle className="mr-2" />
+    Continue with Google
+  </Button>
+</div>
 
-        <form className="mt-6">
+
+        <div className="flex items-center justify-center mb-4 space-x-4">
+          <div className="border-t border-gray-300 flex-grow"></div>
+          <span className="text-gray-500">OR</span>
+          <div className="border-t border-gray-300 flex-grow"></div>
+        </div>
+        <form>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-500">
               Name
@@ -114,8 +129,7 @@ function Signup() {
           </div>
           <div className="mt-6">
             <Button color="indigo" onClick={handleSubmit} variant="outline" className="w-full" disabled={loading}>
-              Sign up <FaSign />
-
+              Continue to Create Account 
             </Button>
           </div>
           <p className="mt-4 text-sm text-gray-600 text-center">
@@ -123,22 +137,6 @@ function Signup() {
           </p>
         </form>
       </Box>
-
-      {/* OR Section */}
-      {/* <Card className="max-w-sm w-full px-6 py-6 rounded-lg ml-4" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
-        <div className="text-center">
-          <Heading as='h2'>OR</Heading>
-          <p className="mt-2 text-sm text-gray-500">Sign up with your social account</p>
-        </div>
-        <div className="mt-6 flex justify-center items-center space-x-4">
-          <Button variant="ghost" className="flex items-center">
-            Sign up with GitHub <FaGithub className="ml-2" />
-          </Button>
-          <Button variant="ghost" className="flex items-center">
-            Sign up with Google <FaGoogle className="ml-2" />
-          </Button>
-        </div>
-      </Card> */}
     </div>
   );
 }
