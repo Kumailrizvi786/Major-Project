@@ -41,8 +41,8 @@ export const generateEmail1 = async (req, res) => {
             from: '"Read For Speed"<${process.env.EMAIL_USER}>',
             to: email,
             subject: "OTP For Email Verification",
-            text: "Your One Time Password for Email Verification is given below ",
-            html: `${process.env.HTML_CONTENT_FOR_EMAIL_VERIFICATION}<br><b>${otp}</b>`
+            text: `Dear ${userObj.name}, Your One Time Password for Email Verification is ${otp}`,
+            // html: `${process.env.HTML_CONTENT_FOR_EMAIL_VERIFICATION}<br><b>${otp}</b>`
         });
         console.log(`Email Send Successfully`);
         return res.status(200).json({ "success": true });
@@ -74,9 +74,9 @@ export const emailVerification = async (req, res) => {
         else {
             if (verificationObj.otp === otp) {
                 userObject.isEmailVerified = true;
-                const deletedObject = await Verification.deleteOne({email: verificationObj.email});
                 //save the user object
-                const updatedUser = await User.updateOne(userObject);
+                const updatedUser = await User.findOneAndUpdate(userObject);
+                const deletedObject = await Verification.deleteOne({email: verificationObj.email});
                 return res.status(200).json({ "success": true });
             }
             else {

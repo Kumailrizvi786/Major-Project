@@ -18,7 +18,7 @@ export const registerUser = async (req, res, next) => {
             // age: req.body.age,
             // city: req.body.city,
             isEmailVerified: false,
-            role: await Role.findOne({ name: req.body.role }),
+            // role: await Role.findOne({ name: req.body.role }),
         })
         const responseObject = {
             name: createdUserObject.name,
@@ -44,33 +44,29 @@ export const loginUser = async (req, res, next) => {
         //find user in DB from req object
         const user = await User.findOne({ email })
 
-        if (user.isEmailVerified) {
-            //if user exists, then match password
-            if (user && (await bcrypt.compare(password, user.password))) {
+        //if user exists, then match password
+        if (user && (await bcrypt.compare(password, user.password))) {
 
-                //token generation
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 86400 })
-                user.token = token;
-                user.password = undefined;
+            //token generation
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 86400 })
+            user.token = token;
+            user.password = undefined;
 
-                //cookie section
-                const cookieOption = {
-                    expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-                    httpOnly: true
-                };
-                res.status(200).cookie("token", token, cookieOption).json({
-                    user: user.email,
-                    success: true,
-                    token: token,
-                })
-                console.log("User Logged In ");
-            } else if (!user) {
-                res.status(401).send("User Not Found With Email ", email)
-            } else {
-                res.satus(401).send("Passowrd Not Matched");
-            }
+            //cookie section
+            const cookieOption = {
+                expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+                httpOnly: true
+            };
+            res.status(200).cookie("token", token, cookieOption).json({
+                userEmail: user.email,
+                success: true,
+                token: token,
+            })
+            console.log("User Logged In ");
+        } else if (!user) {
+            res.status(401).send("User Not Found With Email ", email)
         } else {
-            res.status(401).send("Email Not Verified");
+            res.satus(401).send("Passowrd Not Matched");
         }
     }
     catch (err) {

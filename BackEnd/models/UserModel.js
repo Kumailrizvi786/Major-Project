@@ -26,6 +26,7 @@ export default mongoose.model('User', new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
       required: false,
+      default: "user",
     },
     age: {
       type: Number,

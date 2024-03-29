@@ -25,7 +25,7 @@ function ForgetPassword() {
           </div>
           <div className="mt-6">
             <Button type="submit" variant="surface" className="w-full">
-              Reset Password
+              Send Reset Password Link
             </Button>
           </div>
         </form>
