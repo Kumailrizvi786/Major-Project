@@ -1,5 +1,6 @@
-import React from 'react';
-import { Badge, Heading,Dialog,Box,Card, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+import React, { useState } from 'react';
+import { Badge, Heading,
+  Callout, Dialog,Box,Card, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
@@ -10,13 +11,18 @@ import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline, IoSpeedometer } from 'react-icons/io5';
 import { getLoggedIn, getUserData } from '../../services/authService';
 import { Navigate } from "react-router-dom";
+import axios from "axios"
+import {InfoCircledIcon} from '@radix-ui/react-icons'
+
 // import
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const loggedIn = getLoggedIn()
+  const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
+  
   // console.log("user", )
   const user = getUserData()
-
+  const userEmail = user.email
   if (!loggedIn) {
     return <Navigate to="/login" />;
   }
@@ -190,7 +196,49 @@ function Profile() {
                  { 
                   !user.isEmailVerified &&
                    <Dialog.Root>
-  <Dialog.Trigger onClick={()=>{toast.success("OTP Sent SuccessFully!")}}>
+  <Dialog.Trigger
+  
+  
+  onClick={async () => {
+    try {
+        const response = await axios.post("http://localhost:8080/email/generateEmail", {
+            email: userEmail
+        });
+        const data = response.data;
+        if (data) {
+            // Check if response indicates success
+            toast.success("OTP Sent Successfully!");
+            setOtpStatus("OTP Sent Successfully!"); // Update state to reflect OTP sent status
+        } else {
+            // Handle cases where response indicates failure
+            toast.error("Failed to send OTP. Please try again.");
+        }
+    } catch (error) {
+        // Handle network errors or other exceptions
+        console.error("Error sending OTP:", error);
+        toast.error("Failed to send OTP. Please try again.");
+        setOtpStatus("Failed to send OTP. Please try again."); 
+    }
+}}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  >
   <Button size='1' radius="full" color="cyan" className='cursor-pointer' variant="surface">
     Verify Now
   </Button>
@@ -200,6 +248,16 @@ function Profile() {
     <Dialog.Title>Verify Your Email</Dialog.Title>
     <Dialog.Description size="2" mb="4">
       We have sent an OTP on your email.
+       <Callout.Root  className='mt-2'>
+        <Callout.Icon>
+          <InfoCircledIcon />
+        </Callout.Icon>
+        <Callout.Text>
+       {OtpStatus}
+        </Callout.Text> 
+      </Callout.Root>
+      
+      
     </Dialog.Description>
 
     <Flex direction="column" gap="3">
