@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Heading, Code, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+import { Badge, Heading,Dialog, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
@@ -87,9 +87,51 @@ function Profile() {
               <DataList.Item align="center">
                 <DataList.Label minWidth="88px">Status</DataList.Label>
                 <DataList.Value>
-                  <Badge color="jade" variant="soft" radius="full">
-                    Authorized
+                <Flex align="center" gap="2">
+                  <Badge color="plum" variant="soft" radius="full">
+                    Not Authorized
                   </Badge>
+                 {/* verify now */}
+                 <Dialog.Root>
+  <Dialog.Trigger onClick={()=>{toast.success("OTP Sent SuccessFully!")}}>
+  <Button size='1' radius="full" color="cyan" variant="surface">
+    Verify Now
+  </Button>
+  </Dialog.Trigger>
+
+  <Dialog.Content maxWidth="450px">
+    <Dialog.Title>Verify Your Email</Dialog.Title>
+    <Dialog.Description size="2" mb="4">
+      We have sent a OTP on your email.
+    </Dialog.Description>
+
+    <Flex direction="column" gap="3">
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Enter OTP
+        </Text>
+        <TextField.Root
+          // defaultValue="Freja Johnsen"
+          placeholder="Enter your OTP here"
+        />
+      </label>
+    </Flex>
+
+    <Flex gap="3" mt="4" justify="end">
+      <Dialog.Close>
+        <Button variant="soft" color="gray">
+          Cancel
+        </Button>
+      </Dialog.Close>
+      <Dialog.Close>
+        <Button variant='outline'>Verify</Button>
+      </Dialog.Close>
+    </Flex>
+  </Dialog.Content>
+</Dialog.Root>
+
+                </Flex>
+
                 </DataList.Value>
               </DataList.Item>
               {/* <DataList.Item>
