@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Heading } from '@radix-ui/themes';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { Spinner } from '@radix-ui/themes';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
@@ -17,6 +18,11 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
+
+    if (!data.name || !data.email || !data.password) {
+      toast.error('All fields are required');
+      return;
+    }
 
     
     // Perform form validation
@@ -50,7 +56,7 @@ function Signup() {
     } catch (error) {
       // Login failed, display error message
       console.error('Error:', error);
-      toast.error('Error: ' + error.message);
+      toast.error('Unable to SignUp due to ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -93,8 +99,8 @@ function Signup() {
               placeholder="Enter your name"
               autoComplete="name"
               value={data.name}
-              required
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mt-4">
@@ -108,8 +114,8 @@ function Signup() {
               placeholder="Enter your email"
               autoComplete="email"
               value={data.email}
-              required
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mt-4">
@@ -123,13 +129,13 @@ function Signup() {
               placeholder="Enter your password"
               autoComplete="new-password"
               value={data.password}
-              required
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mt-6">
             <Button color="indigo" onClick={handleSubmit} variant="outline" className="w-full" disabled={loading}>
-              Continue to Create Account 
+              Continue to Create Account {loading? <Spinner /> : ''}
             </Button>
           </div>
           <p className="mt-4 text-sm text-gray-600 text-center">
