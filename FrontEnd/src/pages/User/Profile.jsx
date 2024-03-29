@@ -72,7 +72,7 @@ function Profile() {
     <>
       {/* Profile for user to show their details */}
       <div className="container mx-auto px-4 py-8">
-        <div className='ml-28'>
+        <div className='ml-36'>
           <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} /> 
         </div>
         {/* <div className="flex items-center mt-4">
@@ -91,12 +91,73 @@ function Profile() {
             {/* Edit profile button */}
          
             <Flex justify="center" className="mt-4">
-              <Link href="#" color="gray">
-              <Button size="2" color="indigo" variant="soft">
+            <Dialog.Root>
+  <Dialog.Trigger>
+  <Button size="2" color="indigo" variant="soft">
               <FiEdit />
     Edit profile
   </Button>
-              </Link>
+  </Dialog.Trigger>
+
+  <Dialog.Content maxWidth="450px">
+    <Dialog.Title>Edit profile</Dialog.Title>
+    <Dialog.Description size="2" mb="4">
+      Make changes to your profile.
+    </Dialog.Description>
+
+    <Flex direction="column" gap="3">
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Name
+        </Text>
+        <TextField.Root
+          defaultValue="Sahil ali"
+          placeholder="Enter your full name"
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Email
+        </Text>
+        <TextField.Root
+          defaultValue="sahilali88084667@gmail.com"
+          placeholder="Enter your email"
+          disabled
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Age
+        </Text>
+        <TextField.Root
+          defaultValue="22"
+          placeholder="Enter your age"
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Location
+        </Text>
+        <TextField.Root
+          defaultValue="Lucknow, India"
+          placeholder="Enter your location"
+        />
+      </label>
+      
+    </Flex>
+
+    <Flex gap="3" mt="4" justify="end">
+      <Dialog.Close>
+        <Button variant="soft" color="gray">
+          Cancel
+        </Button>
+      </Dialog.Close>
+      <Dialog.Close>
+        <Button variant='outline'>Save</Button>
+      </Dialog.Close>
+    </Flex>
+  </Dialog.Content>
+</Dialog.Root>
             </Flex>
           </div>
        
