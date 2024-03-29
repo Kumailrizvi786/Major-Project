@@ -1,11 +1,13 @@
 import React from 'react';
 import { Badge, Heading,Dialog,Box,Card, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
-import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
+import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
-import { RiAwardLine } from 'react-icons/ri';
+import { RiAwardLine, RiPassPendingLine } from 'react-icons/ri';
 import { FaTrophy } from 'react-icons/fa';
+import Breadcrumbs from '../../components/Breadcrumb';
+import { IoHomeOutline } from 'react-icons/io5';
 
 // import
 function Profile() {
@@ -60,11 +62,25 @@ function Profile() {
       duration: '45m',
     },
   ];
+  // Breadcrumbs for navigation
+  const breadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Profile', href: '/profile' },
+  ];
 
   return (
     <>
       {/* Profile for user to show their details */}
       <div className="container mx-auto px-4 py-8">
+        <div className='ml-28'>
+          <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} /> 
+        </div>
+        {/* <div className="flex items-center mt-4">
+          
+        <Heading as="h1" className="text-3xl font-bold ml-52">Profile</Heading>
+        <p className="text-gray-500 mt-2 ml-52 mb-4">Your personal details and reading list</p>
+        </div> */}
+        {/* <Separator size="4" /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left side */}
           <div>
@@ -228,10 +244,10 @@ function Profile() {
         </Card>
         <Card>
           <Flex gap="3" align="center">
-            <FaTrophy size="32" />
+            <FaReadme size="32" />
             <Box>
               <Text as="div" size="2" weight="bold">
-                Latest High Score
+                Total Reading
               </Text>
               <Text as="div" size="2" color="gray">
                 1000
@@ -241,10 +257,10 @@ function Profile() {
         </Card>
         <Card>
           <Flex gap="3" align="center">
-            <FaTrophy size="32" />
+            <RiPassPendingLine size="32" />
             <Box>
               <Text as="div" size="2" weight="bold">
-                Competition
+                Pending Reading
               </Text>
               <Text as="div" size="2" color="gray">
                 1st Place
