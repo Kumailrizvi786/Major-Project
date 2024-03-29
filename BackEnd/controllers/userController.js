@@ -8,7 +8,10 @@ export const registerUser = async (req, res, next) => {
         //already exists
         const user = await User.findOne({ email: req.body.email })
         if (user) {
-            res.status(400).send("User already exists")
+            res.status(400).send({
+                message: "User Already Exists"
+
+            })
         }
         //create new user
         const createdUserObject = await User.create({
@@ -18,7 +21,7 @@ export const registerUser = async (req, res, next) => {
             // age: req.body.age,
             // city: req.body.city,
             isEmailVerified: false,
-            // role: await Role.findOne({ name: req.body.role }),
+            role: await Role.findOne({ name: req.body.role }),
         })
         const responseObject = {
             name: createdUserObject.name,
@@ -59,6 +62,7 @@ export const loginUser = async (req, res, next) => {
             };
             res.status(200).cookie("token", token, cookieOption).json({
                 userEmail: user.email,
+                user:user,
                 success: true,
                 token: token,
             })

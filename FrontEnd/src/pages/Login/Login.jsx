@@ -5,57 +5,76 @@ import { toast } from 'react-hot-toast';
 import { FiLogIn } from 'react-icons/fi';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function Login() {
+  const navigate = useNavigate();
   const recaptcha = useRef();
   const [captchaToken, setCaptchaToken] = useState('');
+  const [data, setData] = useState({ email: '', password: '' });
 
   const handleCaptchaChange = (token) => {
     setCaptchaToken(token);
   };
+
+  const handleChange = (e)=>{   
+    console.log(e.target.id, e.target.value);
+    setData({ ...data, [e.target.id]: e.target.value });
+
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Retrieve email and password from form fields
-    // const email = event.target.email.value;
-    // const password = event.target.password.value;
-
-    // Perform form validation (e.g., checking if fields are empty)
 
     // Perform reCAPTCHA validation
     if (!captchaToken) {
       toast.error('Please complete the reCAPTCHA verification.');
       return;
     }
-     toast.success('Login functionality is not implemented yet.');
-    // // If validation is successful, proceed with form submission
-    // try {
-    //   // Make API call to login endpoint
-    //   const response = await fetch('http://example.com/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       email: email,
-    //       password: password,
-    //       captchaToken: captchaToken,
-    //     }),
-    //   });
+     if (!data.email || !data.password) {
+      toast.error('All fields are required');
+      return;
+    }
 
-    //   // Handle response from server
-    //   if (response.ok) {
-    //     // Login successful, redirect or perform necessary actions
-    //     console.log('Login successful');
-    //   } else {
-    //     // Login failed, display error message
-    //     console.error('Login failed');
-    //     const data = await response.json();
-    //     console.error('Error:', data.message);
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
+    console.log(data)
+
+    try {
+      const response = await axios.post('http://localhost:8080/user/login', {
+        email: data.email,
+        password: data.password
+      });
+      console.log(response.data);
+      console.log(response.status);
+      // Handle response from server
+      if (response.status === 200) {
+        // Login successful, redirect or perform necessary actions
+        //setting token in local storage
+        localStorage.setItem('token', response.data.token);
+        console.log('User Login successful');
+        toast.success('User Login successful');
+        navigate('/profile'); 
+        // clear form
+        setData({ email: '', password: '' });
+     
+      } else {
+        // Login failed, display error message
+        console.error('Login failed');
+        console.error('Error:', response.data);
+        toast.error('Login failed: ' + response.data.message);
+
+      }
+
+    }catch(error){
+      console.error('Error:', error);
+      toast.error('Unable to Login due to ' + error.message);
+    }
+
+    // clear form
+
+
+    
   };
   return (
     <div className="flex justify-center items-center mt-8 mb-4">
@@ -92,6 +111,7 @@ function Login() {
               id="email"
               placeholder="Enter your email"
               autoComplete="off"
+              onChange={handleChange}
               required
             />
           </div>
@@ -105,6 +125,7 @@ function Login() {
               id="password"
               placeholder="Enter your password"
               autoComplete="off"
+              onChange={handleChange}
               required
             />
           </div>

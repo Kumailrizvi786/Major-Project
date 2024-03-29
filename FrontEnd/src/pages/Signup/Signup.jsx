@@ -50,13 +50,13 @@ function Signup() {
       } else {
         // Login failed, display error message
         console.error('Register failed');
-        console.error('Error:', response.data);
+        console.error('Error', response.data);
         toast.error('Register failed: ' + response.data.message);
       }
     } catch (error) {
       // Login failed, display error message
       console.error('Error:', error);
-      toast.error('Unable to SignUp due to ' + error.message);
+      toast.error('Unable to SignUp due to ' + error.response.data.message);
     } finally {
       setLoading(false);
     }
