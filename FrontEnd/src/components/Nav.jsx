@@ -82,13 +82,13 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         </IconButton>
           </Tooltip>
           <Link to="/signup">
-         <Button color="plum" variant="outline" >
+         <Button color="plum" radius='full' variant="outline" >
       Sign Up
     </Button>
     </Link>
 
     <Link to="/login">
-          <Button variant="surface" color='indigo'>Login
+          <Button variant="surface" radius='full' color='indigo'>Login
           <FiLogIn/>
           </Button>
 </Link>

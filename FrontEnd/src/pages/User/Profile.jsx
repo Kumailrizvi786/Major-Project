@@ -4,10 +4,10 @@ import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
-import { RiAwardLine, RiPassPendingLine } from 'react-icons/ri';
+import { RiAwardLine, RiPassPendingLine, RiSpeedUpLine } from 'react-icons/ri';
 import { FaTrophy } from 'react-icons/fa';
 import Breadcrumbs from '../../components/Breadcrumb';
-import { IoHomeOutline } from 'react-icons/io5';
+import { IoHomeOutline, IoSpeedometer } from 'react-icons/io5';
 
 // import
 function Profile() {
@@ -143,7 +143,7 @@ function Profile() {
           placeholder="Enter your location"
         />
       </label>
-      
+
     </Flex>
 
     <Flex gap="3" mt="4" justify="end">
@@ -166,7 +166,7 @@ function Profile() {
         
             <DataList.Root>
               <DataList.Item align="center">
-                <DataList.Label minWidth="88px">Status</DataList.Label>
+                <DataList.Label minWidth="88px">Account Status</DataList.Label>
                 <DataList.Value>
                 <Flex align="center" gap="2">
                   <Badge color="plum" variant="soft" radius="full">
@@ -318,26 +318,26 @@ function Profile() {
         </Card>
         <Card>
           <Flex gap="3" align="center">
-            <RiPassPendingLine size="32" />
+            <IoSpeedometer size="32" />
             <Box>
               <Text as="div" size="2" weight="bold">
-                Pending Reading
+              Avg Speed
               </Text>
               <Text as="div" size="2" color="gray">
-                1st Place
+                200 w/m
               </Text>
             </Box>
           </Flex>
         </Card>
         <Card>
           <Flex gap="3" align="center">
-            <FaTrophy size="32" />
+            <RiSpeedUpLine size="32" />
             <Box>
               <Text as="div" size="2" weight="bold">
-                One More Card
+              Highest Speed
               </Text>
               <Text as="div" size="2" color="gray">
-                1st Place
+                150 w/m
               </Text>
             </Box>
           </Flex>
