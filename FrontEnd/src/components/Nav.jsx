@@ -49,9 +49,12 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         Instruction
         </Link>
         </DropdownMenu.Item>
+    
+      <Link to="/exercise">
       <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
       <FaLock/>
       </DropdownMenu.Item>
+        </Link>
       <DropdownMenu.Separator />
       <DropdownMenu.Item shortcut="⌘ R" onClick={()=>{toast.error("Please Login to see Results!")}}>Result
       <FaLock/>
