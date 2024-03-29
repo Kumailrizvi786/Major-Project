@@ -1,9 +1,13 @@
 import React from 'react';
-import { Badge, Heading,Dialog, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+import { Badge, Heading,Dialog,Box,Card, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
+import { RiAwardLine } from 'react-icons/ri';
+import { FaTrophy } from 'react-icons/fa';
+
+// import
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const data = [
@@ -102,7 +106,7 @@ function Profile() {
   <Dialog.Content maxWidth="450px">
     <Dialog.Title>Verify Your Email</Dialog.Title>
     <Dialog.Description size="2" mb="4">
-      We have sent a OTP on your email.
+      We have sent an OTP on your email.
     </Dialog.Description>
 
     <Flex direction="column" gap="3">
@@ -204,6 +208,65 @@ function Profile() {
             </DataList.Root>
           </div>
         </div>
+      </div>
+      <Separator size="4" />
+      <div className="flex justify-center items-center mt-4 mb-4">
+      <Box maxWidth="700px">
+      <Flex gap="3" align="center">
+        <Card>
+          <Flex gap="3" align="center">
+            <RiAwardLine size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+                My Score
+              </Text>
+              <Text as="div" size="2" color="gray">
+                500
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex gap="3" align="center">
+            <FaTrophy size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+                Latest High Score
+              </Text>
+              <Text as="div" size="2" color="gray">
+                1000
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex gap="3" align="center">
+            <FaTrophy size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+                Competition
+              </Text>
+              <Text as="div" size="2" color="gray">
+                1st Place
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex gap="3" align="center">
+            <FaTrophy size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+                One More Card
+              </Text>
+              <Text as="div" size="2" color="gray">
+                1st Place
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+      </Flex>
+    </Box>
       </div>
       <Separator size="4" />
 
