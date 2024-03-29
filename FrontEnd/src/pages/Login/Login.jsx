@@ -7,13 +7,17 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { login } from "../../features/authSlice";
+import { Spinner } from '@radix-ui/themes';
+import { useDispatch } from "react-redux";
 
 
 function Login() {
   const navigate = useNavigate();
   const recaptcha = useRef();
+  const dispatch = useDispatch();
   const [captchaToken, setCaptchaToken] = useState('');
+  const [loading, setloading] = useState(false);
   const [data, setData] = useState({ email: '', password: '' });
 
   const handleCaptchaChange = (token) => {
@@ -25,6 +29,8 @@ function Login() {
     setData({ ...data, [e.target.id]: e.target.value });
 
   }
+
+  console.log(loading)
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,6 +47,7 @@ function Login() {
     console.log(data)
 
     try {
+      setloading("true")
       const response = await axios.post('http://localhost:8080/user/login', {
         email: data.email,
         password: data.password
@@ -49,18 +56,27 @@ function Login() {
       console.log(response.status);
       // Handle response from server
       if (response.status === 200) {
+        const { userEmail, user } = response.data;
+        const payload = {
+          user: response.data.user,
+          token: response.data.token,
+        };
+        
         // Login successful, redirect or perform necessary actions
         //setting token in local storage
         localStorage.setItem('token', response.data.token);
+        dispatch(login(payload));
         console.log('User Login successful');
         toast.success('User Login successful');
         navigate('/profile'); 
         // clear form
         setData({ email: '', password: '' });
+        setloading("false")
      
       } else {
         // Login failed, display error message
         console.error('Login failed');
+        setloading("false")
         console.error('Error:', response.data);
         toast.error('Login failed: ' + response.data.message);
 
@@ -68,6 +84,7 @@ function Login() {
 
     }catch(error){
       console.error('Error:', error);
+      setloading("false")
       toast.error('Unable to Login due to ' + error.message);
     }
 
@@ -149,8 +166,8 @@ function Login() {
             </div>
           </div>
           <div className="mt-6">
-            <Button type="submit" variant="surface" className="w-full cursor-pointer">
-              Log in <FiLogIn />
+            <Button type="submit" variant="surface" className="w-full cursor-pointer" disabled={loading}>
+              Log in {loading ? <Spinner/> :""}
             </Button>
           </div>
         </form>

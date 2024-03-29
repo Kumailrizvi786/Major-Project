@@ -8,10 +8,13 @@ import { RiAwardLine, RiPassPendingLine, RiSpeedUpLine } from 'react-icons/ri';
 import { FaTrophy } from 'react-icons/fa';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline, IoSpeedometer } from 'react-icons/io5';
+import { getUserData } from '../../services/authService';
 
 // import
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
+  console.log("user", getUserData())
+
   const data = [
     {
       id: 1,
@@ -288,7 +291,7 @@ function Profile() {
       </div>
       <Separator size="4" />
       <div className="flex justify-center items-center mt-4 mb-4">
-      <Box maxWidth="700px">
+      <Box maxWidth="1200px">
       <Flex gap="3" align="center">
         <Card>
           <Flex gap="3" align="center">
@@ -325,6 +328,32 @@ function Profile() {
               </Text>
               <Text as="div" size="2" color="gray">
                 200 w/m
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex gap="3" align="center">
+            <RiSpeedUpLine size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+              Highest Speed
+              </Text>
+              <Text as="div" size="2" color="gray">
+                150 w/m
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex gap="3" align="center">
+            <RiSpeedUpLine size="32" />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+              Highest Speed
+              </Text>
+              <Text as="div" size="2" color="gray">
+                150 w/m
               </Text>
             </Box>
           </Flex>
