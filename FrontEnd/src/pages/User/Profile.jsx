@@ -19,13 +19,14 @@ function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const loggedIn = getLoggedIn()
   const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
-  
-  // console.log("user", )
-  const user = getUserData()
-  const userEmail = user.email
+  const [Otp, setOtp] = useState(null)
   if (!loggedIn) {
     return <Navigate to="/login" />;
   }
+  // console.log("user", )
+  const user = getUserData()
+  const userEmail = user.email
+  
 
   const data = [
     {
@@ -262,11 +263,12 @@ function Profile() {
 
     <Flex direction="column" gap="3">
       <label>
-        <Text as="div" size="2" mb="1" weight="bold">
+        <Text as="div" size="2" mb="1" weight="bold" >
           Enter OTP
         </Text>
         <TextField.Root
           // defaultValue="Freja Johnsen"
+          onChange={(e)=>setOtp(e.target.value)}
           placeholder="Enter your OTP here"
           />
       </label>
@@ -279,7 +281,30 @@ function Profile() {
         </Button>
       </Dialog.Close>
       <Dialog.Close>
-        <Button variant='outline' className='cursor-pointer'>Verify</Button>
+        <Button variant='outline' className='cursor-pointer' onClick={async () => {
+          console.log("otp",Otp)
+            try {
+                const response = await axios.post("http://localhost:8080/email/verifyEmail", {
+                    email: userEmail,
+                    otp: Otp
+                });
+                const data = response.data;
+                if (data) {
+                    // Check if response indicates success
+                    toast.success("Email Verify Successfully!");
+                    // setOtpStatus("OTP Sent Successfully!"); // Update state to reflect OTP sent status
+                } else {
+                    // Handle cases where response indicates failure
+                    toast.error("Failed to Verify email. Please try again.");
+                }
+            } catch (error) {
+                // Handle network errors or other exceptions
+                console.error("Error Verify email:", error);
+                toast.error("Failed to Verify email. Please try again.");
+                // setOtpStatus("Failed to send OTP. Please try again."); 
+            }
+        }}
+        >Verify</Button>
       </Dialog.Close>
     </Flex>
   </Dialog.Content>
