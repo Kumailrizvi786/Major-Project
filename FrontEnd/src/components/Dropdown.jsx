@@ -1,7 +1,11 @@
 import React from 'react';
 import { DropdownMenu,Avatar } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { logout } from '../features/authSlice';
+import {toast} from  "react-hot-toast"
 function Dropdown() {
+  const dispatch = useDispatch()
   return (
     <DropdownMenu.Root>
       {/* Trigger the dropdown when Avatar is clicked */}
@@ -28,9 +32,20 @@ function Dropdown() {
         <DropdownMenu.Item shortcut="⌘ R">Change Password</DropdownMenu.Item>
         </Link>
         <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+        <DropdownMenu.Item shortcut="⌘ ⌫" color="red"  onClick={() => {
+                dispatch(logout());
+                toast.success("Logout Successfully!")
+              }}>
           Logout
         </DropdownMenu.Item>
+        {/*   <NavLink
+              onClick={() => {
+                dispatch(logout());
+              }}
+              className="border border-black hover:bg-black hover:text-white px-4 py-2 rounded-md text-sm font-medium"
+            >
+              Logout
+            </NavLink> */}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

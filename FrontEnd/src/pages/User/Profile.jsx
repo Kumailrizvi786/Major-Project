@@ -8,12 +8,18 @@ import { RiAwardLine, RiPassPendingLine, RiSpeedUpLine } from 'react-icons/ri';
 import { FaTrophy } from 'react-icons/fa';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline, IoSpeedometer } from 'react-icons/io5';
-import { getUserData } from '../../services/authService';
-
+import { getLoggedIn, getUserData } from '../../services/authService';
+import { Navigate } from "react-router-dom";
 // import
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
-  console.log("user", getUserData())
+  const loggedIn = getLoggedIn()
+  // console.log("user", )
+  const user = getUserData()
+
+  if (!loggedIn) {
+    return <Navigate to="/login" />;
+  }
 
   const data = [
     {
@@ -172,11 +178,18 @@ function Profile() {
                 <DataList.Label minWidth="88px">Account Status</DataList.Label>
                 <DataList.Value>
                 <Flex align="center" gap="2">
-                  <Badge color="plum" variant="soft" radius="full">
+                  {
+                    user.isEmailVerified ?(<Badge color="jade" variant="soft" radius="full">
+                    Authorized
+                  </Badge>): <Badge color="plum" variant="soft" radius="full">
                     Not Authorized
                   </Badge>
+                  }
+                  
                  {/* verify now */}
-                 <Dialog.Root>
+                 { 
+                  !user.isEmailVerified &&
+                   <Dialog.Root>
   <Dialog.Trigger onClick={()=>{toast.success("OTP Sent SuccessFully!")}}>
   <Button size='1' radius="full" color="cyan" className='cursor-pointer' variant="surface">
     Verify Now
@@ -197,7 +210,7 @@ function Profile() {
         <TextField.Root
           // defaultValue="Freja Johnsen"
           placeholder="Enter your OTP here"
-        />
+          />
       </label>
     </Flex>
 
@@ -214,6 +227,7 @@ function Profile() {
   </Dialog.Content>
 </Dialog.Root>
 
+        }
                 </Flex>
 
                 </DataList.Value>
@@ -239,7 +253,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <UserIcon /> */}
-                    Sahil Ali
+                   {user.name}
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
@@ -248,7 +262,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <EmailIcon /> */}
-                    <Link href="mailto:sahil88084667@gmail.com">sahil88084667@gmail.com</Link>
+                    <Link href={`mailto:${user.email}`}>{user.email}</Link>
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
