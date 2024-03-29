@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { FiLogIn } from 'react-icons/fi';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 function Login() {
   const recaptcha = useRef();
@@ -57,11 +58,28 @@ function Login() {
     // }
   };
   return (
-    <div className="flex justify-center items-center mt-8">
+    <div className="flex justify-center items-center mt-8 mb-4">
       <Box className="max-w-sm w-full px-6 py-8 rounded-lg" style={{ boxShadow: 'var(--shadow-4)', borderRadius: 'var(--radius-3)' }}>
         <div className="text-center">
-          <Heading as="h2">Welcome back!</Heading>
-          <p className="mt-2 text-sm text-gray-500">Please sign in to your account</p>
+          <Heading as="h2">Login your Account !</Heading>
+          <p className="mt-2 text-sm text-gray-500 mb-4">Please sign in to your account</p>
+        </div>
+        <div className="mb-4 text-center space-y-2 ml-3">
+  <Button color="gray" className="flex items-center px-16 py-5" variant="outline">
+    <FaGithub className="mr-2" />
+    Continue with GitHub
+  </Button>
+  <Button color="red" className="flex items-center px-16 py-5" variant="outline">
+    <FaGoogle className="mr-2" />
+    Continue with Google
+  </Button>
+</div>
+
+
+        <div className="flex items-center justify-center mb-4 space-x-4">
+          <div className="border-t border-gray-300 flex-grow"></div>
+          <span className="text-gray-500">OR</span>
+          <div className="border-t border-gray-300 flex-grow"></div>
         </div>
         <form className="mt-6" onSubmit={handleSubmit}>
           <div>
