@@ -36,7 +36,8 @@ function Chatbot() {
               <h2 className="text-lg font-semibold text-gray-800">Tips with Chatbot</h2>
               <button
                 onClick={handleCloseChatbot}
-                className="text-gray-600 hover:text-gray-800 focus:outline-none"
+                className="text-gray-600 hover:text-gray-800 cursor-pointer focus:outline-none"
+
               >
                 <IoChatbubblesOutline className="text-xl inline mr-1" />
                 Close Chat
@@ -59,6 +60,7 @@ function Chatbot() {
               />
               <Button
                 onClick={handleSendMessage}
+                className='cursor-pointer'
                 // className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none"
               >
                 <IoSend className="" />
@@ -72,7 +74,7 @@ function Chatbot() {
       {/* Floating button for chatbot */}
       <div className="fixed bottom-8 right-8 z-10">
         <button
-          className="bg-[#3859C7] text-white py-2 px-4 rounded-full shadow-md flex items-center justify-center"
+          className="bg-[#3859C7] cursor-pointer text-white py-2 px-4 rounded-full shadow-md flex items-center justify-center"
           onClick={handleOpenChatbot}
         >
           <IoChatbubblesOutline className="mr-2 text-lg" />

@@ -61,7 +61,7 @@ function Tables() {
     {/* text */}
     <h3 className="text-xl font-bold ml-2">Top 3</h3>
     {/* button */}
-    <button className="text-blue-500 mr-2" onClick={()=>{toast.error("Please login to get access!")}}>View All</button>
+    <button className="text-blue-500 cursor-pointer mr-2" onClick={()=>{toast.error("Please login to get access!")}}>View All</button>
   </div>
 
   {/* now using map array */}

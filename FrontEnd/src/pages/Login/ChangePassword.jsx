@@ -50,7 +50,7 @@ function ChangePassword() {
             />
           </div>
           <div className="mt-6">
-            <Button type="submit" variant="surface" className="w-full">
+            <Button type="submit" variant="surface" className="w-full cursor-pointer">
               Change Password
             </Button>
           </div>

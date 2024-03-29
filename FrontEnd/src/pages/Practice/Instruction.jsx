@@ -39,6 +39,7 @@ const Instruction = () => {
             <Button
               as={Link}
               to="/dashboard"
+              className='cursor-pointer'
            
             >
               Get Started

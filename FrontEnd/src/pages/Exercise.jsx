@@ -85,7 +85,7 @@ const generateContent = async (prompt) => {
         </select>
         <Button
           onClick={handleGenerateContent}
-          className="mt-1"
+          className="mt-1 cursor-pointer"
         >
           Generate <IoSparklesSharp className="ml-1" />
         </Button>
@@ -99,14 +99,14 @@ const generateContent = async (prompt) => {
       <div className='flex justify-between'>
       <Button
         onClick={() => setGeneratedContent('')}
-        className="mt-4"
+        className="mt-4 cursor-pointer"
       >
         Clear
       </Button>
       {/* button for start reading */}
       <Button
         // className="mt-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none"
-        className="mt-4"
+        className="mt-4 cursor-pointer"
      >
         Start Reading
       </Button>

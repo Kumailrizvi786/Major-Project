@@ -93,7 +93,7 @@ function Profile() {
             <Flex justify="center" className="mt-4">
             <Dialog.Root>
   <Dialog.Trigger>
-  <Button size="2" color="indigo" variant="soft">
+  <Button size="2" color="indigo" variant="soft" className='cursor-pointer'>
               <FiEdit />
     Edit profile
   </Button>
@@ -148,12 +148,12 @@ function Profile() {
 
     <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-        <Button variant="soft" color="gray">
+        <Button variant="soft" color="gray" className='cursor-pointer'>
           Cancel
         </Button>
       </Dialog.Close>
       <Dialog.Close>
-        <Button variant='outline'>Save</Button>
+        <Button variant='outline' className='cursor-pointer'>Save</Button>
       </Dialog.Close>
     </Flex>
   </Dialog.Content>
@@ -175,7 +175,7 @@ function Profile() {
                  {/* verify now */}
                  <Dialog.Root>
   <Dialog.Trigger onClick={()=>{toast.success("OTP Sent SuccessFully!")}}>
-  <Button size='1' radius="full" color="cyan" variant="surface">
+  <Button size='1' radius="full" color="cyan" className='cursor-pointer' variant="surface">
     Verify Now
   </Button>
   </Dialog.Trigger>
@@ -200,12 +200,12 @@ function Profile() {
 
     <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-        <Button variant="soft" color="gray">
+        <Button variant="soft" color="gray" className='cursor-pointer'>
           Cancel
         </Button>
       </Dialog.Close>
       <Dialog.Close>
-        <Button variant='outline'>Verify</Button>
+        <Button variant='outline' className='cursor-pointer'>Verify</Button>
       </Dialog.Close>
     </Flex>
   </Dialog.Content>

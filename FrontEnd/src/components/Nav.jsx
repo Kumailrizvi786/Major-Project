@@ -82,18 +82,18 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         </IconButton>
           </Tooltip>
           <Link to="/signup">
-         <Button color="plum" radius='full' variant="outline" >
+         <Button color="plum" radius='full' variant="outline" className='cursor-pointer' >
       Sign Up
     </Button>
     </Link>
 
     <Link to="/login">
-          <Button variant="surface" radius='full' color='indigo'>Login
+          <Button variant="surface" radius='full' color='indigo' className='cursor-pointer'>Login
           <FiLogIn/>
           </Button>
 </Link>
           {/* Light Mode Button */}
-          <button aria-label="Toggle Light Mode" className="text-gray-400 hover:text-gray-700 \">
+          <button aria-label="Toggle Light Mode" className="text-gray-400 cursor-pointer hover:text-gray-700 \">
          
   <Dropdown/>
            

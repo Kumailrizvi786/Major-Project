@@ -84,12 +84,12 @@ function Login() {
           <p className="mt-2 text-sm text-gray-500 mb-4">Please sign in to your account</p>
         </div>
         <div className="mb-4 text-center space-y-2 ml-3">
-  <Button color="gray" className="flex items-center px-16 py-5" variant="outline">
-    <FaGithub className="mr-2" />
+  <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+    <FaGithub className="mr-2 cursor-pointer" />
     Continue with GitHub
   </Button>
-  <Button color="red" className="flex items-center px-16 py-5" variant="outline">
-    <FaGoogle className="mr-2" />
+  <Button color="red" className="flex items-center  cursor-pointer px-16 py-5" variant="outline">
+    <FaGoogle className="mr-2 cursor-pointer" />
     Continue with Google
   </Button>
 </div>
@@ -149,7 +149,7 @@ function Login() {
             </div>
           </div>
           <div className="mt-6">
-            <Button type="submit" variant="surface" className="w-full">
+            <Button type="submit" variant="surface" className="w-full cursor-pointer">
               Log in <FiLogIn />
             </Button>
           </div>

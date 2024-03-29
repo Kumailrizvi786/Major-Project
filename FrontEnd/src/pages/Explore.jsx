@@ -33,12 +33,12 @@ const Explore = () => {
           <Text size="2" className="text-center text-gray-600 mb-4">
             Discover new books and dive into captivating stories.
           </Text>
-          <Button className="w-full" variant="soft">
+          <Button className="w-full cursor-pointer" variant="soft" >
             Explore Books
           </Button>
         </Card>
       </Box>
-      <Button className="mt-8 w-full flex items-center justify-center" variant="outline">
+      <Button className="mt-8 w-full flex items-center justify-center cursor-pointer" variant="outline">
         <IoSearchOutline className="mr-2" /> Explore All
       </Button>
     </div>

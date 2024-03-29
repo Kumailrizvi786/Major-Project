@@ -47,7 +47,7 @@ const Header = () => {
        
         </IconButton>
           </Tooltip>
-         <Button color="gray" variant="outline">
+         <Button color="gray" variant="outline" className=''>
       Sign Up
     </Button>
           <Button variant="surface">Login</Button>

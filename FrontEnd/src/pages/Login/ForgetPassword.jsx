@@ -33,7 +33,7 @@ function ForgetPassword() {
             />
           </div>
           <div className="mt-6">
-            <Button type="submit" variant="surface" className="w-full">
+            <Button type="submit" variant="surface" className="w-full cursor-pointer">
               Send Reset Password Link
             </Button>
           </div>

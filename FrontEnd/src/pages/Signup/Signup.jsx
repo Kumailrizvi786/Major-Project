@@ -71,12 +71,12 @@ function Signup() {
         </div>
        
         <div className="mb-4 text-center space-y-2 ml-3">
-  <Button color="gray" className="flex items-center px-16 py-5" variant="outline">
-    <FaGithub className="mr-2" />
+  <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+    <FaGithub className="mr-2 cursor-pointer" />
     Continue with GitHub
   </Button>
-  <Button color="red" className="flex items-center px-16 py-5" variant="outline">
-    <FaGoogle className="mr-2" />
+  <Button color="red" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+    <FaGoogle className="mr-2 cursor-pointer" />
     Continue with Google
   </Button>
 </div>
@@ -134,7 +134,7 @@ function Signup() {
             />
           </div>
           <div className="mt-6">
-            <Button color="indigo" onClick={handleSubmit} variant="outline" className="w-full" disabled={loading}>
+            <Button color="indigo" onClick={handleSubmit} variant="outline" className="w-full cursor-pointer" disabled={loading}>
               Continue to Create Account {loading? <Spinner /> : ''}
             </Button>
           </div>
