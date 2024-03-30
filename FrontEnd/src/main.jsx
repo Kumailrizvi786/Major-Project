@@ -28,6 +28,7 @@ import TwoFactor from './pages/Login/TwoFactor.jsx';
 import ForgetPassword from './pages/Login/ForgetPassword.jsx';
 import ChangePassword from './pages/Login/ChangePassword.jsx';
 import Test from './components/Test.jsx';
+import Community from './pages/Community.jsx';
 
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <Test/>,
+      },
+      {
+        path: "/community",
+        element: <Community/>,
       },
     ],
     errorElement: <ErrorPage />
