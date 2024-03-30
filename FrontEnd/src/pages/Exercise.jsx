@@ -5,9 +5,11 @@ import { toast } from 'react-hot-toast';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import { IoHomeOutline, IoSparklesSharp } from 'react-icons/io5';
 import {Button, Heading, Skeleton, TextArea} from '@radix-ui/themes';
+import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumb';
 
 function Exercise() {
+  const navigate = useNavigate();
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');
   const [generatedContent, setGeneratedContent] = useState('');
@@ -83,6 +85,10 @@ const generateContent = async (prompt) => {
     setPrompt(prompt);
     generateContent(prompt);
   };
+
+  const handleStartReading = () => {
+    navigate('/test',{ state: { ageGroup, category, generatedContent }}); // Navigate to the StartReading page
+  };
   const breadcrumbs = [
     { label: 'Home', href: '/' },
     { label: 'Exercise', href: '/exercise' },
@@ -139,12 +145,9 @@ const generateContent = async (prompt) => {
         Clear
       </Button>
       {/* button for start reading */}
-      <Button
-        // className="mt-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none"
-        className="mt-4 cursor-pointer"
-     >
-        Start Reading
-      </Button>
+      <Button onClick={handleStartReading} className="mt-4 cursor-pointer">
+          Start Reading
+        </Button>
       </div>
     </div>
   );
