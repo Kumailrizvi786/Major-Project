@@ -75,12 +75,12 @@ function Login() {
         navigate('/profile'); 
         // clear form
         setData({ email: '', password: '' });
-        setloading("false")
-     
+        setloading(false )
+        
       } else {
         // Login failed, display error message
         console.error('Login failed');
-        setloading("false")
+        setloading(false)
         console.error('Error:', response.data);
         toast.error('Login failed: ' + response.data.message);
 
@@ -88,7 +88,7 @@ function Login() {
 
     }catch(error){
       console.error('Error:', error);
-      setloading("false")
+      setloading(false )
       toast.error('Unable to Login due to ' + error.message);
     }
 

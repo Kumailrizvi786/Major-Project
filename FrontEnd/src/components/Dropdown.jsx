@@ -2,9 +2,11 @@ import React from 'react';
 import { DropdownMenu,Avatar } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../features/authSlice';
 import {toast} from  "react-hot-toast"
 function Dropdown() {
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   return (
     <DropdownMenu.Root>
@@ -34,6 +36,7 @@ function Dropdown() {
         <DropdownMenu.Separator />
         <DropdownMenu.Item shortcut="⌘ ⌫" color="red"  onClick={() => {
                 dispatch(logout());
+                navigate('/login')
                 toast.success("Logout Successfully!")
               }}>
           Logout

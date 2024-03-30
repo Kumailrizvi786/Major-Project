@@ -13,26 +13,19 @@ import { Navigate } from "react-router-dom";
 import axios from "axios"
 import {InfoCircledIcon} from '@radix-ui/react-icons'
 import {Share2Icon, Link1Icon} from '@radix-ui/react-icons'
-import { getUser } from '../../Utils/helper';
-// import {Popover} from '@radix-ui/react-popover'
+// import { getUser } from '../../Utils/helper';
 
-// import
 function Profile() {
-  // Data for reading list with date, title, avgSpeed, exercise status, and duration
-  const loggedIn = getLoggedIn()
-  // const data1 = getUser()
-
-  // console.log("data 1",data1)
+  const loggedIn = getLoggedIn();
 
   if (!loggedIn) {
     return <Navigate to="/login" />;
   }
-  // console.log("user", )
-  const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
-  const [Otp, setOtp] = useState(null)
-  const {user}= getUserData()
-  const {userEmail} = user
-  console.log(user)
+
+  const [OtpStatus , setOtpStatus] = useState("Sending OTP...");
+  const [Otp, setOtp] = useState(null);
+  const {user} = getUserData();
+  const {userEmail} = user;
    
   
 
