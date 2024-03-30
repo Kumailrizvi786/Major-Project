@@ -27,6 +27,7 @@ import Instruction from './pages/Practice/Instruction.jsx';
 import TwoFactor from './pages/Login/TwoFactor.jsx';
 import ForgetPassword from './pages/Login/ForgetPassword.jsx';
 import ChangePassword from './pages/Login/ChangePassword.jsx';
+import Test from './components/Test.jsx';
 
 
 const router = createBrowserRouter([
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/exercise",
         element: <Exercise/>,
+      },
+      {
+        path: "/test",
+        element: <Test/>,
       },
     ],
     errorElement: <ErrorPage />
