@@ -15,6 +15,10 @@ export default mongoose.model('User', new mongoose.Schema(
       type: Boolean,
       default: false
     },
+    isMFAEnabled: {
+      type: Boolean,
+      default: false
+    },
     password: {
       type: String,
       required: true

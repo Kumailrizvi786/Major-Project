@@ -5,8 +5,8 @@ import emailRoutes from "./emailRoutes.js"
 export const routes = (app) => {
     
     app.use('/user/', userRoutes);
-    app.use('/email/', emailRoutes);
     app.use(checkAuth);
+    app.use('/email/', emailRoutes);
     app.get("/sayHello", (req, res) => {
         res.json({message: "Hello World"});
         }
