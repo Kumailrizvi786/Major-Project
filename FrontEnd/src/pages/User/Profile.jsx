@@ -6,7 +6,6 @@ import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiAwardLine, RiPassPendingLine, RiSpeedUpLine } from 'react-icons/ri';
-import { FaTrophy } from 'react-icons/fa';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline, IoSpeedometer } from 'react-icons/io5';
 import { getLoggedIn, getUserData } from '../../services/authService';
@@ -18,12 +17,13 @@ import {InfoCircledIcon} from '@radix-ui/react-icons'
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const loggedIn = getLoggedIn()
-  const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
-  const [Otp, setOtp] = useState(null)
+
   if (!loggedIn) {
     return <Navigate to="/login" />;
   }
   // console.log("user", )
+  const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
+  const [Otp, setOtp] = useState(null)
   const user = getUserData()
   const userEmail = user.email
   
@@ -127,7 +127,7 @@ function Profile() {
           Name
         </Text>
         <TextField.Root
-          defaultValue="Sahil ali"
+          defaultValue={user.name}
           placeholder="Enter your full name"
         />
       </label>
@@ -136,7 +136,7 @@ function Profile() {
           Email
         </Text>
         <TextField.Root
-          defaultValue="sahilali88084667@gmail.com"
+          defaultValue={userEmail}
           placeholder="Enter your email"
           disabled
         />
