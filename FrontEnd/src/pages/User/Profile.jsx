@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Badge, Heading,
-  Callout, Dialog,Box,Card, Code,TextField,Text , DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+  Callout, Dialog,Box,Card, Code,TextField,Text ,Grid ,Inset ,Popover, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
@@ -12,11 +12,17 @@ import { getLoggedIn, getUserData } from '../../services/authService';
 import { Navigate } from "react-router-dom";
 import axios from "axios"
 import {InfoCircledIcon} from '@radix-ui/react-icons'
+import {Share2Icon, Link1Icon} from '@radix-ui/react-icons'
+import { getUser } from '../../Utils/helper';
+// import {Popover} from '@radix-ui/react-popover'
 
 // import
 function Profile() {
   // Data for reading list with date, title, avgSpeed, exercise status, and duration
   const loggedIn = getLoggedIn()
+  // const data1 = getUser()
+
+  // console.log("data 1",data1)
 
   if (!loggedIn) {
     return <Navigate to="/login" />;
@@ -24,8 +30,10 @@ function Profile() {
   // console.log("user", )
   const [OtpStatus , setOtpStatus] = useState("Sending OTP...")
   const [Otp, setOtp] = useState(null)
-  const user = getUserData()
-  const userEmail = user.email
+  const {user}= getUserData()
+  const {userEmail} = user
+  console.log(user)
+   
   
 
   const data = [
@@ -127,7 +135,7 @@ function Profile() {
           Name
         </Text>
         <TextField.Root
-          defaultValue={user.name}
+          defaultValue={userEmail}
           placeholder="Enter your full name"
         />
       </label>
@@ -174,7 +182,49 @@ function Profile() {
     </Flex>
   </Dialog.Content>
 </Dialog.Root>
+            {/* </Flex>
+
+           
+            
+            <Flex justify="center" className="mt-4"> */}
+            <Popover.Root>
+  <Popover.Trigger>
+    <Button variant="soft">
+      <Share2Icon width="16" height="16" />
+      Share Profile
+    </Button>
+  </Popover.Trigger>
+  <Popover.Content width="360px">
+    <Grid columns="130px 1fr">
+      <Inset side="left" pr="current">
+        <img
+          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?&auto=format&fit=crop&w=400&q=80"
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        />
+      </Inset>
+
+      <div>
+        <Heading size="2" mb="1">
+          Share this Profile
+        </Heading>
+        <Text as="p" size="2" mb="4" color="gray">
+          Minimalistic 3D rendering wallpaper.
+        </Text>
+
+        <Flex direction="column" align="stretch">
+          <Popover.Close>
+            <Button size="1" variant="soft">
+              <Link1Icon width="16" height="16" />
+              Copy link
+            </Button>
+          </Popover.Close>
+        </Flex>
+      </div>
+    </Grid>
+  </Popover.Content>
+</Popover.Root>
             </Flex>
+
           </div>
        
           {/* Right side show all details like email, age, gender, city */}
@@ -186,7 +236,7 @@ function Profile() {
                 <DataList.Value>
                 <Flex align="center" gap="2">
                   {
-                    user.isEmailVerified ?(<Badge color="jade" variant="soft" radius="full">
+                    userEmail ?(<Badge color="jade" variant="soft" radius="full">
                     Authorized
                   </Badge>): <Badge color="plum" variant="soft" radius="full">
                     Not Authorized
@@ -195,7 +245,7 @@ function Profile() {
                   
                  {/* verify now */}
                  { 
-                  !user.isEmailVerified &&
+                  !userEmail &&
                    <Dialog.Root>
   <Dialog.Trigger
   
@@ -336,7 +386,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <UserIcon /> */}
-                   {user.name}
+                   {userEmail}
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
@@ -345,7 +395,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <EmailIcon /> */}
-                    <Link href={`mailto:${user.email}`}>{user.email}</Link>
+                    <Link href={`mailto:${userEmail}`}>{userEmail}</Link>
                   </Flex>
                 </DataList.Value>
               </DataList.Item>

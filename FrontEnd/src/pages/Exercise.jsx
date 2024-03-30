@@ -2,55 +2,85 @@ import axios from 'axios';
 import React, { useState } from 'react';
 // .env file import
 import { toast } from 'react-hot-toast';
-import { IoIosRefreshCircle } from 'react-icons/io';
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import { IoHomeOutline, IoSparklesSharp } from 'react-icons/io5';
-import {Button, Heading} from '@radix-ui/themes';
+import {Button, Heading, Skeleton, TextArea} from '@radix-ui/themes';
 import Breadcrumbs from '../components/Breadcrumb';
 
 function Exercise() {
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');
   const [generatedContent, setGeneratedContent] = useState('');
+  const [prompt, setPrompt] = useState('');
+    // const [generatedContent, setGeneratedContent] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const YOUR_GEMINI_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const generateContent = async (prompt) => {
+    setLoading(true);
+    setError(null);
   try {
-    console.log("generating content")
-    const response = await axios.post(
-      'https://api.openai.com/v1/completions',
+  //  console.log(prompt)
+  const genAI = new GoogleGenerativeAI(YOUR_GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.0-pro' });  
+
+    const generationConfig = {
+      temperature: 0.9, // Controls randomness (0 = deterministic, 1 = creative)
+      topK: 1, // Controls beam search (higher = less diverse)
+      topP: 1, // Controls nucleus sampling (higher = less risky)
+      maxOutputTokens: 2048, // Maximum output length
+    };
+
+    const safetySettings = [
       {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful assistant.',
-          },
-          {
-            role: 'user',
-            content: generatedContent,
-          },
-        ],
+        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
       },
       {
-        headers: {
-          'Authorization': 'Bearer ' + 'api_key',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    const data = response.data;
-    console.log('Response data:', data);
-    setGeneratedContent(data.choices[0].text);
+        category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+    ];
+
+    const chat = model.startChat({
+      generationConfig,
+      safetySettings,
+      history: [
+        { role: 'user', parts: [{ text: 'hi' }] },
+        { role: 'model', parts: [{ text: 'Hello there! How can I assist you today?' }] },
+        { role: 'user', parts: [{ text: 'hello' }] },
+        { role: 'model', parts: [{ text: 'Hello! How are you doing today? Is there anything I can help you with?' }] },
+      ],
+    });
+    const result = await chat.sendMessage(prompt); // Use user prompt here
+    const response = result.response;
+    setGeneratedContent(response.text());
+
   } catch (error) {
-    toast.error('Error generating content:', error);
-    console.error('Error generating content:', error);
+    console.error('Error:', error);
+    setError('Something went wrong. Please try again.');
+  } finally {
+    setLoading(false);
   }
 };
 
 
   const handleGenerateContent = () => {
+    toast.success("Generating content...")
     // Construct prompt based on age group and category
-    const prompt = `Generate a reading exercise for ${ageGroup} on ${category}.`;
+    const prompt = `Generate a reading exercise text for ${ageGroup} on ${category} in 200 Character.`;
     console.log(prompt)
+    setPrompt(prompt);
     generateContent(prompt);
   };
   const breadcrumbs = [
@@ -61,7 +91,8 @@ const generateContent = async (prompt) => {
   return (
     <div className="max-w-4xl mx-auto mt-8 px-4">
        <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} /> 
-      <Heading size="8" className="mb-4">Exercise Page</Heading>
+       
+      <Heading size="8" className="mb-4">Generative Practice <IoSparklesSharp className={`ml-1 inline ${loading && "animate-ping"}  `} /></Heading>
       <div className="flex space-x-4 mb-4">
         <select
           value={ageGroup}
@@ -86,16 +117,20 @@ const generateContent = async (prompt) => {
         <Button
           onClick={handleGenerateContent}
           className="mt-1 cursor-pointer"
+          disabled={loading || !ageGroup || !category}
         >
-          Generate <IoSparklesSharp className="ml-1" />
+         {loading ? 'Generating...' : 'Generate'} <IoSparklesSharp className="ml-1" />
         </Button>
       </div>
-      <textarea
+      <Skeleton loading={loading}>
+
+      <TextArea
         value={generatedContent}
         placeholder="Generated Content will appear here"
         rows={6}
         className="w-full resize-none border rounded-md p-2 focus:outline-none"
-      />
+        />
+        </Skeleton>
       <div className='flex justify-between'>
       <Button
         onClick={() => setGeneratedContent('')}
@@ -111,7 +146,6 @@ const generateContent = async (prompt) => {
         Start Reading
       </Button>
       </div>
-
     </div>
   );
 }

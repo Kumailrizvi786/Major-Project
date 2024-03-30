@@ -4,7 +4,8 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState = {
   currentUser: null,
-  loggedIn: false
+  loggedIn: false,
+  role: null
 };
 
 const authSlice = createSlice({
@@ -16,10 +17,11 @@ const authSlice = createSlice({
       // state hota hai current state | jo ki ek object hai aur usme status aur userData hai
       // action hota hai jo ki ek object hai aur usme type aur payload hai
       state.loggedIn = true;
-      // state.role = action.payload.role;
+      state.role = action.payload.role;
       console.log("state is " + state);
       console.log("action is " + action);
-      state.currentUser = action.payload.userEmail;
+      state.currentUser = action.payload;
+      // console.log(currentUser)
       // state.role = action.payload.role;
     },
     // reducers

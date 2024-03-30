@@ -28,14 +28,12 @@ function Login() {
   const handleChange = (e)=>{   
     console.log(e.target.id, e.target.value);
     setData({ ...data, [e.target.id]: e.target.value });
-
   }
 
   console.log(loading)
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform reCAPTCHA validation
     if (!captchaToken) {
       toast.error('Please complete the reCAPTCHA verification.');
       return;
@@ -61,10 +59,11 @@ function Login() {
         if(!token){
           console.log('Token not found ');
         }
-        const { userEmail } = response.data;
+        // const { userEmail } = response.data;
         const payload = {
-          user: response.data.user,
+          user: response.data,
           token: token,
+          role: 'user'
         };
         
         // Login successful, redirect or perform necessary actions
