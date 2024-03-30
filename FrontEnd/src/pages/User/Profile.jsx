@@ -229,7 +229,7 @@ function Profile() {
                 <DataList.Value>
                 <Flex align="center" gap="2">
                   {
-                    userEmail ?(<Badge color="jade" variant="soft" radius="full">
+                    !userEmail ?(<Badge color="jade" variant="soft" radius="full">
                     Authorized
                   </Badge>): <Badge color="plum" variant="soft" radius="full">
                     Not Authorized
@@ -238,7 +238,7 @@ function Profile() {
                   
                  {/* verify now */}
                  { 
-                  !userEmail &&
+                  userEmail &&
                    <Dialog.Root>
   <Dialog.Trigger
   
