@@ -65,12 +65,12 @@ export const loginUser = async (req, res, next) => {
                 SameSite: 'None',
                 secure: true,
             };
-            res.status(200).cookie("token", token, cookieOption).json({
+            res.setHeader('Auth', `Bearer ${token}`).status(200).cookie("token", token, cookieOption).json({
                 userEmail: user.email,
                 // user: user,
                 success: true,
                 // token: token,
-            })
+            });
             console.log("User Logged In ");
         } else if (!user) {
             res.status(401).send("User Not Found With Email ", email)
