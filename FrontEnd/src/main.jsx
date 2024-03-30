@@ -7,12 +7,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "./store/store";
+import store from "./store/store";
 import Login from './pages/Login/Login.jsx';
 import Signup from './pages/Signup/Signup.jsx';
 import ErrorPage from './components/ErrorPage.jsx'
 import Nav from './components/Nav.jsx';
 import '@radix-ui/themes/styles.css';
-
+  
 import Explore from './pages/Explore.jsx';
 import Exercise from './pages/Exercise.jsx';
 import Leaderboard from './pages/Leaderboard.jsx';
@@ -90,6 +94,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+     <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
 )

@@ -4,8 +4,10 @@ import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { Spinner } from '@radix-ui/themes';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   console.log('Signup render');
   const [loading , setLoading] = useState(false);
   const [data, setData] = useState({ name: '', email: '', password: '' });
@@ -43,6 +45,7 @@ function Signup() {
         // Login successful, redirect or perform necessary actions
         console.log('User Register successful');
         toast.success('User Register successful');
+        navigate("/login");
         // clear form
         setData({ name: '', email: '', password: '' });
         // redirect to login page

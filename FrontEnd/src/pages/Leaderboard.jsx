@@ -6,7 +6,19 @@ import { RiAwardLine } from 'react-icons/ri';
 import { FaTrophy } from 'react-icons/fa';
 import Breadcrumbs from '../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
+import { getLoggedIn } from '../services/authService';
+import {toast} from 'react-hot-toast'
+import {Navigate} from 'react-router-dom'
+
+
+
 function LeaderboardList() {
+   const loggedIn = getLoggedIn()
+    
+   if(!loggedIn){
+    toast.error("Please Login to get Access!")
+    return <Navigate to="/login"/>
+   }
 
   const data = [
     { rank: 1, name: 'Mohd Maaz', speed: '250 w/m' },

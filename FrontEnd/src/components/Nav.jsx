@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 import { IoSpeedometerOutline,  IoSpeedometer } from "react-icons/io5";
 import { FaBookReader, FaLock } from "react-icons/fa";
 import { FiLogIn } from 'react-icons/fi';
+import { getLoggedIn } from '../services/authService';
 function Nav({ onThemeChange, getCurrentTheme}) {
+
+    const loggedIn = getLoggedIn()
     const theme = getCurrentTheme();
     console.log(theme)
   return (
@@ -52,12 +55,18 @@ function Nav({ onThemeChange, getCurrentTheme}) {
     
       <Link to="/exercise">
       <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
-      <FaLock/>
+    {
+      loggedIn?null:<FaLock/>
+    }  
+      
       </DropdownMenu.Item>
         </Link>
       <DropdownMenu.Separator />
       <DropdownMenu.Item shortcut="⌘ R" onClick={()=>{toast.error("Please Login to see Results!")}}>Result
-      <FaLock/>
+      {
+      loggedIn?null:<FaLock/>
+    }  
+     
       </DropdownMenu.Item>
 
       <DropdownMenu.Separator />
@@ -66,8 +75,8 @@ function Nav({ onThemeChange, getCurrentTheme}) {
       </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
-  <Link to="leaderboard" className="flex items-center space-x-1" color="gray" onClick={()=>{toast.error("Please Login to see leaderboard!")}}>
-          Leaderboard <FaLock className='ml-2 mb-1' />
+  <Link to="leaderboard" className="flex items-center space-x-1" color="gray">
+          Leaderboard {loggedIn? "": <FaLock className='ml-2 mb-1' /> }
         </Link>
         <Link to="/contact" color="gray">Contact</Link>
         </nav>
@@ -81,7 +90,11 @@ function Nav({ onThemeChange, getCurrentTheme}) {
        
         </IconButton>
           </Tooltip>
-          <Link to="/signup">
+          { loggedIn ? null : (
+            <>
+         
+
+            <Link to="/signup">
          <Button color="plum" radius='full' variant="outline" className='cursor-pointer' >
       Sign Up
     </Button>
@@ -92,10 +105,15 @@ function Nav({ onThemeChange, getCurrentTheme}) {
           <FiLogIn/>
           </Button>
 </Link>
+</>
+)
+    }
           {/* Light Mode Button */}
           <button aria-label="Toggle Light Mode" className="text-gray-400 cursor-pointer hover:text-gray-700 \">
-         
-  <Dropdown/>
+      {
+loggedIn ?
+  <Dropdown/> : null
+      }   
            
           </button>
         </div>
