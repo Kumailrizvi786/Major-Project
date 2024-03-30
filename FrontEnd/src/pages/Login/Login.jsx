@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from "../../features/authSlice";
 import { Spinner } from '@radix-ui/themes';
 import { useDispatch } from "react-redux";
+import {Cookies} from 'js-cookie'
 
 
 function Login() {
@@ -56,15 +57,19 @@ function Login() {
       console.log(response.status);
       // Handle response from server
       if (response.status === 200) {
-        const { userEmail, user } = response.data;
+        const token = Cookies.get('token');
+        if(!token){
+          console.log('Token not found ');
+        }
+        const { userEmail } = response.data;
         const payload = {
           user: response.data.user,
-          token: response.data.token,
+          token: token,
         };
         
         // Login successful, redirect or perform necessary actions
         //setting token in local storage
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', token);
         dispatch(login(payload));
         console.log('User Login successful');
         toast.success('User Login successful');

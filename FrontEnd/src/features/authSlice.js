@@ -19,7 +19,7 @@ const authSlice = createSlice({
       // state.role = action.payload.role;
       console.log("state is " + state);
       console.log("action is " + action);
-      state.currentUser = action.payload.user;
+      state.currentUser = action.payload.userEmail;
       // state.role = action.payload.role;
     },
     // reducers
