@@ -54,7 +54,7 @@ function Nav({ onThemeChange, getCurrentTheme}) {
         </DropdownMenu.Item>
     
       <Link to="/exercise">
-      <DropdownMenu.Item shortcut="⌘ E" onClick={()=>{toast.error("Please Login to start exercise!")}}>Exercise 
+      <DropdownMenu.Item shortcut="⌘ E" >Exercise 
     {
       loggedIn?null:<FaLock/>
     }  
@@ -71,13 +71,14 @@ function Nav({ onThemeChange, getCurrentTheme}) {
 
       <DropdownMenu.Separator />
       <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-        Delete
+        GenAI
       </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
   <Link to="leaderboard" className="flex items-center space-x-1" color="gray">
           Leaderboard {loggedIn? "": <FaLock className='ml-2 mb-1' /> }
         </Link>
+        <Link to="/community" color="gray">Community {loggedIn? "": <FaLock className='ml-2 mb-1 inline' /> }</Link>
         <Link to="/contact" color="gray">Contact</Link>
         </nav>
         <div className="flex items-center space-x-4 mr-4">

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 
 const Test = () => {
-  const [prompt, setPrompt] = useState('');
-  const [generatedContent, setGeneratedContent] = useState('');
+    const [prompt, setPrompt] = useState('');
+    const [generatedContent, setGeneratedContent] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
