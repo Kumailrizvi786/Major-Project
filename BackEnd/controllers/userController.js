@@ -1,6 +1,7 @@
-import User from '../models/UserModel.js'
-import Role from '../models/RoleModel.js'
-import bcrypt from 'bcryptjs'
+import User from '../models/UserModel.js';
+import Role from '../models/RoleModel.js';
+import Result from '../models/ResultModel.js';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req, res, next) => {
@@ -62,7 +63,7 @@ export const loginUser = async (req, res, next) => {
             };
             res.status(200).cookie("token", token, cookieOption).json({
                 userEmail: user.email,
-                user:user,
+                user: user,
                 success: true,
                 token: token,
             })
@@ -70,7 +71,7 @@ export const loginUser = async (req, res, next) => {
         } else if (!user) {
             res.status(401).send("User Not Found With Email ", email)
         } else {
-            res.satus(401).send("Passowrd Not Matched");
+            res.status(401).send("Passowrd Not Matched");
         }
     }
     catch (err) {
@@ -86,4 +87,38 @@ export const logoutUser = async (req, res, next) => {
     res.clearCookie("token", "user");
     res.status(200).send("User Logged Out");
     console.log("User Log Out");
+}
+
+//get All details of User
+export const getDetails = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if(!email){
+            return res.status(404).json({ message: "No Email Found"});
+        }
+
+        const userObject = await User.findOne({ email: email })
+        if(!userObject){
+            return res.status(404).json({ message: "User Not Found"});
+        }
+
+        const userResult = await getResultsByUserId(userObject._id);
+        //setting resoponse object
+        const responseObject = {
+            name:"",
+            email:"",
+            isEmailVerified: false,
+            city: "",
+            age: "",
+            result: userResult,
+
+        }
+    }catch (err) {
+        console.error(err);
+        return res.status(404).json({ message: err.message });
+    }
+}
+const getResultsByUserId = async (userId) => {
+    // Get results for user
+    
 }
