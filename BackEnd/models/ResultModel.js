@@ -15,6 +15,10 @@ export default mongoose.model('Result', new mongoose.Schema({
       type: Number,
       required: true
     },
+    wpm: {
+      type: Number,
+      required: false,
+    },
     // Add timestamps for results
     createdAt: {
       type: Date,
