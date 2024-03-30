@@ -61,7 +61,9 @@ export const loginUser = async (req, res, next) => {
             //cookie section
             const cookieOption = {
                 expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-                httpOnly: true
+                httpOnly: true,
+                SameSite: 'None',
+                secure: true,
             };
             res.status(200).cookie("token", token, cookieOption).json({
                 userEmail: user.email,
