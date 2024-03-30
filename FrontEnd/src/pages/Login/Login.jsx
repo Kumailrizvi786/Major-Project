@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from "../../features/authSlice";
 import { Spinner } from '@radix-ui/themes';
 import { useDispatch } from "react-redux";
-import {Cookies} from 'js-cookie'
+import Cookies from 'js-cookie'
 
 
 function Login() {
