@@ -1,6 +1,7 @@
 import User from '../models/UserModel.js';
 import Role from '../models/RoleModel.js';
 import Result from '../models/ResultModel.js';
+import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -19,9 +20,10 @@ export const registerUser = async (req, res, next) => {
             name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            // age: req.body.age,
-            // city: req.body.city,
+            age: null,
+            city: null,
             isEmailVerified: false,
+            isMFAEnabled: false,
             role: await Role.findOne({ name: req.body.role }),
         })
         const responseObject = {
@@ -63,9 +65,9 @@ export const loginUser = async (req, res, next) => {
             };
             res.status(200).cookie("token", token, cookieOption).json({
                 userEmail: user.email,
-                user: user,
+                // user: user,
                 success: true,
-                token: token,
+                // token: token,
             })
             console.log("User Logged In ");
         } else if (!user) {
@@ -90,35 +92,68 @@ export const logoutUser = async (req, res, next) => {
 }
 
 //get All details of User
-export const getDetails = async (req, res) => {
+export const getAllDetails = async (req, res) => {
     try {
         const { email } = req.body;
-        if(!email){
-            return res.status(404).json({ message: "No Email Found"});
+        if (!email) {
+            return res.status(404).json({ message: "No Email Found" });
         }
 
         const userObject = await User.findOne({ email: email })
-        if(!userObject){
-            return res.status(404).json({ message: "User Not Found"});
+        if (!userObject) {
+            return res.status(404).json({ message: "User Not Found" });
         }
 
         const userResult = await getResultsByUserId(userObject._id);
-        //setting resoponse object
-        const responseObject = {
-            name:"",
-            email:"",
-            isEmailVerified: false,
-            city: "",
-            age: "",
-            result: userResult,
+        console.log("User Result " + userResult);
 
+        //setting resoponse object
+        const initialResponseObject = {
+            name: "",
+            email: "",
+            isEmailVerified: false,
+            isMFAEnabled: false,
+            city: "",
+            age: ""
         }
-    }catch (err) {
+
+        //Setting response object
+        const response = setResponseObject(initialResponseObject, userObject, userResult);
+        console.log("Response "+ response);
+
+        return res.status(200).json(response);
+
+    } catch (err) {
         console.error(err);
         return res.status(404).json({ message: err.message });
     }
 }
 const getResultsByUserId = async (userId) => {
     // Get results for user
-    
+    try {
+        // Validate the user ID (optional)
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            throw new Error('Invalid user ID');
+        }
+
+        // Use populate to fetch results with their associated user data
+        const results = await Result.find({ user: userId })
+            .populate('user', 'name email'); // Specify user fields to populate
+
+        return results;
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw for proper error handling
+    }
+}
+
+const setResponseObject = (initialResponseObject, userObject, userResult) => {
+    initialResponseObject.name = userObject.name;
+    initialResponseObject.email = userObject.email;
+    initialResponseObject.isEmailVerified = userObject.isEmailVerified;
+    initialResponseObject.isMFAEnabled = userObject.isMFAEnabled;
+    initialResponseObject.age = userObject.age;
+    initialResponseObject.city = userObject.city;
+    initialResponseObject.result = userResult;
+    return initialResponseObject; 
 }

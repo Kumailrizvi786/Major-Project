@@ -34,7 +34,8 @@ function Signup() {
       const response = await axios.post('http://localhost:8080/user/register', {
         name: data.name,
         email: data.email,
-        password: data.password
+        password: data.password,
+        role: 'user' // setting role to user statically
       });
       
       console.log(response.data);
