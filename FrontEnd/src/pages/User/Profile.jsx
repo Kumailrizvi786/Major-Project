@@ -13,6 +13,7 @@ import { Navigate } from "react-router-dom";
 import axios from "axios"
 import {InfoCircledIcon} from '@radix-ui/react-icons'
 import {Share2Icon, Link1Icon} from '@radix-ui/react-icons'
+import api from '../../services/axiosConfig.js';
 // import { getUser } from '../../Utils/helper';
 
 function Profile() {
@@ -25,8 +26,9 @@ function Profile() {
   const [OtpStatus , setOtpStatus] = useState("Sending OTP...");
   const [Otp, setOtp] = useState(null);
   const {user} = getUserData();
-  const {userEmail} = user;
-   
+  const {userEmail, userName} = user;
+  // console.log(user);
+  // const userEmail = 'user@example.com';
   
 
   const data = [
@@ -84,6 +86,11 @@ function Profile() {
     { label: 'Home', href: '/' },
     { label: 'Profile', href: '/profile' },
   ];
+  const testEmail = 'kumail.rizvi@blubooksolutions.com';
+  const handleUserDetails = async () => {
+    const response = await api.get('/user/getAllDetails', {email: testEmail})
+    console.log(response.json());
+  }
 
   return (
     <>
@@ -115,7 +122,7 @@ function Profile() {
     Edit profile
   </Button>
   </Dialog.Trigger>
-
+  <Button variant='outline' className='cursor-pointer' onClick={handleUserDetails}>Get User Details</Button>
   <Dialog.Content maxWidth="450px">
     <Dialog.Title>Edit profile</Dialog.Title>
     <Dialog.Description size="2" mb="4">
@@ -128,7 +135,7 @@ function Profile() {
           Name
         </Text>
         <TextField.Root
-          defaultValue={userEmail}
+          defaultValue={userName}
           placeholder="Enter your full name"
         />
       </label>
@@ -238,7 +245,7 @@ function Profile() {
                   
                  {/* verify now */}
                  { 
-                  userEmail &&
+                  userName &&
                    <Dialog.Root>
   <Dialog.Trigger
   

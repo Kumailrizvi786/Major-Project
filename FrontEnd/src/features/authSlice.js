@@ -18,11 +18,8 @@ const authSlice = createSlice({
       // action hota hai jo ki ek object hai aur usme type aur payload hai
       state.loggedIn = true;
       state.role = action.payload.role;
-      console.log("state is " + state);
-      console.log("action is " + action);
       state.currentUser = action.payload;
-      // console.log(currentUser)
-      // state.role = action.payload.role;
+      // console.log("Current User Is ",currentUser)
     },
     // reducers
     // reducers are functions that manipulate the state
@@ -32,7 +29,7 @@ const authSlice = createSlice({
     logout: (state, action) => {
       state.loggedIn = false;
       state.currentUser = null;
-      // state.role = null;
+      state.role = null;
       // state.role = "";
     },
   },

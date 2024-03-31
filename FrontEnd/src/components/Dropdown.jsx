@@ -5,9 +5,33 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../features/authSlice';
 import {toast} from  "react-hot-toast"
+import axios from 'axios';
+import api from '../services/axiosConfig.js';
+
 function Dropdown() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      const response = await api.get('/user/logout');
+      if (response.status === 200) {
+        localStorage.removeItem('token');
+        dispatch(logout());
+        navigate('/login');
+        toast.success("Logout Successfully!");
+      } else if(response.status === 401) {
+        toast.error("Not Authorized, Access Denied"); // More specific error message if possible
+      }
+      else {
+        toast.error("Logout Failed"); 
+      }
+    } catch (error) {
+      console.error("Logout Error:", error);
+      toast.error("Logout Failed"); // Generic error message
+    }
+  };
+  
   return (
     <DropdownMenu.Root>
       {/* Trigger the dropdown when Avatar is clicked */}
@@ -34,11 +58,7 @@ function Dropdown() {
         <DropdownMenu.Item shortcut="⌘ R">Change Password</DropdownMenu.Item>
         </Link>
         <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ ⌫" color="red"  onClick={() => {
-                dispatch(logout());
-                navigate('/login')
-                toast.success("Logout Successfully!")
-              }}>
+        <DropdownMenu.Item shortcut="⌘ ⌫" color="red"  onClick= {handleLogout}>
           Logout
         </DropdownMenu.Item>
         {/*   <NavLink

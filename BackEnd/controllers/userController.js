@@ -44,8 +44,6 @@ export const loginUser = async (req, res, next) => {
         if (!(email && password)) {
             res.status(400).json({ email: email, password: password }).send("All fields are required");
         }
-        // let token = req.cookies.token;
-        //check for signup token and email verification
 
         //find user in DB from req object
         const user = await User.findOne({ email })
@@ -53,23 +51,23 @@ export const loginUser = async (req, res, next) => {
         //if user exists, then match password
         if (user && (await bcrypt.compare(password, user.password))) {
 
-            //token generation
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 86400 })
+            //token generation => 43200 = 12 hours
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 43200 })
             user.token = token;
             user.password = undefined;
 
             //cookie section
-            const cookieOption = {
-                expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-                httpOnly: true,
-                SameSite: 'None',
-                secure: true,
-            };
-            res.setHeader('Auth', `Bearer ${token}`).status(200).cookie("token", token, cookieOption).json({
+            // const cookieOption = {
+            //     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+            //     httpOnly: true,
+            //     SameSite: 'Lax',
+            //     secure: true,
+            // };
+            res.setHeader('Authorization', `Bearer ${token}`).status(200).json({
                 userEmail: user.email,
-                // user: user,
+                userName: user.name,
                 success: true,
-                // token: token,
+                token: token,
             });
             console.log("User Logged In ");
         } else if (!user) {

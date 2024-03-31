@@ -12,6 +12,11 @@ import { Spinner } from '@radix-ui/themes';
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie'
 
+// const api = axios.create({
+//   baseURL: 'http://localhost:8080/user', // Replace with your backend API base URL
+//   withCredentials: true
+// });
+
 
 function Login() {
   const navigate = useNavigate();
@@ -25,7 +30,7 @@ function Login() {
     setCaptchaToken(token);
   };
 
-  const handleChange = (e)=>{   
+  const handleChange = (e) => {
     console.log(e.target.id, e.target.value);
     setData({ ...data, [e.target.id]: e.target.value });
   }
@@ -38,7 +43,7 @@ function Login() {
       toast.error('Please complete the reCAPTCHA verification.');
       return;
     }
-     if (!data.email || !data.password) {
+    if (!data.email || !data.password) {
       toast.error('All fields are required');
       return;
     }
@@ -51,12 +56,22 @@ function Login() {
         email: data.email,
         password: data.password
       });
-      console.log(response.data);
-      console.log(response.status);
+
+      console.log("Response Data: ",response.data);
+      // console.log(response.status);
       // Handle response from server
       if (response.status === 200) {
-        const token = Cookies.get('token');
-        if(!token){
+        const token = response.data.token;
+        const options = {
+          expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+          httpOnly: true,
+          SameSite: 'None',
+          secure: true,
+        };
+        //if setting in localStorage then set cookie is not required
+        // const setCookie = Cookies.set('token', token, options)
+        // console.log("Cookies set " + setCookie);
+        if (!token) {
           console.log('Token not found ');
         }
         // const { userEmail } = response.data;
@@ -65,18 +80,18 @@ function Login() {
           token: token,
           role: 'user'
         };
-        
+
         // Login successful, redirect or perform necessary actions
         //setting token in local storage
         localStorage.setItem('token', token);
         dispatch(login(payload));
         console.log('User Login successful');
         toast.success('User Login successful');
-        navigate('/profile'); 
+        navigate('/profile');
         // clear form
         setData({ email: '', password: '' });
-        setloading(false )
-        
+        setloading(false)
+
       } else {
         // Login failed, display error message
         console.error('Login failed');
@@ -86,16 +101,16 @@ function Login() {
 
       }
 
-    }catch(error){
+    } catch (error) {
       console.error('Error:', error);
-      setloading(false )
+      setloading(false)
       toast.error('Unable to Login due to ' + error.message);
     }
 
     // clear form
 
 
-    
+
   };
   return (
     <div className="flex justify-center items-center mt-8 mb-4">
@@ -105,15 +120,15 @@ function Login() {
           <p className="mt-2 text-sm text-gray-500 mb-4">Please sign in to your account</p>
         </div>
         <div className="mb-4 text-center space-y-2 ml-3">
-  <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
-    <FaGithub className="mr-2 cursor-pointer" />
-    Continue with GitHub
-  </Button>
-  <Button color="red" className="flex items-center  cursor-pointer px-16 py-5" variant="outline">
-    <FaGoogle className="mr-2 cursor-pointer" />
-    Continue with Google
-  </Button>
-</div>
+          <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+            <FaGithub className="mr-2 cursor-pointer" />
+            Continue with GitHub
+          </Button>
+          <Button color="red" className="flex items-center  cursor-pointer px-16 py-5" variant="outline">
+            <FaGoogle className="mr-2 cursor-pointer" />
+            Continue with Google
+          </Button>
+        </div>
 
 
         <div className="flex items-center justify-center mb-4 space-x-4">
@@ -171,7 +186,7 @@ function Login() {
           </div>
           <div className="mt-6">
             <Button type="submit" variant="surface" className="w-full cursor-pointer" disabled={loading}>
-              Log in {loading ? <Spinner/> :""}
+              Log in {loading ? <Spinner /> : ""}
             </Button>
           </div>
         </form>
