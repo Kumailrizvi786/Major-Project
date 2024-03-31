@@ -147,6 +147,30 @@ const getResultsByUserId = async (userId) => {
     }
 }
 
+export const updateUser = async (req, res) => {
+    try{
+    const {email, name, age, city} = req.body;
+
+    const user = await User.findOne({email: email})
+    
+    if(!user){
+        return res.status(404).json({message: 'User not found'});
+    }
+    user.name = name;
+    user.age = age;
+    user.city = city;
+
+    const updatedUser = await User.findOneAndUpdate({_id: user._id}, {$set: user}, {new: true});
+    updatedUser.password = undefined;
+
+    return res.status(200).json({user: updatedUser,success: true});
+}catch(err){
+    console.log(err);
+    return res.status(500).json({message: 'Internal Server Error'});
+}
+
+}
+
 const setResponseObject = (initialResponseObject, userObject, userResult) => {
     initialResponseObject.name = userObject.name;
     initialResponseObject.email = userObject.email;
