@@ -12,6 +12,7 @@ function Exercise() {
   const navigate = useNavigate();
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');
+  const [language, setLanguage] = useState('hindi');
   const [generatedContent, setGeneratedContent] = useState('');
   const [prompt, setPrompt] = useState('');
     // const [generatedContent, setGeneratedContent] = useState('');
@@ -80,7 +81,7 @@ const generateContent = async (prompt) => {
   const handleGenerateContent = () => {
     toast.success("Generating content...")
     // Construct prompt based on age group and category
-    const prompt = `Generate a reading exercise text for ${ageGroup} on ${category} in 200 Character.`;
+    const prompt = `Generate a reading exercise text for ${ageGroup} on ${category} in ${language} in 200 Character.`;
     console.log(prompt)
     setPrompt(prompt);
     generateContent(prompt);
@@ -100,34 +101,47 @@ const generateContent = async (prompt) => {
        
       <Heading size="8" className="mb-4">Generative Practice <IoSparklesSharp className={`ml-1 inline ${loading && "animate-ping"}  `} /></Heading>
       <div className="flex space-x-4 mb-4">
-        <select
-          value={ageGroup}
-          onChange={(e) => setAgeGroup(e.target.value)}
-          className="border rounded-md px-3 py-2 w-1/3 focus:outline-none"
-        >
-          <option value="">Select Age Group</option>
-          <option value="child">Child</option>
-          <option value="teen">Teen</option>
-          <option value="adult">Adult</option>
-        </select>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="border rounded-md px-3 py-2 w-1/3 focus:outline-none"
-        >
-          <option value="">Select Category</option>
-          <option value="literature">Literature</option>
-          <option value="science">Science</option>
-          <option value="history">History</option>
-        </select>
-        <Button
-          onClick={handleGenerateContent}
-          className="mt-1 cursor-pointer"
-          disabled={loading || !ageGroup || !category}
-        >
-         {loading ? 'Generating...' : 'Generate'} <IoSparklesSharp className="ml-1" />
-        </Button>
-      </div>
+  <select
+    value={ageGroup}
+    onChange={(e) => setAgeGroup(e.target.value)}
+    className="border rounded-md px-3 py-2 w-1/3 focus:outline-none"
+  >
+    <option value="">Select Age Group</option>
+    <option value="child">Child</option>
+    <option value="teen">Teen</option>
+    <option value="adult">Adult</option>
+  </select>
+  <select
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    className="border rounded-md px-3 py-2 w-1/3 focus:outline-none"
+  >
+    <option value="">Select Category</option>
+    <option value="literature">Literature</option>
+    <option value="science">Science</option>
+    <option value="history">History</option>
+  </select>
+  <select
+    value={language}
+    onChange={(e) => setLanguage(e.target.value)}
+    className="border rounded-md px-3 py-2 w-1/3 focus:outline-none"
+  >
+    <option value="">Select Language</option>
+    <option value="english">English</option>
+    <option value="spanish">Spanish</option>
+    <option value="french">French</option>
+    <option value="hindi">Hindi</option>
+  </select>
+  <Button
+    onClick={handleGenerateContent}
+    className="mt-1 cursor-pointer"
+    disabled={loading || !ageGroup || !category || !language}
+  >
+   {loading ? 'Generating...' : 'Generate'} <IoSparklesSharp className="ml-1" />
+  </Button>
+</div>
+
+
       <Skeleton loading={loading}>
 
       <TextArea
