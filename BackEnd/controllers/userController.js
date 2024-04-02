@@ -4,6 +4,7 @@ import Result from '../models/ResultModel.js';
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import {generateEmail1} from '../services/forgetPasswordEmailService.js';
 
 export const registerUser = async (req, res, next) => {
     try {
@@ -84,12 +85,12 @@ export const loginUser = async (req, res, next) => {
 
 
 //Logout
-export const logoutUser = async (req, res, next) => {
-    // console.log(`User: ${req.cookie.user}` );
-    res.clearCookie("token", "user");
-    res.status(200).send("User Logged Out");
-    console.log("User Log Out");
-}
+// export const logoutUser = async (req, res, next) => {
+//     // console.log(`User: ${req.cookie.user}` );
+//     res.clearCookie("token", "user");
+//     res.status(200).send("User Logged Out");
+//     console.log("User Log Out");
+// }
 
 //get All details of User
 export const getAllDetails = async (req, res) => {
@@ -169,6 +170,13 @@ export const updateUser = async (req, res) => {
     return res.status(500).json({message: 'Internal Server Error'});
 }
 
+}
+
+
+//Forgot Password
+export const forgotPassword = async (req, res) => {
+    // generateEmail1
+    return res.status(200).json({message: 'Forgot Password'});
 }
 
 const setResponseObject = (initialResponseObject, userObject, userResult) => {
