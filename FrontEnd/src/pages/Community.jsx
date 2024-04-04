@@ -6,12 +6,18 @@ import {
   Card,
   Heading,
   IconButton,
-  Link,
+  Popover,
+  Flex,
+  Avatar,
+  TextArea,
+  Checkbox,
+    Link,
   Separator,
   Text,
 } from '@radix-ui/themes';
 import Breadcrumbs from '../components/Breadcrumb';
-import { IoHomeOutline } from 'react-icons/io5';
+import {ChatBubbleIcon} from '@radix-ui/react-icons'
+import { IoHomeOutline  } from 'react-icons/io5';
 
 function Community() {
     const breadcrumbs = [
@@ -89,6 +95,39 @@ function Community() {
         <Button size="large" variant="outline">
           Join Our Speed Reading Community
         </Button>
+        <Popover.Root>
+  <Popover.Trigger>
+    <Button variant="soft">
+      <ChatBubbleIcon width="16" height="16" />
+      Comment
+    </Button>
+  </Popover.Trigger>
+  <Popover.Content width="360px">
+    <Flex gap="3">
+      <Avatar
+        size="2"
+        src=""
+        fallback="A"
+        radius="full"
+      />
+      <Box flexGrow="1">
+        <TextArea placeholder="Write a comment…" style={{ height: 80 }} />
+        <Flex gap="3" mt="3" justify="between">
+          <Flex align="center" gap="2" asChild>
+            <Text as="label" size="2">
+              <Checkbox />
+              <Text>Send to group</Text>
+            </Text>
+          </Flex>
+
+          <Popover.Close>
+            <Button size="1">Comment</Button>
+          </Popover.Close>
+        </Flex>
+      </Box>
+    </Flex>
+  </Popover.Content>
+</Popover.Root>
       </Box>
     </div>
   );
