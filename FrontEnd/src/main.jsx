@@ -29,6 +29,9 @@ import ForgetPassword from './pages/Login/ForgetPassword.jsx';
 import ChangePassword from './pages/Login/ChangePassword.jsx';
 import Test from './components/Test.jsx';
 import Community from './pages/Community.jsx';
+import SpeedReadingPage from './pages/Reading/SpeedReadingPage.jsx';
+import Comprehension from './pages/Reading/Comprehension.jsx';
+import ResultPage from './pages/Reading/Result.jsx';
 
 
 const router = createBrowserRouter([
@@ -95,6 +98,18 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: <Community/>,
+      },
+      {
+        path: "/speedread",
+        element: <SpeedReadingPage/>,
+      },
+      {
+        path: "/comprehension",
+        element: <Comprehension/>,
+      },
+      {
+        path: "/result",
+        element: <ResultPage/>,
       },
     ],
     errorElement: <ErrorPage />
