@@ -24,6 +24,6 @@ app.use(cookieParser())
 routes(app)
 
 app.listen(process.env.PORT || 8082, () => {
-    console.log(`Server is running on port ${process.env.PORT || 8082} url is http://localhost:${process.env.PORT || 8082}/sayHello`);
+    console.log(`Server is running on port ${process.env.PORT || 8082} url is http://localhost:${process.env.PORT || 8082}/admin`);
     }
 );

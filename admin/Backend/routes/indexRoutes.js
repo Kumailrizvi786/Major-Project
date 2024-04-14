@@ -1,6 +1,7 @@
-export const routes = (app) => {  
-    app.get("/sayHello", (req, res) => {
-        res.json({message: "Hello World"});
-        }
-    );
+import excerciseRoutes from './excerciseRoutes.js';
+import adminRoutes from './adminRoutes.js';
+
+export const routes = (app) => {
+    app.use('/admin/excercise', excerciseRoutes);
+    app.use('/admin', adminRoutes);
 }
