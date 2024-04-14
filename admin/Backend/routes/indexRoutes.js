@@ -1,4 +1,4 @@
-import excerciseRoutes from './excerciseRoutes.js';
+import excerciseRoutes from './exerciseRoutes.js';
 import adminRoutes from './adminRoutes.js';
 
 export const routes = (app) => {
