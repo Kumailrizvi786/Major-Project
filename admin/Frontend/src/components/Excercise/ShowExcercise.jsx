@@ -39,7 +39,7 @@ function ShowExcercise() {
 </TextField.Root>
         </div>
         <Link to="/create-exercise">
-        <Button radius='full'>
+        <Button radius='full' className='cursor-pointer'>
           Add New Exercise
         </Button>
         </Link>

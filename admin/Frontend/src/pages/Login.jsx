@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 // lock icon from react-icons
 import { LockClosedIcon as Lock } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
@@ -63,6 +63,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    <Toaster />
     </Theme>
   );
 };

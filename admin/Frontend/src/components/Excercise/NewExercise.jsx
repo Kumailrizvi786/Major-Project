@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { Button, TextArea, Card } from '@radix-ui/themes';
+import { Link } from 'react-router-dom';
 
 function NewExercise() {
   const [name, setName] = useState('');
@@ -23,10 +24,17 @@ function NewExercise() {
 
   return (
     <Card className="p-6 mt-4">
-      <div className="flex items-center mb-6">
+      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center">
         <PlusCircledIcon className="h-8 w-8 text-[] mr-3" />
         <h2 className="text-2xl font-bold leading-none">Create New Exercise</h2>
       </div>
+      <Link to="/all-exercises">
+        <Button radius='full' className='cursor-pointer'>
+          View All Exercise
+        </Button>
+        </Link>
+        </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
