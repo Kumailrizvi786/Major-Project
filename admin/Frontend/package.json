@@ -32,7 +32,7 @@
     "react-icons": "^4.12.0",
     "react-multi-select-component": "^4.3.4",
     "react-redux": "^9.0.4",
-    "react-router-dom": "^6.21.1",
+    "react-router-dom": "^6.22.3",
     "react-select": "^5.8.0",
     "react-switch": "^7.0.0",
     "react-toastify": "^9.1.3",
@@ -44,13 +44,13 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "vite": "^5.0.8"
   }
 }
