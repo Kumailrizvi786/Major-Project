@@ -8,6 +8,9 @@ import ForgotPassword from './pages/ForgotPassword.jsx'
 import AllCard from './components/AllCard.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Usermanagement from './pages/Usermanagement.jsx'
+import NewExercise from './components/Excercise/NewExercise.jsx'
+import AddExercise from './pages/AddExercise.jsx'
+
 
 
 const router = createBrowserRouter([
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/usermanagement",
         element: <Usermanagement/>,
+      },
+      {
+        path: "/create-exercise",
+        element: <AddExercise/>,
       },
       
     ],

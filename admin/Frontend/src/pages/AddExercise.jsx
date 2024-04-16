@@ -1,13 +1,12 @@
 import React from 'react'
-import Breadcrumbs from '../components/Breadcrumbs';
+import NewExercise from '../components/Excercise/NewExercise';
 import { RiHome2Line } from 'react-icons/ri';
-import AllCard from '../components/AllCard';
-import CreateExercise from '../components/Excercise/CreateExcercise';
+import Breadcrumbs from '../components/Breadcrumbs';
 
-function Dashboard() {
+function AddExercise() {
     const breadcrumbsItems = [
         { text: 'Home', link: '/', icon: <RiHome2Line /> },
-        { text: 'Dashboard' },
+        { text: 'Add New Exercise' },
       ];
   return (
     <div>
@@ -15,9 +14,9 @@ function Dashboard() {
       <div className='flex flex-col pt-16 p-4'>
         <Breadcrumbs items={breadcrumbsItems} />
         <div className="flex flex-wrap">
-                <AllCard/>
+                <NewExercise/>
         </div>
-        <CreateExercise/>
+        {/* <CreateExercise/> */}
        
         
 
@@ -29,4 +28,9 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default AddExercise
+
+
+
+
+
