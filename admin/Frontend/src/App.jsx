@@ -1,4 +1,4 @@
-import Toaster from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { Outlet } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 import Navbar from './components/Navbar';
@@ -11,7 +11,7 @@ export default function App() {
     <Theme>
       <SliderBar  />  
       <Outlet/>
-      <Toaster />
+      <Toaster/>
     </Theme>
     </>
   );

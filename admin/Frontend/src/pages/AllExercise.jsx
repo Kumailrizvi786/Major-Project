@@ -2,11 +2,12 @@ import React from 'react'
 import NewExercise from '../components/Excercise/NewExercise';
 import { RiHome2Line } from 'react-icons/ri';
 import Breadcrumbs from '../components/Breadcrumbs';
+import ShowExcercise from '../components/Excercise/ShowExcercise';
 
 function AddExercise() {
     const breadcrumbsItems = [
         { text: 'Home', link: '/', icon: <RiHome2Line /> },
-        { text: 'Add New Exercise' },
+        { text: 'All Exercise' },
       ];
   return (
     
@@ -14,7 +15,7 @@ function AddExercise() {
             <div className='flex flex-col pt-16 p-4'>
         <Breadcrumbs items={breadcrumbsItems} />
         
-                <NewExercise/>
+                <ShowExcercise/>
         
         {/* <CreateExercise/> */}
        

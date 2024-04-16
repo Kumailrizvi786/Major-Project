@@ -24,9 +24,11 @@ function CreateExercise() {
           <Text as="h2" size="4" className="text-2xl font-bold leading-none">All Exercises</Text>
         </div>
         <Text className="text-gray-700 mb-6">View all existing exercises.</Text>
+        <Link to="/all-exercises">
         <Button className="bg-[#3859C7] text-white font-semibold py-3 px-6 rounded-full hover:bg-indigo-600 transition duration-300">
           View Exercises
         </Button>
+        </Link>
       </Card>
     </div>
   );

@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Usermanagement from './pages/Usermanagement.jsx'
 import NewExercise from './components/Excercise/NewExercise.jsx'
 import AddExercise from './pages/AddExercise.jsx'
+import AllExercise from './pages/AllExercise.jsx'
 
 
 
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         path: "/create-exercise",
         element: <AddExercise/>,
       },
+      {
+        path: "/all-exercises",
+        element: <AllExercise/>,
+      },
+      
       
     ],
   },
