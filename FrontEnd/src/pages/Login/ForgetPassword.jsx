@@ -40,6 +40,7 @@ function ForgetPassword() {
         </form>
       </Box>
     </div>
+    
   );
 }
 
