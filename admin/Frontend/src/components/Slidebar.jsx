@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   const NavMenu = [
     { title:"Dashboard", path:'/', icon:<RxDashboard/>},
-    { title:"User Management", path:'/workorder',  icon:<RxCardStackPlus />},
+    { title:"User Management", path:'/usermanagement',  icon:<RxCardStackPlus />},
     { title:"Content Management", path:'/addworkorder',  icon:<RxStack  />},
     { title:"Categories", path:'/workorderAllocation',  icon:<RxCardStack />},
   ]

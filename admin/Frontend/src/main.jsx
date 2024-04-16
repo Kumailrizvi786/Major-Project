@@ -5,6 +5,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login.jsx'
 import AllCard from './components/AllCard.jsx'
+import Dashboard from './pages/Dashboard.jsx'
+import Usermanagement from './pages/Usermanagement.jsx'
 
 const router = createBrowserRouter([
   {
@@ -12,8 +14,16 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       {
-        path: "/",
+        path: "/cards",
         element: <AllCard/>,
+      },
+      {
+        path: "/",
+        element: <Dashboard/>,
+      },
+      {
+        path: "/usermanagement",
+        element: <Usermanagement/>,
       },
       {
         path: "/login",
