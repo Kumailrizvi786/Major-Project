@@ -3,8 +3,29 @@ import Content from '../models/ContentModel.js';
 import MCQ from '../models/MCQModel.js';
 
 export const getExcerciseByName = async (req, res) => {
-    return null;
+  try {
+    const { name } = req.body; // Assuming the exercise name comes from request body
+
+    // Fetch the exercise by name, populate 'content' and then populate 'mcqs' within content
+    const exercise = await Exercise.findOne({ name }).populate({
+      path: 'content',
+      populate: {
+        path: 'mcqs'
+      }
+    });
+
+    if (!exercise) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    // Send the fetched exercise in the response
+    res.status(200).json(exercise);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
+
 
 // export const createExcercise = async (req, res) => {
 //     return null;
