@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Text, Button, Badge, TextField, AlertDialog, Flex } from '@radix-ui/themes';
 import { ListBulletIcon, MagnifyingGlassIcon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
-// import { FaIconName1, FaIconName2 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function ShowExcercise({ exercises }) {
@@ -40,43 +39,43 @@ function ShowExcercise({ exercises }) {
         {exercises.map((exercise) => (
           <div key={exercise._id} className="border rounded p-4 flex items-center justify-between">
             <div>
-  <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
-  <p className="text-gray-600 mb-4">{exercise.description}</p>
-  <div className="flex flex-wrap gap-2">
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Difficulty:</span>
-      <Badge className="ml-2">{exercise.difficulty}</Badge>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Min Age:</span>
-      <span className="ml-2">{exercise.content.minAge} 10</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Max Age:</span>
-      <span className="ml-2">{exercise.content.maxAge} 90</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Content Type:</span>
-      <span className="ml-2">{exercise.content.contentType}</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Content Description:</span>
-      <span className="ml-2">{exercise.content.description}</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Question:</span>
-      <span className="ml-2">{exercise.content.mcqs[0].question}</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Options:</span>
-      <span className="ml-2">{exercise.content.mcqs[0].options.join(', ')}</span>
-    </div>
-    <div className="flex items-center">
-      <span className="text-gray-700 font-semibold">Correct Answer:</span>
-      <span className="ml-2">{exercise.content.mcqs[0].correctAnswer}</span>
-    </div>
-  </div>
-</div>
+              <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
+              <p className="text-gray-600 mb-4">{exercise.description}</p>
+              <div className="flex flex-wrap gap-2">
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Difficulty:</span>
+                  <Badge className="ml-2">{exercise.difficulty.level}</Badge>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Min Age:</span>
+                  <span className="ml-2">{exercise.difficulty.minAge}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Max Age:</span>
+                  <span className="ml-2">{exercise.difficulty.maxAge}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Content Type:</span>
+                  <span className="ml-2">{exercise.content.contentType}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Content Description:</span>
+                  <span className="ml-2">{exercise.content.description}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Question:</span>
+                  <span className="ml-2">{exercise.content.mcqs[0].question}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Options:</span>
+                  <span className="ml-2">{exercise.content.mcqs[0].options.join(', ')}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-700 font-semibold">Correct Answer:</span>
+                  <span className="ml-2">{exercise.content.mcqs[0].correctAnswer}</span>
+                </div>
+              </div>
+            </div>
 
             <div className="flex items-center space-x-2">
               <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
