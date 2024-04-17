@@ -65,7 +65,7 @@ export const createExercise = async (req, res) => {
       // Save the exercise
       const savedExercise = await newExercise.save();
   
-      res.status(201).json(savedExercise);
+      res.status(200).json(savedExercise);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server Error' });
@@ -80,6 +80,22 @@ export const deleteExcerciseByName = async (req, res) => {
     return null;
 };
 
+
+
 export const getAllExercise = async (req, res) => {
-  return null;
+  try {
+    // Fetch all exercises, populate 'content' and then populate 'mcqs' within content
+    const exercises = await Exercise.find().populate({
+      path: 'content',
+      populate: {
+        path: 'mcqs'
+      }
+    });
+
+    // Send the fetched exercises in the response
+    res.status(200).json(exercises);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
 };
