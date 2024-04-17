@@ -60,7 +60,7 @@ export const createExercise = async (req, res) => {
       }
   
       // Set the contents for the exercise
-      newExercise.contents = exerciseContents;
+      newExercise.content = exerciseContents;
   
       // Save the exercise
       const savedExercise = await newExercise.save();
@@ -78,4 +78,8 @@ export const updateExcerciseByName = async (req, res) => {
 
 export const deleteExcerciseByName = async (req, res) => {
     return null;
+};
+
+export const getAllExercise = async (req, res) => {
+  return null;
 };
