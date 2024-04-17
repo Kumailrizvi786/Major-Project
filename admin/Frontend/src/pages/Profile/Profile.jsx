@@ -45,7 +45,7 @@ const Profile = () => {
                                             Name
                                         </Text>
                                         <TextField.Root
-                                            defaultValue="sahil"
+                                            defaultValue={userData.name}
                                             placeholder="Enter your full name"
                                         />
                                     </label>
@@ -54,7 +54,7 @@ const Profile = () => {
                                             Email
                                         </Text>
                                         <TextField.Root
-                                            defaultValue="testingmail"
+                                            defaultValue={userData.email}
                                             placeholder="Enter your email"
                                             disabled
                                         />

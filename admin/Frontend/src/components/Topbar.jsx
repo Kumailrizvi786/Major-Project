@@ -4,7 +4,7 @@ import { IoLocationSharp, IoSpeedometer, IoSpeedometerOutline } from 'react-icon
 
 const TopBar = ({open}) => {
   return (
-    <div className='fixed top-0 left-0 right-0 bg-foreground-blue pt-1 pb-2 shadow z-50'>
+    <div className='fixed top-0 left-0 right-0 bg-foreground-blue pt-1 pb-2 shadow'>
           <div className='flex'>
             <div>
             <div className='my-auto ml-2'>

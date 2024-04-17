@@ -112,14 +112,14 @@ const Login = () => {
           </div>
           <div className="flex items-center justify-between">
             <Button 
-               className='w-half cursor-pointer'
+               className='w-full cursor-pointer'
               // className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Sign In
             </Button>
-            <Link to="/forgetpassword" className="inline-block align-baseline font-bold text-sm text-indigo-500 hover:text-indigo-800" href="#">
+            {/* <Link to="/forgetpassword" className="inline-block align-baseline font-bold text-sm text-indigo-500 hover:text-indigo-800" href="#">
               Forgot Password?
-            </Link>
+            </Link> */}
           </div>
         </form>
       </div>
