@@ -22,7 +22,7 @@ const Profile = () => {
                 <div>
                     {/* Including profile pic */}
                     <Flex justify="center">
-                        <Avatar alt="Profile picture" radius='full' fallback="S" size="8" />
+                        <Avatar alt="Profile picture" radius='full' fallback={userData.name[0]} size="8" />
                     </Flex>
                     {/* Edit profile button */}
                     <Flex justify="center" className="mt-4">
