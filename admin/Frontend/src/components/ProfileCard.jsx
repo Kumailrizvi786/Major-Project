@@ -5,7 +5,7 @@ import { GoSignOut } from "react-icons/go";
 import { FaPerson } from 'react-icons/fa6';
 import { Avatar } from '@radix-ui/themes';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import getUser from '../utils/helper';
 
 
@@ -53,6 +53,7 @@ const handleSignOut = () => {
                   {usrDisplayName}
                 </div>       
             </Menubar.Item>
+            <Link to="/profile">
             <Menubar.Item className="flex flex-row hover:cursor-pointer leading-none text-violet11 rounded items-center h-[40px] px-[10px] relative select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none">
                 <div>
                   <IoSettingsOutline/>
@@ -61,6 +62,7 @@ const handleSignOut = () => {
                   Account Settings
                 </div>       
             </Menubar.Item>
+            </Link>
             
             <Menubar.Separator className="h-[1px] bg-violet6 m-[5px]" />
 
