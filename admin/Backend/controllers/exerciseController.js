@@ -1,6 +1,7 @@
 import Exercise from '../models/ExerciseModel.js';
 import Content from '../models/ContentModel.js';
 import MCQ from '../models/MCQModel.js';
+import mongoose from 'mongoose';
 
 export const getExerciseByName = async (req, res) => {
   try {
@@ -208,8 +209,75 @@ export const updateExerciseByName = async (req, res) => {
 };
 
 
-export const deleteExerciseByName = async (req, res) => {
-  return null;
+// export const deleteExerciseById = async (req, res) => {
+//   return null;
+// };
+
+export const deleteExerciseById = async (req, res) => {
+  try {
+    const { id } = req.params; // Assuming the exercise ID comes from request params
+    // console.log(id);
+    // Check if a valid ID was provided
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid exercise ID' });
+    }
+
+    // Delete the exercise by ID (with populate to fetch content reference)
+    const deletedExercise = await Exercise.findByIdAndDelete(id).populate('content');
+
+    // console.log("deletedExercise "+ deletedExercise); 
+
+    // deletedExercise {
+    //   _id: new ObjectId('661ff81a77e6ef3c52f050ae'),     
+    //   name: 'Test1',
+    //   description: '1st Exercise',
+    //   difficulty: {
+    //     minAge: 6,
+    //     maxAge: 8,
+    //     level: 'Easy',
+    //     _id: new ObjectId('661ff81a77e6ef3c52f050af')    
+    //   },
+    //   content: {
+    //     _id: new ObjectId('661ff81a77e6ef3c52f050b0'),   
+    //     contentType: 'text',
+    //     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar at massa eu pulvinar. Duis eget libero id tellus molestie mattis a quis eros. Integer a metus ligula. Donec cursus purus eget tempus suscipit. Pellentesque lobortis tellus a turpis hendrerit molestie. Aliquam feugiat dignissim urna et aliquam. Etiam hendrerit at.',
+    //     imageUrl: null,
+    //     description: '1st Description',
+    //     mcqs: [
+    //       new ObjectId('661ff81a77e6ef3c52f050b1'),      
+    //       new ObjectId('661ff81a77e6ef3c52f050b3')       
+    //     ],
+    //     __v: 0
+    //   },
+    //   __v: 0
+    // }
+
+
+
+    // Check if exercise was found and deleted
+    if (!deletedExercise) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    // If content exists, delete it and its associated MCQs
+    if (deletedExercise.content) {
+      const contentId = deletedExercise.content._id;
+      // console.log("MCQ Ids => ", deletedExercise.content.mcqs)
+      // const mcqIds = deletedExercise.content.mcqs.map(id => mongoose.Types.ObjectId(id));
+      
+      // Delete MCQs associated with the content
+      await MCQ.deleteMany({ _id: { $in: deletedExercise.content.mcqs } });
+
+      // Delete the content itself
+      await Content.findByIdAndDelete(contentId);
+    }
+
+    // Send success message in the response
+    res.status(200).json({ message: 'Exercise deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
 
 
