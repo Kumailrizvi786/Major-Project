@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 export const getExerciseByName = async (req, res) => {
   try {
-    const { name } = req.body; // Assuming the exercise name comes from request body
+    const { name } = req.params; // Assuming the exercise name comes from request params
 
     // Fetch the exercise by name, populate 'content' and then populate 'mcqs' within content
     const exercise = await Exercise.findOne({ name }).populate({
@@ -109,10 +109,6 @@ export const createExercise = async (req, res) => {
   }
 };
 
-// export const updateExcerciseByName = async (req, res) => {
-//   return null;
-// };
-
 export const updateExerciseByName = async (req, res) => {
   try {
     const { name, description, difficulty, contents } = req.body; // Update data
@@ -208,11 +204,6 @@ export const updateExerciseByName = async (req, res) => {
   }
 };
 
-
-// export const deleteExerciseById = async (req, res) => {
-//   return null;
-// };
-
 export const deleteExerciseById = async (req, res) => {
   try {
     const { id } = req.params; // Assuming the exercise ID comes from request params
@@ -279,8 +270,6 @@ export const deleteExerciseById = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
-
 
 export const getAllExercise = async (req, res) => {
   try {

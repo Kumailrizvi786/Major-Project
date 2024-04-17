@@ -4,7 +4,7 @@ import {getExerciseByName, createExercise, updateExerciseByName, deleteExerciseB
 const router = express.Router();
 
 router.get('/getAll', getAllExercise);
-router.get('/getByName', getExerciseByName);
+router.get('/getByName/:name', getExerciseByName);
 router.post('/create', createExercise);
 router.put('/updateByName', updateExerciseByName);
 router.delete('/deleteById/:id', deleteExerciseById);
