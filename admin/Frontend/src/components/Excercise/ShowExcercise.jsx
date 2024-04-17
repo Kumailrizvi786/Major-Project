@@ -1,18 +1,10 @@
 import React from 'react';
 import { Card, Text, Button, Badge, TextField, AlertDialog, Flex } from '@radix-ui/themes';
-import { PlusCircledIcon, Pencil1Icon, ListBulletIcon, TrashIcon, Pencil2Icon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { ListBulletIcon, MagnifyingGlassIcon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
+// import { FaIconName1, FaIconName2 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-function ShowExcercise() {
-  // Dummy data for exercises
-  const exercises = [
-    { id: 1, name: 'Exercise 1', description: 'Description for Exercise 1', difficulty: 'Easy' },
-    { id: 2, name: 'Exercise 2', description: 'Description for Exercise 2', difficulty: 'Medium' },
-    { id: 3, name: 'Exercise 3', description: 'Description for Exercise 3', difficulty: 'Hard' },
-    { id: 4, name: 'Exercise 4', description: 'Description for Exercise 4', difficulty: 'Easy' }
-  ];
-
+function ShowExcercise({ exercises }) {
   const handleEdit = (exerciseId) => {
     // Add logic to handle edit action
     console.log('Editing exercise with ID:', exerciseId);
@@ -32,56 +24,88 @@ function ShowExcercise() {
         </div>
         {/* search  */}
         <div className="flex items-center space-x-4">
-        <TextField.Root placeholder="Search exercise…">
-  <TextField.Slot>
-    <MagnifyingGlassIcon height="16" width="16" />
-  </TextField.Slot>
-</TextField.Root>
+          <TextField.Root placeholder="Search exercise…">
+            <TextField.Slot>
+              <MagnifyingGlassIcon height="16" width="16" />
+            </TextField.Slot>
+          </TextField.Root>
         </div>
         <Link to="/create-exercise">
-        <Button radius='full' className='cursor-pointer'>
-          Add New Exercise
-        </Button>
+          <Button radius='full' className='cursor-pointer'>
+            Add New Exercise
+          </Button>
         </Link>
       </div>
       <div className="space-y-4">
         {exercises.map((exercise) => (
-          <div key={exercise.id} className="border rounded p-4 flex items-center justify-between">
+          <div key={exercise._id} className="border rounded p-4 flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-semibold">{exercise.name}</h3>
-              <p className="text-gray-600">{exercise.description}</p>
-              <p className="text-gray-500">Difficulty: <Badge>{exercise.difficulty}</Badge></p>
-            </div>
+  <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
+  <p className="text-gray-600 mb-4">{exercise.description}</p>
+  <div className="flex flex-wrap gap-2">
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Difficulty:</span>
+      <Badge className="ml-2">{exercise.difficulty}</Badge>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Min Age:</span>
+      <span className="ml-2">{exercise.content.minAge} 10</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Max Age:</span>
+      <span className="ml-2">{exercise.content.maxAge} 90</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Content Type:</span>
+      <span className="ml-2">{exercise.content.contentType}</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Content Description:</span>
+      <span className="ml-2">{exercise.content.description}</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Question:</span>
+      <span className="ml-2">{exercise.content.mcqs[0].question}</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Options:</span>
+      <span className="ml-2">{exercise.content.mcqs[0].options.join(', ')}</span>
+    </div>
+    <div className="flex items-center">
+      <span className="text-gray-700 font-semibold">Correct Answer:</span>
+      <span className="ml-2">{exercise.content.mcqs[0].correctAnswer}</span>
+    </div>
+  </div>
+</div>
+
             <div className="flex items-center space-x-2">
-              <button onClick={() => handleEdit(exercise.id)} className="text-indigo-500 hover:text-indigo-700">
+              <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
                 <Pencil2Icon className="h-6 w-6" />
               </button>
-              <button onClick={() => handleDelete(exercise.id)} className="text-red-500 hover:text-red-700">
-                
+              <button onClick={() => handleDelete(exercise._id)} className="text-red-500 hover:text-red-700">
                 <AlertDialog.Root>
-  <AlertDialog.Trigger>
-  <TrashIcon className="h-6 w-6" />
-  </AlertDialog.Trigger>
-  <AlertDialog.Content maxWidth="450px">
-    <AlertDialog.Title>Delete Excercise</AlertDialog.Title>
-    <AlertDialog.Description size="2">
-      Are you sure? you want to delete this exercise.
-    </AlertDialog.Description>
-
-    <Flex gap="3" mt="4" justify="end">
-      <AlertDialog.Cancel>
-        <Button variant="soft" color="gray">
-          Cancel
-        </Button>
-      </AlertDialog.Cancel>
-      <AlertDialog.Action>
-        <Button variant="solid" color="red">
-          Delete
-        </Button>
-      </AlertDialog.Action>
-    </Flex>
-  </AlertDialog.Content>
-</AlertDialog.Root>
+                  <AlertDialog.Trigger>
+                    <TrashIcon className="h-6 w-6" />
+                  </AlertDialog.Trigger>
+                  <AlertDialog.Content maxWidth="450px">
+                    <AlertDialog.Title>Delete Exercise</AlertDialog.Title>
+                    <AlertDialog.Description size="2">
+                      Are you sure you want to delete this exercise?
+                    </AlertDialog.Description>
+                    <Flex gap="3" mt="4" justify="end">
+                      <AlertDialog.Cancel>
+                        <Button variant="soft" color="gray">
+                          Cancel
+                        </Button>
+                      </AlertDialog.Cancel>
+                      <AlertDialog.Action>
+                        <Button variant="solid" color="red">
+                          Delete
+                        </Button>
+                      </AlertDialog.Action>
+                    </Flex>
+                  </AlertDialog.Content>
+                </AlertDialog.Root>
               </button>
             </div>
           </div>

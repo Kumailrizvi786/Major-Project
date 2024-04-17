@@ -1,19 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 // lock icon from react-icons
+import { useNavigate } from 'react-router-dom';
 import { LockClosedIcon as Lock } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 import { Button, Theme } from '@radix-ui/themes';
-
+import axios from 'axios';
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+  useEffect(() => { 
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      navigate('/');
+    }
+  }, []);
+  const [userDatas, setUserDatas] = useState({ email: '', password: '' });
+  const [data, setData] = useState({ email: '', password: '' });
+  const [isloggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setloading] = useState(false);
+  const handleChange = (e) => {
+    console.log(e.target.id, e.target.value);
+    setData({ ...data, [e.target.id]: e.target.value });
+  }
   
-  const handleLogin = (e) => {
-    e.preventDefault();
-    toast.error('Login logic not implemented yet!');
-    // Add your login logic here
-    console.log('Logging in with:', email, password);
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    
+    if (!data.email || !data.password) {
+      toast.error('All fields are required');
+      return;
+    }
+
+    console.log(data)
+
+    try {
+      setloading("true")
+      const response = await axios.post('http://localhost:8000/admin/login', {
+        email: data.email,
+        password: data.password
+      });
+
+      console.log("Response Data: ",response.data);
+      
+      setUserDatas(response.data)
+      // setuser data in local storage
+      localStorage.setItem('user', JSON.stringify(response.data));
+      if (response.status === 200) {
+    
+        console.log('User Login successful');
+        toast.success('User Login successful');
+        navigate('/');
+
+        // clear form
+        setData({ email: '', password: '' });
+        setloading(false)
+
+      } else {
+        // Login failed, display error message
+        console.error('Login failed');
+        setloading(false)
+        console.error('Error:', response.data);
+        toast.error('Login failed: ' + response.data.message);
+
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      setloading(false)
+      toast.error('Unable to Login due to ' + error.message);
+    }
+
+    // clear form
+
+
+
   };
   
   return (
@@ -32,8 +93,8 @@ const Login = () => {
               id="email" 
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
               placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            
+              onChange={handleChange}
               required
             />
           </div>
@@ -44,8 +105,8 @@ const Login = () => {
               id="password" 
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+             
+              onChange={handleChange}
               required
             />
           </div>

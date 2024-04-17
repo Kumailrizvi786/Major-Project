@@ -6,6 +6,7 @@ import CreateExercise from '../components/Excercise/CreateExcercise';
 import DashboardCard from '../components/DashboardCard';
 
 function Dashboard() {
+     
     const breadcrumbsItems = [
         { text: 'Home', link: '/', icon: <RiHome2Line /> },
         { text: 'Dashboard' },
