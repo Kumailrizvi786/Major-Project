@@ -29,5 +29,10 @@ export default mongoose.model('Exercise', new mongoose.Schema({
     difficulty: {
       type: difficultySchema,
       required: true
+    },
+    content: { // Reference to the Content model (One-to-One)
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Content',
+      required: true // Optional: Set required if each exercise must have content
     }
   }));

@@ -9,7 +9,7 @@ export const login = async (req, res, next) => {
     const user = await User.findOne({ email }).populate('role');
 
     if (user && (await bcrypt.compare(password, user.password)) && user.role && user.role.name === 'admin'){
-      return res.status(200).json({ "success": true });
+      return res.status(200).json({ success: true, email: user.email, name: user.name});
     } else {
       return res.status(404).json({ "error": "Invalid username or password or Role" });
     }
