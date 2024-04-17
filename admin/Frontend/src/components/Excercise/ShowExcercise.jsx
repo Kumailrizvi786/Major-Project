@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Text, Button, Badge, TextField } from '@radix-ui/themes';
+import { Card, Text, Button, Badge, TextField, AlertDialog, Flex } from '@radix-ui/themes';
 import { PlusCircledIcon, Pencil1Icon, ListBulletIcon, TrashIcon, Pencil2Icon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -32,7 +32,7 @@ function ShowExcercise() {
         </div>
         {/* search  */}
         <div className="flex items-center space-x-4">
-        <TextField.Root placeholder="Search the docs…">
+        <TextField.Root placeholder="Search exercise…">
   <TextField.Slot>
     <MagnifyingGlassIcon height="16" width="16" />
   </TextField.Slot>
@@ -57,7 +57,31 @@ function ShowExcercise() {
                 <Pencil2Icon className="h-6 w-6" />
               </button>
               <button onClick={() => handleDelete(exercise.id)} className="text-red-500 hover:text-red-700">
-                <TrashIcon className="h-6 w-6" />
+                
+                <AlertDialog.Root>
+  <AlertDialog.Trigger>
+  <TrashIcon className="h-6 w-6" />
+  </AlertDialog.Trigger>
+  <AlertDialog.Content maxWidth="450px">
+    <AlertDialog.Title>Delete Excercise</AlertDialog.Title>
+    <AlertDialog.Description size="2">
+      Are you sure? you want to delete this exercise.
+    </AlertDialog.Description>
+
+    <Flex gap="3" mt="4" justify="end">
+      <AlertDialog.Cancel>
+        <Button variant="soft" color="gray">
+          Cancel
+        </Button>
+      </AlertDialog.Cancel>
+      <AlertDialog.Action>
+        <Button variant="solid" color="red">
+          Delete
+        </Button>
+      </AlertDialog.Action>
+    </Flex>
+  </AlertDialog.Content>
+</AlertDialog.Root>
               </button>
             </div>
           </div>
