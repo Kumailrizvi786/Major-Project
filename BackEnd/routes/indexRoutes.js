@@ -1,6 +1,7 @@
 import { checkAuth } from '../middlewares/checkAuth.js';
 import userRoutes from "../routes/userRoutes.js";
-import emailRoutes from "./emailRoutes.js"
+import emailRoutes from "./emailRoutes.js";
+import exerciseRoutes from './exerciseRoutes.js';
 
 export const routes = (app) => {
     // app.use((req, res, next) => {
@@ -11,6 +12,7 @@ export const routes = (app) => {
     app.use('/user/', userRoutes);
     app.use(checkAuth);
     app.use('/email/', emailRoutes);
+    app.use('/exercise', exerciseRoutes);
     app.get("/sayHello", (req, res) => {
         res.json({message: "Hello World"});
         }

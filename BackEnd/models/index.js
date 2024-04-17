@@ -1,4 +1,4 @@
-import Exercise from "./ExerciseModel.js"
+import Exercise from "./ExcerciseModel.js"
 import Result from "./ResultModel.js"
 import Role from "./RoleModel.js";
 import User from "./UserModel.js";
