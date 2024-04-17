@@ -2,7 +2,7 @@ import Exercise from '../models/ExerciseModel.js';
 import Content from '../models/ContentModel.js';
 import MCQ from '../models/MCQModel.js';
 
-export const getExcerciseByName = async (req, res) => {
+export const getExerciseByName = async (req, res) => {
   try {
     const { name } = req.body; // Assuming the exercise name comes from request body
 
@@ -112,7 +112,7 @@ export const createExercise = async (req, res) => {
 //   return null;
 // };
 
-export const updateExcerciseByName = async (req, res) => {
+export const updateExerciseByName = async (req, res) => {
   try {
     const { name, description, difficulty, contents } = req.body; // Update data
 
@@ -208,7 +208,7 @@ export const updateExcerciseByName = async (req, res) => {
 };
 
 
-export const deleteExcerciseByName = async (req, res) => {
+export const deleteExerciseByName = async (req, res) => {
   return null;
 };
 
