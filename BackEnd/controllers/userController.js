@@ -10,9 +10,10 @@ export const registerUser = async (req, res, next) => {
     try {
         //already exists
         const user = await User.findOne({ email: req.body.email })
-        if (user) {
-            res.status(400).send({
-                message: "User Already Exists"
+        const fetchedRole = await Role.findOne({name: req.body.role});
+        if (user || !fetchedRole) {
+            return res.status(400).json({
+                message: "User Already Exists OR Role Not Found",
 
             })
         }
