@@ -1,9 +1,11 @@
 import React from 'react';
-import { Card, Text, Button, Badge, TextField, AlertDialog, Flex } from '@radix-ui/themes';
+import { Card, Text, Button, Badge, TextField, AlertDialog, Flex, Skeleton } from '@radix-ui/themes';
 import { ListBulletIcon, MagnifyingGlassIcon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
-function ShowExcercise({ exercises }) {
+function ShowExcercise({loading, exercises }) {
+
+  console.log(loading);
   const handleEdit = (exerciseId) => {
     // Add logic to handle edit action
     console.log('Editing exercise with ID:', exerciseId);
@@ -37,7 +39,8 @@ function ShowExcercise({ exercises }) {
       </div>
       <div className="space-y-4">
         {exercises.map((exercise) => (
-          <div key={exercise._id} className="border rounded p-4 flex items-center justify-between">
+          <Skeleton loading={loading}>
+          <Card key={exercise._id} className="rounded p-4 flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
               <p className="text-gray-600 mb-4">{exercise.description}</p>
@@ -107,7 +110,8 @@ function ShowExcercise({ exercises }) {
                 </AlertDialog.Root>
               </button>
             </div>
-          </div>
+          </Card>
+          </Skeleton>
         ))}
       </div>
     </Card>

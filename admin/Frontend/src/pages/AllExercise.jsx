@@ -7,16 +7,20 @@ import axios from 'axios';
 
 function AddExercise() {
   const [exercises, setExercise] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getAllExercise = async () => {
     const url = 'http://localhost:8000/admin/exercise/getAll';
+    
     try{
+      setLoading(true);
       const response = await axios.get(url);
       console.log(response.data);
       setExercise(response.data);
-
+      setLoading(false);
 
     }catch(error){
+      setLoading(false);
       console.error(error);
       toast.error("Unable to fetch data!")
     }
@@ -43,7 +47,7 @@ function AddExercise() {
             <div className='flex flex-col pt-16 p-4'>
         <Breadcrumbs items={breadcrumbsItems} />
         
-                <ShowExcercise exercises={exercises}/>
+                <ShowExcercise loading={loading} exercises={exercises}/>
         
         {/* <CreateExercise/> */}
        
