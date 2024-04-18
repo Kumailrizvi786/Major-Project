@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@google/generative-ai": "^0.7.1",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -23,6 +24,7 @@
     "@radix-ui/themes": "^3.0.2",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "formik": "^2.4.5",
     "install": "^0.13.0",
     "lottie-web": "^5.12.2",
