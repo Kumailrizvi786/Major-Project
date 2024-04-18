@@ -21,6 +21,39 @@ function NewExercise() {
   const [options, setOptions] = useState(['', '']);
   const [correctAnswer, setCorrectAnswer] = useState('');
 
+  const handleGenerate = () => {
+    // e.preventDefault();
+    // Generate dummy data
+    const generatedData = {
+      name: 'Generated Exercise',
+      description: 'This exercise was generated automatically.',
+      minAge: '6',
+      maxAge: '12',
+      level: 'Easy',
+      contentType: 'Text only',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'https://via.placeholder.com/150',
+      contentDescription: 'Additional content description.',
+      question: 'What is the capital of France?',
+      options: ['Paris', 'London', 'Berlin', 'Rome'],
+      correctAnswer: 'Paris'
+    };
+  
+    // Update state with generated data
+    setName(generatedData.name);
+    setDescription(generatedData.description);
+    setMinAge(generatedData.minAge);
+    setMaxAge(generatedData.maxAge);
+    setLevel(generatedData.level);
+    setContentType(generatedData.contentType);
+    setText(generatedData.text);
+    setImage(generatedData.image);
+    setContentDescription(generatedData.contentDescription);
+    setQuestion(generatedData.question);
+    setOptions(generatedData.options);
+    setCorrectAnswer(generatedData.correctAnswer);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your logic to handle form submission
@@ -52,6 +85,24 @@ function NewExercise() {
     setOptions(['', '']);
     setCorrectAnswer('');
   };
+
+  const handleClearForm = (e) => {
+    e.preventDefault();
+   
+    // Optionally, you can reset the form fields after submission
+    setName('');
+    setDescription('');
+    setMinAge('');
+    setMaxAge('');
+    setLevel('');
+    setContentType('');
+    setText('');
+    setImage(null);
+    setContentDescription('');
+    setQuestion('');
+    setOptions(['', '']);
+    setCorrectAnswer('');
+  }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -117,7 +168,7 @@ function NewExercise() {
         </Button>
       </Dialog.Close>
       <Dialog.Close>
-        <Button>Generate <IoSparklesSharp/></Button>
+        <Button onClick={handleGenerate}>Generate <IoSparklesSharp/></Button>
       </Dialog.Close>
     </Flex>
   </Dialog.Content>
@@ -211,25 +262,25 @@ function NewExercise() {
           </select>
         </div>
         {/* Content type */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="contentType">
-            Content Type
-          </label>
-         
-          <select
-            id="contentType"
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-            required
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          >
-            <option value="">Select Content Type</option>
-            <option value="text">AI Generated</option>
-            <option value="text">Text only</option>
-            <option value="image">Image with Text</option>
-          
-          </select>
-        </div>
+        {/* Content type */}
+<div className="mb-6">
+  <label className="block text-gray-700 font-bold mb-2" htmlFor="contentType">
+    Content Type
+  </label>
+  <select
+    id="contentType"
+    value={contentType}
+    onChange={(e) => setContentType(e.target.value)}
+    required
+    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  >
+    <option value="">Select Content Type</option>
+    <option value="AI Generated">AI Generated</option>
+    <option value="Text only">Text only</option>
+    <option value="Image with Text">Image with Text</option>
+  </select>
+</div>
+
         {/* Text content */}
         <div className="mb-6">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="text">
@@ -321,7 +372,7 @@ function NewExercise() {
         <Button type="submit" className="w-half cursor-pointer">
         Submit Excercise  <ArrowRightIcon/>
         </Button>
-        <Button type="submit" className="w-half cursor-pointer">
+        <Button onClick={handleClearForm} type="submit" className="w-half cursor-pointer">
          Clear Form <RiFormatClear/>
         </Button>
         </div>
