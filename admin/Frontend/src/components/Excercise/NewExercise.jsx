@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
-import { Button, TextArea, Card } from '@radix-ui/themes';
+import { Button,Text, TextArea, Card, Flex, TextField } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
+import { FaEye, FaEyeLowVision } from 'react-icons/fa6';
+import { IoSparklesSharp } from 'react-icons/io5';
+import { Dialog } from '@radix-ui/themes';
 
 function NewExercise() {
   const [name, setName] = useState('');
@@ -61,11 +64,72 @@ function NewExercise() {
           <PlusCircledIcon className="h-8 w-8 text-[] mr-3" />
           <h2 className="text-2xl font-bold leading-none">Create New Exercise</h2>
         </div>
+      
+        <div className="flex items-center gap-2">
+        <Dialog.Root>
+  <Dialog.Trigger>
+  <Button color='plum' radius="full" className="cursor-pointer">
+            Generative Fill <IoSparklesSharp/>
+          </Button>
+  </Dialog.Trigger>
+
+  <Dialog.Content maxWidth="450px">
+    <Dialog.Title>Generative Fill <IoSparklesSharp className='inline'/></Dialog.Title>
+    <Dialog.Description size="2" mb="4">
+      Fill the form to generate exercises.
+    </Dialog.Description>
+
+    <Flex direction="column" gap="3">
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Enter Age Group
+        </Text>
+        <TextField.Root
+          defaultValue="Child"
+          placeholder="Enter age group"
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Enter Category
+        </Text>
+        <TextField.Root
+          defaultValue="History"
+          placeholder="enter category"
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Enter language
+        </Text>
+        <TextField.Root
+          defaultValue="Hindi"
+          placeholder="Enter language"
+        />
+      </label>
+    </Flex>
+
+    <Flex gap="3" mt="4" justify="end">
+      <Dialog.Close>
+        <Button variant="soft" color="gray">
+          Cancel
+        </Button>
+      </Dialog.Close>
+      <Dialog.Close>
+        <Button>Generate <IoSparklesSharp/></Button>
+      </Dialog.Close>
+    </Flex>
+  </Dialog.Content>
+</Dialog.Root>
+       
         <Link to="/all-exercises">
           <Button radius="full" className="cursor-pointer">
-            View All Exercise
+            View All Exercise <FaEye/>
           </Button>
         </Link>
+      
+          </div>
+        
       </div>
       <form onSubmit={handleSubmit}>
         {/* Exercise name */}
@@ -149,15 +213,19 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="contentType">
             Content Type
           </label>
-          <input
+         
+          <select
             id="contentType"
-            type="text"
-            value={contentType}
-            onChange={(e) => setContentType(e.target.value)}
-            placeholder="Enter content type"
+            value={level}
+            onChange={(e) => setLevel(e.target.value)}
             required
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+          >
+            <option value="">Select Content Type</option>
+            <option value="text">Text only</option>
+            <option value="image">Image with Text</option>
+          
+          </select>
         </div>
         {/* Text content */}
         <div className="mb-6">
@@ -174,12 +242,12 @@ function NewExercise() {
         {/* Image upload */}
         <div className="mb-6">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
-            Image
+            Image Url
           </label>
           <input
             id="image"
-            type="file"
-            accept="image/*"
+            type="text"
+            placeholder='Enter image url'
             onChange={handleImageChange}
             required
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

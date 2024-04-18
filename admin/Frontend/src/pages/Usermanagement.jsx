@@ -61,21 +61,21 @@ function Usermanagement() {
 
   <Table.Body>
     <Table.Row>
-      <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
+      <Table.RowHeaderCell>Sahil Ali</Table.RowHeaderCell>
       <Table.Cell>danilo@example.com</Table.Cell>
       <Table.Cell>Developer</Table.Cell>
       <Table.Cell><Button className='bg-red-600'>Remove User <TrashIcon/> </Button></Table.Cell>
     </Table.Row>
 
     <Table.Row>
-      <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
+      <Table.RowHeaderCell>Syed Kumail Rizvi</Table.RowHeaderCell>
       <Table.Cell>zahra@example.com</Table.Cell>
       <Table.Cell>Admin</Table.Cell>
       <Table.Cell><Button className='bg-red-600 rounded-md'>Remove User  <TrashIcon/> </Button></Table.Cell>
     </Table.Row>
 
     <Table.Row>
-      <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
+      <Table.RowHeaderCell>Mohd Maaz</Table.RowHeaderCell>
       <Table.Cell>jasper@example.com</Table.Cell>
       <Table.Cell>Developer</Table.Cell>
       <Table.Cell><Button className='bg-red-600'>Remove User <TrashIcon/> </Button></Table.Cell>

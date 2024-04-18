@@ -12,6 +12,8 @@ import NewExercise from './components/Excercise/NewExercise.jsx'
 import AddExercise from './pages/AddExercise.jsx'
 import AllExercise from './pages/AllExercise.jsx'
 import Profile from './pages/Profile/Profile.jsx'
+import ExerciseMangement from './pages/ExerciseMangement.jsx'
+import Categories from './pages/Categories.jsx'
 
 
 
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/create-exercise",
         element: <AddExercise/>,
+      },
+      {
+        path: "/exercise-management",
+        element: <ExerciseMangement/>,
+      },
+      {
+        path: "/categories",
+        element: <Categories/>,
       },
       {
         path: "/all-exercises",

@@ -9,7 +9,7 @@ function AddExercise() {
   const [exercises, setExercise] = useState([]);
 
   const getAllExercise = async () => {
-    const url = 'http://localhost:8000/admin/excercise/getAll';
+    const url = 'http://localhost:8000/admin/exercise/getAll';
     try{
       const response = await axios.get(url);
       console.log(response.data);
@@ -18,6 +18,7 @@ function AddExercise() {
 
     }catch(error){
       console.error(error);
+      toast.error("Unable to fetch data!")
     }
   }
 
