@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { PlusCircledIcon } from '@radix-ui/react-icons';
+import { ArrowRightIcon, ArrowUpIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Button,Text, TextArea, Card, Flex, TextField } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeLowVision } from 'react-icons/fa6';
 import { IoSparklesSharp } from 'react-icons/io5';
 import { Dialog } from '@radix-ui/themes';
+import { RiFormatClear } from 'react-icons/ri';
 
 function NewExercise() {
   const [name, setName] = useState('');
@@ -137,7 +138,7 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
             Name
           </label>
-          <input
+          <TextField.Root
             id="name"
             type="text"
             value={name}
@@ -146,6 +147,7 @@ function NewExercise() {
             required
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          
         </div>
         {/* Exercise description */}
         <div className="mb-6">
@@ -165,7 +167,7 @@ function NewExercise() {
             <label className="block text-gray-700 font-bold mb-2" htmlFor="minAge">
               Minimum Age
             </label>
-            <input
+            <TextField.Root
               id="minAge"
               type="number"
               value={minAge}
@@ -179,7 +181,7 @@ function NewExercise() {
             <label className="block text-gray-700 font-bold mb-2" htmlFor="maxAge">
               Maximum Age
             </label>
-            <input
+            <TextField.Root
               id="maxAge"
               type="number"
               value={maxAge}
@@ -222,6 +224,7 @@ function NewExercise() {
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option value="">Select Content Type</option>
+            <option value="text">AI Generated</option>
             <option value="text">Text only</option>
             <option value="image">Image with Text</option>
           
@@ -244,7 +247,7 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
             Image Url
           </label>
-          <input
+          <TextField.Root
             id="image"
             type="text"
             placeholder='Enter image url'
@@ -270,7 +273,7 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="question">
             Question
           </label>
-          <input
+          <TextField.Root
             id="question"
             type="text"
             value={question}
@@ -285,7 +288,7 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="options">
             Options
           </label>
-          <input
+          <TextField.Root
             id="options"
             type="text"
             value={options}
@@ -300,7 +303,7 @@ function NewExercise() {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="correctAnswer">
             Correct Answer
           </label>
-          <input
+          <TextField.Root
             id="correctAnswer"
             type="text"
             value={correctAnswer}
@@ -311,9 +314,19 @@ function NewExercise() {
           />
         </div>
         {/* Submit button */}
-        <Button type="submit" className="w-full cursor-pointer">
-          Create Exercise
+        <div className="flex justify-center jusmb-6 gap-2">
+        <Button type="submit" className="w-half cursor-pointer">
+          Add more Question <PlusCircledIcon/>
         </Button>
+        <Button type="submit" className="w-half cursor-pointer">
+        Submit Excercise  <ArrowRightIcon/>
+        </Button>
+        <Button type="submit" className="w-half cursor-pointer">
+         Clear Form <RiFormatClear/>
+        </Button>
+        </div>
+
+
       </form>
     </Card>
   );
