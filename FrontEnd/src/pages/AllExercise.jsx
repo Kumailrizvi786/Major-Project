@@ -9,8 +9,8 @@ import {
   Text,
 } from '@radix-ui/themes';
 import { IoHomeOutline, IoSparklesOutline } from 'react-icons/io5';
-import { FaMicrophone, FaRegLightbulb, FaWrench } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
+import { FaMicrophone, FaRegLightbulb, FaUpload, FaWrench } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumb';
 
 function AllExercise() {
@@ -23,7 +23,8 @@ function AllExercise() {
     { title: 'Fixations Exercise', icon: <FaWrench />, path: "/fixations", level: "Medium" },
     { title: 'Generative Exercise', icon: <IoSparklesOutline />, path: "/generative-exercise", level: "Hard" },
     { title: 'Vocab Exercise', icon: <FaRegLightbulb />, path: "/vocab-exercise", level: "Easy" },
-    { title: 'Voice Exercise', icon: <FaMicrophone />, path: "/voice-exercise", level: "Medium" }
+    { title: 'Voice Exercise', icon: <FaMicrophone />, path: "/voice-exercise", level: "Medium" },
+    { title: 'Text Import and Sync', icon: <FaUpload />, path: "/text-import", level: "Medium" } // Added text import exercise
   ];
 
   return (
@@ -61,9 +62,11 @@ const ExerciseCard = ({ title, icon, path, level }) => {
         </Flex>
         <Badge color={badgeColor} radius="full" className="text-xs mt-1">{level}</Badge>
       </Flex>
-      <Button as={RouterLink} to={path} className="mt-4" variant="ghost">
+      <Link to={path} className="mt-4">
+      <Button className="mt-4" variant="ghost">
         View Exercises
       </Button>
+        </Link>
     </Card>
   );
 };
