@@ -19,8 +19,8 @@ function AllExercise() {
         { label: 'All Exercise', href: '/exercise' },
     ];
   const exercises = [
-    { title: 'Exercise Level 1', icon: <FaRegLightbulb />, path: "/exercise-level-1", level: "Easy" },
-    { title: 'Fixations Exercise', icon: <FaWrench />, path: "/fixations", level: "Medium" },
+    { title: 'General Exercises', icon: <FaRegLightbulb />, path: "/general-exercise", level: "Easy" },
+    // { title: 'Fixations Exercise', icon: <FaWrench />, path: "/fixations", level: "Medium" },
     { title: 'Generative Exercise', icon: <IoSparklesOutline />, path: "/generative-exercise", level: "Hard" },
     { title: 'Vocab Exercise', icon: <FaRegLightbulb />, path: "/vocab-exercise", level: "Easy" },
     { title: 'Voice Exercise', icon: <FaMicrophone />, path: "/voice-exercise", level: "Medium" },
