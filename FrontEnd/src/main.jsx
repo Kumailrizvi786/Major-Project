@@ -33,6 +33,8 @@ import SpeedReadingPage from './pages/Reading/SpeedReadingPage.jsx';
 import Comprehension from './pages/Reading/Comprehension.jsx';
 import ResultPage from './pages/Reading/Result.jsx';
 import AllExercise from './pages/AllExercise.jsx';
+import FixationPage from './pages/Exercise/FixationPage.jsx';
+import TextImportAndSyncPage from './pages/Exercise/TextImportAndSyncPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -65,6 +67,10 @@ const router = createBrowserRouter([
         element: <Leaderboard/>,
       },
       {
+        path: "/fixation",
+        element: <FixationPage/>,
+      },
+      {
         path: "/contact",
         element: <Contact/>,
       },
@@ -94,7 +100,15 @@ const router = createBrowserRouter([
       // },
       {
         path: "/test",
-        element: <Test/>,
+        element: <TextImportAndSyncPage/>,
+      },
+      {
+        path: "/generative-exercise",
+        element: <Exercise/>,
+      },
+      {
+        path: "/text-import",
+        element: <TextImportAndSyncPage/>,
       },
       {
         path: "/community",
