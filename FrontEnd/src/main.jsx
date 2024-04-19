@@ -32,6 +32,7 @@ import Community from './pages/Community.jsx';
 import SpeedReadingPage from './pages/Reading/SpeedReadingPage.jsx';
 import Comprehension from './pages/Reading/Comprehension.jsx';
 import ResultPage from './pages/Reading/Result.jsx';
+import AllExercise from './pages/AllExercise.jsx';
 
 
 const router = createBrowserRouter([
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/exercise",
-        element: <Exercise/>,
+        element: <AllExercise/>,
       },
       {
         path: "/explore",
@@ -87,10 +88,10 @@ const router = createBrowserRouter([
         path: "/changepassword",
         element: <ChangePassword/>,
       },
-      {
-        path: "/exercise",
-        element: <Exercise/>,
-      },
+      // {
+      //   path: "/exercise",
+      //   element: <ChangePassword/>,
+      // },
       {
         path: "/test",
         element: <Test/>,
