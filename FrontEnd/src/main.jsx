@@ -105,7 +105,7 @@ const router = createBrowserRouter([
       // },
       {
         path: "/test",
-        element: <TextImportAndSyncPage/>,
+        element: <Test/>,
       },
       {
         path: "/generative-exercise",

@@ -13,11 +13,14 @@ import { MdImportExport } from "react-icons/md";
 import { IoHomeOutline, IoClipboard, IoDocumentTextOutline, IoPlay, IoSyncCircleOutline } from 'react-icons/io5';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { FaFileImport, FaPaste } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function TextImportAndSyncPage() {
   const [importedText, setImportedText] = useState('');
   const [syncEnabled, setSyncEnabled] = useState(false);
   const [syncText, setSyncText] = useState('');
+  const navigate = useNavigate();
+
 
   // Function to handle text import from clipboard
   const handleTextImportFromClipboard = async () => {
@@ -61,6 +64,8 @@ function TextImportAndSyncPage() {
   const startReading = () => {
     // Implement reading functionality
     console.log('Start reading:', importedText);
+    const generatedContent = importedText;
+    navigate('/test',{ state: { generatedContent }}); 
   };
 
   return (
