@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Button, Card, Heading } from '@radix-ui/themes';
+import { Badge, Button, Callout, Card, Heading } from '@radix-ui/themes';
 import { Text } from '@radix-ui/themes';
 import { FaMicrophone } from 'react-icons/fa';
 import { tw } from 'twind';
+import Breadcrumbs from '../../components/Breadcrumb';
+import { IoHomeOutline } from 'react-icons/io5';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 function VoiceReadingPage() {
+  const Breadcrumbitems = [
+    { href: '/', label: 'Home' },
+    { href: '/exercise', label: 'Exercise' },
+    { href: '/exercise/voicereading', label: 'Voice Reading' },
+  ];
   const [originalText, setOriginalText] = useState(''); // State to store the original text
   const [currentWordIndex, setCurrentWordIndex] = useState(0); // State to track the current word index
   const [mistakes, setMistakes] = useState([]); // State to store mistakes
@@ -32,17 +40,25 @@ function VoiceReadingPage() {
 
         if (transcript.toLowerCase() === currentWord.toLowerCase()) {
           // Move to the next word if the word is spoken correctly
-          setCurrentWordIndex(currentWordIndex + 1);
+          setCurrentWordIndex((prevIndex) => prevIndex + 1);
         } else {
           // Add mistake to the list if the word is spoken incorrectly
-          setMistakes([...mistakes, currentWord]);
+          setMistakes((prevMistakes) => [...prevMistakes, currentWord]);
           // Do not move to the next word if a mistake is made
           return;
+        }
+
+        // Restart recognition if all words have been spoken
+        if (currentWordIndex === originalText.split(' ').length - 1) {
+          setCurrentWordIndex(0);
         }
       };
 
       recognitionRef.current.onend = () => {
-        setIsListening(false);
+        // Restart recognition if it's still enabled
+        if (isListening) {
+          recognitionRef.current.start(currentWordIndex);
+        }
       };
 
       recognitionRef.current.start(currentWordIndex); // Start recognition from the current word index
@@ -62,6 +78,14 @@ function VoiceReadingPage() {
       <Heading as="h1" className={tw`text-3xl font-bold mb-8`}>
         Voice Reading Exercise
       </Heading>
+      <Breadcrumbs items={Breadcrumbitems} icon={IoHomeOutline} />
+      <Callout.Root className="mb-2">
+        <Callout.Icon>
+          <InfoCircledIcon />
+        </Callout.Icon>
+        <Callout.Text>Read the following text out loud</Callout.Text>
+      </Callout.Root>
+
       <Card className={tw`p-6 mb-8`}>
         <Text>
           {originalText.split(' ').map((word, index) => (
@@ -98,6 +122,14 @@ function VoiceReadingPage() {
             <FaMicrophone className={tw`${isListening && 'animate-pulse'}`} />
             <span>{isListening ? 'Listening...' : 'Start Reciting'}</span>
           </Button>
+          {/* stop button */}
+            <Button  variant={'outline'} onClick={() => setIsListening(false)} className={tw`flex items-center space-x-1`} disabled={!isListening}>
+                Stop Reciting
+            </Button>
+            <Button onClick={handleShowResult} className={tw`flex items-center space-x-1`} disabled>
+                Show Result
+            </Button>
+            
         </div>
       )}
     </div>
