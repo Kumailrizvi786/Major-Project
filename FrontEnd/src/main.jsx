@@ -36,6 +36,7 @@ import AllExercise from './pages/AllExercise.jsx';
 import FixationPage from './pages/Exercise/FixationPage.jsx';
 import TextImportAndSyncPage from './pages/Exercise/TextImportAndSyncPage.jsx';
 import GeneralExercise from './pages/Exercise/GeneralExercise.jsx';
+import VoiceReadingPage from './pages/Exercise/VoiceReadingPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -105,7 +106,7 @@ const router = createBrowserRouter([
       // },
       {
         path: "/test",
-        element: <Test/>,
+        element: <VoiceReadingPage/>,
       },
       {
         path: "/generative-exercise",

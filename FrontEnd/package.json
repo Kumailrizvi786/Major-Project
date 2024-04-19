@@ -29,6 +29,7 @@
     "react-router-dom": "^6.22.3",
     "react-toast": "^1.0.3",
     "redux-persist": "^6.0.0",
+    "twind": "^0.16.19",
     "vite-plugin-pwa": "^0.19.7"
   },
   "devDependencies": {
