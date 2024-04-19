@@ -106,6 +106,10 @@ const router = createBrowserRouter([
       // },
       {
         path: "/test",
+        element: <Test/>,
+      },
+      {
+        path: "/voice-exercise",
         element: <VoiceReadingPage/>,
       },
       {
