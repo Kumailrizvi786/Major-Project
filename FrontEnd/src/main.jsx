@@ -35,6 +35,7 @@ import ResultPage from './pages/Reading/Result.jsx';
 import AllExercise from './pages/AllExercise.jsx';
 import FixationPage from './pages/Exercise/FixationPage.jsx';
 import TextImportAndSyncPage from './pages/Exercise/TextImportAndSyncPage.jsx';
+import GeneralExercise from './pages/Exercise/GeneralExercise.jsx';
 
 
 const router = createBrowserRouter([
@@ -67,8 +68,12 @@ const router = createBrowserRouter([
         element: <Leaderboard/>,
       },
       {
-        path: "/fixation",
+        path: "/fixations",
         element: <FixationPage/>,
+      },
+      {
+        path: "/general-exercise",
+        element: <GeneralExercise/>,
       },
       {
         path: "/contact",
