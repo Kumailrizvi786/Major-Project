@@ -23,7 +23,7 @@ function VoiceReadingPage() {
   useEffect(() => {
     // Simulated original content
     const sampleText =
-      'This is a sample text for voice reading exercise. Please read this text out loud to practice voice reading. Good luck! Have fun! Enjoy!';
+      'This is a sample text for voice model. Please read this text out loud to practice voice reading. Good luck! Have fun! Enjoy!';
     setOriginalText(sampleText);
   }, []);
 
@@ -38,14 +38,12 @@ function VoiceReadingPage() {
         const transcript = event.results[event.results.length - 1][0].transcript.trim();
         const currentWord = originalText.split(' ')[currentWordIndex];
 
-        if (transcript.toLowerCase() === currentWord.toLowerCase()) {
-          // Move to the next word if the word is spoken correctly
+        if (transcript.toLowerCase().includes(currentWord.toLowerCase())) {
+          // Move to the next word if the current word is recognized in the transcript
           setCurrentWordIndex((prevIndex) => prevIndex + 1);
         } else {
-          // Add mistake to the list if the word is spoken incorrectly
+          // Add mistake to the list if the word is not recognized correctly
           setMistakes((prevMistakes) => [...prevMistakes, currentWord]);
-          // Do not move to the next word if a mistake is made
-          return;
         }
 
         // Restart recognition if all words have been spoken
@@ -57,16 +55,21 @@ function VoiceReadingPage() {
       recognitionRef.current.onend = () => {
         // Restart recognition if it's still enabled
         if (isListening) {
-          recognitionRef.current.start(currentWordIndex);
+          recognitionRef.current.start();
         }
       };
 
-      recognitionRef.current.start(currentWordIndex); // Start recognition from the current word index
+      recognitionRef.current.start(); // Start recognition
     }
   }, [isListening, currentWordIndex, originalText, mistakes]);
 
   const handleSpeechRecognition = () => {
     setIsListening(true);
+  };
+
+  const handleStopRecognition = () => {
+    setIsListening(false);
+    recognitionRef.current.stop();
   };
 
   const handleShowResult = () => {
@@ -122,14 +125,12 @@ function VoiceReadingPage() {
             <FaMicrophone className={tw`${isListening && 'animate-pulse'}`} />
             <span>{isListening ? 'Listening...' : 'Start Reciting'}</span>
           </Button>
-          {/* stop button */}
-            <Button  variant={'outline'} onClick={() => setIsListening(false)} className={tw`flex items-center space-x-1`} disabled={!isListening}>
-                Stop Reciting
+          {/* Stop button */}
+          {isListening && (
+            <Button onClick={handleStopRecognition} className={tw`flex items-center space-x-1`}>
+              Stop Reciting
             </Button>
-            <Button onClick={handleShowResult} className={tw`flex items-center space-x-1`} disabled>
-                Show Result
-            </Button>
-            
+          )}
         </div>
       )}
     </div>
