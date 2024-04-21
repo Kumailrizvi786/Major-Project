@@ -37,6 +37,7 @@ import FixationPage from './pages/Exercise/FixationPage.jsx';
 import TextImportAndSyncPage from './pages/Exercise/TextImportAndSyncPage.jsx';
 import GeneralExercise from './pages/Exercise/GeneralExercise.jsx';
 import VoiceReadingPage from './pages/Exercise/VoiceReadingPage.jsx';
+import EyeTrackingComponent from './pages/Exercise/EyeTrackingComponent.jsx';
 
 
 const router = createBrowserRouter([
@@ -106,7 +107,7 @@ const router = createBrowserRouter([
       // },
       {
         path: "/test",
-        element: <Test/>,
+        element: <EyeTrackingComponent/>,
       },
       {
         path: "/voice-exercise",
