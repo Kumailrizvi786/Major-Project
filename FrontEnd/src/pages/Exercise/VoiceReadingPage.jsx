@@ -110,14 +110,17 @@ function VoiceReadingPage() {
       <Card className={tw`p-6 mb-8`}>
         <Text>
           {originalText.split(' ').map((word, index) => (
-            <Text
+            <span
               key={index}
-              className={tw`font-semibold ${
-                currentWordIndex === index ? 'text-green-600' : 'text-gray-600'
-              }`}
+              className={tw`font-semibold`}
+              style={{
+                backgroundColor: currentWordIndex === index ? '	#8cff32' : 'transparent',
+                padding: '2px',
+                // borderRadius: '3px',
+              }}
             >
               {word}{' '}
-            </Text>
+            </span>
           ))}
         </Text>
       </Card>
