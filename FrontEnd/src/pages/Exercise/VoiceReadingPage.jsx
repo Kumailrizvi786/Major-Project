@@ -6,6 +6,7 @@ import { tw } from 'twind';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import ResultPage from './VoiceReading/VoiceResult';
 
 function VoiceReadingPage() {
   const Breadcrumbitems = [
@@ -23,7 +24,7 @@ function VoiceReadingPage() {
   useEffect(() => {
     // Simulated original content
     const sampleText =
-      'This is a sample text for voice model. Please read this text out loud to practice voice reading. Good luck! Have fun! Enjoy!';
+      'This sample text for voice model Please read this text out voice reading';
     setOriginalText(sampleText);
   }, []);
 
@@ -49,6 +50,7 @@ function VoiceReadingPage() {
         // Restart recognition if all words have been spoken
         if (currentWordIndex === originalText.split(' ').length - 1) {
           setCurrentWordIndex(0);
+          setShowResult(true); // Show the result page when the exercise is finished
         }
       };
 
@@ -75,6 +77,22 @@ function VoiceReadingPage() {
   const handleShowResult = () => {
     setShowResult(true);
   };
+
+  const handleRestart = () => {
+    setShowResult(false); // Reset showResult state to false
+    setCurrentWordIndex(0); // Reset currentWordIndex
+    setMistakes([]); // Clear mistakes
+  };
+
+  if (showResult) {
+    return (
+      <ResultPage
+        originalText={originalText}
+        mistakes={mistakes}
+        handleRestart={handleRestart}
+      />
+    );
+  }
 
   return (
     <div className={tw`max-w-4xl mx-auto px-4 py-8`}>
@@ -111,28 +129,21 @@ function VoiceReadingPage() {
           <span>No mistakes</span>
         )}
       </div>
-      {showResult ? (
-        <Button className={tw`mt-4`} onClick={handleShowResult}>
-          Show Result
+      <div className={tw`flex items-center space-x-4 mt-4`}>
+        <Button
+          onClick={handleSpeechRecognition}
+          disabled={isListening}
+          className={tw`flex items-center space-x-1`}
+        >
+          <FaMicrophone className={tw`${isListening && 'animate-pulse'}`} />
+          <span>{isListening ? 'Listening...' : 'Start Reciting'}</span>
         </Button>
-      ) : (
-        <div className={tw`flex items-center space-x-4 mt-4`}>
-          <Button
-            onClick={handleSpeechRecognition}
-            disabled={isListening}
-            className={tw`flex items-center space-x-1`}
-          >
-            <FaMicrophone className={tw`${isListening && 'animate-pulse'}`} />
-            <span>{isListening ? 'Listening...' : 'Start Reciting'}</span>
+        {isListening && (
+          <Button onClick={handleStopRecognition} className={tw`flex items-center space-x-1`}>
+            Stop Reciting
           </Button>
-          {/* Stop button */}
-          {isListening && (
-            <Button onClick={handleStopRecognition} className={tw`flex items-center space-x-1`}>
-              Stop Reciting
-            </Button>
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
