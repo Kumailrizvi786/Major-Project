@@ -122,7 +122,7 @@ function Profile() {
     Edit profile
   </Button>
   </Dialog.Trigger>
-  <Button variant='outline' className='cursor-pointer' onClick={handleUserDetails}>Get User Details</Button>
+  {/* <Button variant='outline' className='cursor-pointer' onClick={handleUserDetails}>Get User Details</Button> */}
   <Dialog.Content maxWidth="450px">
     <Dialog.Title>Edit profile</Dialog.Title>
     <Dialog.Description size="2" mb="4">
@@ -386,7 +386,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <UserIcon /> */}
-                   {userEmail}
+                   {userName}
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
@@ -419,7 +419,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <UserIcon /> */}
-                    22 , Male
+                    Not Set
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
@@ -428,7 +428,7 @@ function Profile() {
                 <DataList.Value>
                   <Flex align="center" gap="2">
                     {/* <LocationIcon /> */}
-                    Lucknow, India
+                    Not Set
                   </Flex>
                 </DataList.Value>
               </DataList.Item>
@@ -479,19 +479,7 @@ function Profile() {
             </Box>
           </Flex>
         </Card>
-        <Card>
-          <Flex gap="3" align="center">
-            <RiSpeedUpLine size="32" />
-            <Box>
-              <Text as="div" size="2" weight="bold">
-              Highest Speed
-              </Text>
-              <Text as="div" size="2" color="gray">
-                150 w/m
-              </Text>
-            </Box>
-          </Flex>
-        </Card>
+       
         <Card>
           <Flex gap="3" align="center">
             <RiSpeedUpLine size="32" />
