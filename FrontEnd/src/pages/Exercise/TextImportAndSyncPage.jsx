@@ -10,17 +10,17 @@ import {
 } from '@radix-ui/themes';
 import { MdOutlineSync } from "react-icons/md";
 import { MdImportExport } from "react-icons/md";
-import { IoHomeOutline, IoClipboard, IoDocumentTextOutline, IoPlay, IoSyncCircleOutline } from 'react-icons/io5';
+import { IoHomeOutline, IoClipboard, IoDocumentTextOutline, IoPlay } from 'react-icons/io5';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { FaFileImport, FaPaste } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function TextImportAndSyncPage() {
   const [importedText, setImportedText] = useState('');
   const [syncEnabled, setSyncEnabled] = useState(false);
   const [syncText, setSyncText] = useState('');
   const navigate = useNavigate();
-
 
   // Function to handle text import from clipboard
   const handleTextImportFromClipboard = async () => {
@@ -30,17 +30,6 @@ function TextImportAndSyncPage() {
     } catch (error) {
       console.error('Error reading from clipboard:', error);
     }
-  };
-
-  // Function to handle file input change
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImportedText(e.target.result);
-    };
-    reader.readAsText(file);
   };
 
   // Function to handle synchronization toggle
@@ -53,10 +42,61 @@ function TextImportAndSyncPage() {
     setSyncText(event.target.value);
   };
 
-  // Function to simulate synchronization
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setImportedText(event.target.result);
+    };
+    reader.readAsText(file);
+  };
+
+
+  // Function to fetch content from URL and update state
+ // Function to fetch content from URL and update state
+const importContentFromUrl = async (url) => {
+  toast.success('Fetching content from URL...');
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const htmlContent = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      const textContent = getTextFromElement(doc.body); // Extract text content from HTML body
+      toast.success('Content fetched successfully!');
+      setImportedText(textContent);
+    } else {
+      console.error('Failed to fetch content:', response.status);
+      toast.error('Failed to fetch content. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error fetching content:', error);
+    toast.error('Failed to fetch content. Please try again.');
+  }
+};
+
+// Function to extract text content from HTML element
+const getTextFromElement = (element) => {
+  let textContent = '';
+  if (element.nodeType === Node.TEXT_NODE) {
+    textContent += element.textContent.trim() + ' ';
+  } else if (element.nodeType === Node.ELEMENT_NODE) {
+    const tagName = element.tagName.toLowerCase();
+    if (tagName === 'script' || tagName === 'style' || tagName === 'meta') {
+      return ''; // Exclude script, style, and meta elements
+    }
+    for (const child of element.childNodes) {
+      textContent += getTextFromElement(child);
+    }
+  }
+  return textContent;
+};
+
+
+
+  // Function to sync text to server
   const syncTextToServer = () => {
-    // Simulated synchronization to server
-    // You can implement actual synchronization logic here
+    // Implement synchronization logic here if needed
     console.log('Syncing text to server:', syncText);
   };
 
@@ -65,7 +105,12 @@ function TextImportAndSyncPage() {
     // Implement reading functionality
     console.log('Start reading:', importedText);
     const generatedContent = importedText;
-    navigate('/start-reading',{ state: { generatedContent }}); 
+    navigate('/start-reading', { state: { generatedContent }});
+  };
+
+  // Function to clear the text area content
+  const clearTextArea = () => {
+    setImportedText('');
   };
 
   return (
@@ -81,7 +126,7 @@ function TextImportAndSyncPage() {
         Text Import and Synchronization
       </Heading>
       <Card className="p-6 mb-8">
-        <Flex justify="between" gap="4" >
+        <Flex justify="between" gap="4">
           <Box flex="1">
             <Heading as="h2" className="text-xl font-bold mb-4">
               Import Text <MdImportExport className='inline' />
@@ -97,11 +142,10 @@ function TextImportAndSyncPage() {
                 </Button>
               </label>
             </Flex>
-           
           </Box>
           <Box flex="1">
             <Heading as="h2" className="text-xl font-bold mb-4">
-              Synchronization <MdOutlineSync  className='inline' />
+              Sync Content From External Website <MdOutlineSync className='inline' />
             </Heading>
             <Button
               onClick={handleSyncToggle}
@@ -116,9 +160,9 @@ function TextImportAndSyncPage() {
                   className="mt-4 w-full"
                   value={syncText}
                   onChange={handleSyncTextChange}
-                  placeholder="Enter text to sync"
+                  placeholder="Enter URL to sync"
                 />
-                <Button onClick={syncTextToServer} className="mt-4" icon={<IoClipboard />}>
+                <Button onClick={() => importContentFromUrl(syncText)} className="mt-4" icon={<IoClipboard />}>
                   Sync Text
                 </Button>
               </>
@@ -126,14 +170,15 @@ function TextImportAndSyncPage() {
           </Box>
         </Flex>
         <TextArea
-              className="mt-4 w-full"
-              value={importedText}
-              onChange={(event) => setImportedText(event.target.value)}
-              placeholder="Imported text will appear here"
-              rows={8}
-            />
+          className="mt-4 w-full"
+          value={importedText}
+          onChange={(event) => setImportedText(event.target.value)}
+          placeholder="Imported text will appear here"
+          rows={8}
+        />
+        <Button onClick={clearTextArea} className="mt-4" variant="red">Clear Text</Button>
       </Card>
-      <Button onClick={startReading} icon={<IoPlay />} className="w-full" variant="blue">
+      <Button onClick={startReading} icon={<IoPlay />} className="w-full mt-4" variant="blue">
         Start Reading
       </Button>
     </div>
