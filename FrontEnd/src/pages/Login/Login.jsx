@@ -119,7 +119,7 @@ function Login() {
           <Heading as="h2">Login your Account !</Heading>
           <p className="mt-2 text-sm text-gray-500 mb-4">Please sign in to your account</p>
         </div>
-        <div className="mb-4 text-center space-y-2 ml-3">
+        {/* <div className="mb-4 text-center space-y-2 ml-3">
           <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
             <FaGithub className="mr-2 cursor-pointer" />
             Continue with GitHub
@@ -128,14 +128,14 @@ function Login() {
             <FaGoogle className="mr-2 cursor-pointer" />
             Continue with Google
           </Button>
-        </div>
+        </div> */}
 
-
+{/* 
         <div className="flex items-center justify-center mb-4 space-x-4">
           <div className="border-t border-gray-300 flex-grow"></div>
           <span className="text-gray-500">OR</span>
           <div className="border-t border-gray-300 flex-grow"></div>
-        </div>
+        </div> */}
         <form className="mt-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-500">

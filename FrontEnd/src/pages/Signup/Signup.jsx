@@ -75,20 +75,20 @@ function Signup() {
         </div>
        
         <div className="mb-4 text-center space-y-2 ml-3">
-  <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+  {/* <Button color="gray" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
     <FaGithub className="mr-2 cursor-pointer" />
     Continue with GitHub
-  </Button>
-  <Button color="red" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
+  </Button> */}
+  {/* <Button color="red" className="flex items-center cursor-pointer px-16 py-5" variant="outline">
     <FaGoogle className="mr-2 cursor-pointer" />
     Continue with Google
-  </Button>
+  </Button> */}
 </div>
 
 
         <div className="flex items-center justify-center mb-4 space-x-4">
           <div className="border-t border-gray-300 flex-grow"></div>
-          <span className="text-gray-500">OR</span>
+          <span className="text-gray-500">Sign Up</span>
           <div className="border-t border-gray-300 flex-grow"></div>
         </div>
         <form>
