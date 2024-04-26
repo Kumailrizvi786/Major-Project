@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Box,
   Button,
@@ -21,6 +21,7 @@ function TextImportAndSyncPage() {
   const [syncEnabled, setSyncEnabled] = useState(false);
   const [syncText, setSyncText] = useState('');
   const navigate = useNavigate();
+  const fileInputRef = useRef(null); // Reference to file input element
 
   // Function to handle text import from clipboard
   const handleTextImportFromClipboard = async () => {
@@ -42,57 +43,54 @@ function TextImportAndSyncPage() {
     setSyncText(event.target.value);
   };
 
-  const handleFileInputChange = (event) => {
+  // Function to handle file input change
+  const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
+    if (!file) return; // Return if no file selected
+
+    const fileType = file.type;
     const reader = new FileReader();
-    reader.onload = (event) => {
-      setImportedText(event.target.result);
+
+    reader.onload = async (event) => {
+      let fileContent = '';
+      if (fileType === 'text/plain') {
+         toast.success('Text file imported successfully');
+        fileContent = event.target.result;
+      } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        // const docxFile = await readDocx(event.target.result);
+        // fileContent = docxFile.toString();
+        console.log('Docx file reading not implemented yet');
+        toast.error('Docx file reading not implemented yet');
+      } else if (fileType === 'application/pdf') {
+        // const pdfFile = await readPDF(event.target.result);
+        toast.error('PDF file reading not implemented yet');
+        // fileContent = pdfFile.text;
+        console.log('PDF file reading not implemented yet');
+      }
+      setImportedText(fileContent);
     };
+
+    // Use readAsText to read text files
     reader.readAsText(file);
+};
+
+
+  // Function to open file picker dialog
+  const openFilePicker = () => {
+    fileInputRef.current.click();
   };
 
-
   // Function to fetch content from URL and update state
- // Function to fetch content from URL and update state
-const importContentFromUrl = async (url) => {
-  toast.success('Fetching content from URL...');
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const htmlContent = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlContent, 'text/html');
-      const textContent = getTextFromElement(doc.body); // Extract text content from HTML body
-      toast.success('Content fetched successfully!');
-      setImportedText(textContent);
-    } else {
-      console.error('Failed to fetch content:', response.status);
+  const importContentFromUrl = async (url) => {
+    toast.success('Fetching content from URL...');
+    try {
+      // Fetch content from URL
+      // Handle different file formats and setImportedText accordingly
+    } catch (error) {
+      console.error('Error fetching content:', error);
       toast.error('Failed to fetch content. Please try again.');
     }
-  } catch (error) {
-    console.error('Error fetching content:', error);
-    toast.error('Failed to fetch content. Please try again.');
-  }
-};
-
-// Function to extract text content from HTML element
-const getTextFromElement = (element) => {
-  let textContent = '';
-  if (element.nodeType === Node.TEXT_NODE) {
-    textContent += element.textContent.trim() + ' ';
-  } else if (element.nodeType === Node.ELEMENT_NODE) {
-    const tagName = element.tagName.toLowerCase();
-    if (tagName === 'script' || tagName === 'style' || tagName === 'meta') {
-      return ''; // Exclude script, style, and meta elements
-    }
-    for (const child of element.childNodes) {
-      textContent += getTextFromElement(child);
-    }
-  }
-  return textContent;
-};
-
-
+  };
 
   // Function to sync text to server
   const syncTextToServer = () => {
@@ -135,12 +133,10 @@ const getTextFromElement = (element) => {
               <Button onClick={handleTextImportFromClipboard} variant="ghost" icon={<IoClipboard />}>
                 Import from Clipboard <FaPaste />
               </Button>
-              <label htmlFor="file-input">
-                <input id="file-input" type="file" accept=".txt" onChange={handleFileInputChange} hidden />
-                <Button as="span" variant="ghost" icon={<IoDocumentTextOutline />}>
-                  Import from File <FaFileImport />
-                </Button>
-              </label>
+              <Button onClick={openFilePicker} variant="ghost" icon={<IoDocumentTextOutline />}>
+                Import from File <FaFileImport />
+              </Button>
+              <input ref={fileInputRef} type="file" accept=".txt,.docx,.pdf" onChange={handleFileInputChange} style={{ display: 'none' }} />
             </Flex>
           </Box>
           <Box flex="1">
