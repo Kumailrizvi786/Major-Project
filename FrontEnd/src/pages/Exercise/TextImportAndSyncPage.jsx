@@ -65,7 +65,7 @@ function TextImportAndSyncPage() {
     // Implement reading functionality
     console.log('Start reading:', importedText);
     const generatedContent = importedText;
-    navigate('/test',{ state: { generatedContent }}); 
+    navigate('/start-reading',{ state: { generatedContent }}); 
   };
 
   return (

@@ -100,6 +100,9 @@ const router = createBrowserRouter([
       {
         path: "/changepassword",
         element: <ChangePassword/>,
+      },{
+        path: "/start-reading",
+        element: <Test/>,
       },
       // {
       //   path: "/exercise",
