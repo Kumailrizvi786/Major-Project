@@ -13,17 +13,19 @@ const transporter = nodemailer.createTransport({
 });
 
 async function generateAndStoreOTP(email) {
-    const otp = Math.round(Math.random() * 10000 + 100);
+    const otp = Math.round(Math.random() * 10000 + 1000);
     const now = new Date();
-
-    // Set an optional OTP expiry time (e.g., 10 minutes from now)
     const expiry = new Date(now.getTime() + 10 * 60 * 1000);
-
+  
+    // Check for existing verification object and delete it
+    await Verification.deleteOne({ email });
+  
     const verification = new Verification({ email, otp, otpExpiry: expiry });
     await verification.save();
-
-    return otp; // Return the OTP for inclusion in the email content
-}
+  
+    return otp;
+  }
+  
 
 
 export const generateEmail1 = async (req, res) => {
