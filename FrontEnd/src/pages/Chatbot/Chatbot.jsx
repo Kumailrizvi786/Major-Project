@@ -58,7 +58,7 @@ function Chatbot() {
     setMessage(value);
     const prompt = "Here is my Instructions for you \n\n" + 
     "1. if my question is not related to speed reading you must answer that 'its not related to speed reading try to ask that is related to speed reading' \n" +
-      "2. Keep answer short and max 100 character\n" +
+      "2. Keep answer short and max 50 character\n" +
       "2. do not include special format like ** etc \n" +
       "4. here is my question \n\n" +
       `Question: ${value} \n\n` 
@@ -164,24 +164,26 @@ function Chatbot() {
               </button>
             </div>
             <div className="p-4 h-48 overflow-y-auto">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex justify-center p-2 ${
-                    msg.sender === 'user' ? 'text-right' : ''
-                  }`}
-                >
-                  <div
-                    className={`bg-gray-100 rounded-full py-1 px-2 border border-gray-200 max-w-[80%] ${
-                      msg.sender === 'user' ? 'bg-indigo-200 border-indigo-400' : ''
-                    }`}
-                  >
-                    {msg.text}
-                  </div>
-                </div>
-              ))}
-              {isTyping && <div className="text-sm text-gray-500 text-right">Genereting Response...</div>}
-            </div>
+  {messages.map((msg, index) => (
+    <div key={index} className="flex justify-center">
+      {msg.sender === 'user' ? (
+        <div className="flex justify-end w-full">
+          <div className="bg-gray-100 rounded-full py-1 px-2 border border-gray-200 max-w-[80%]">
+            {msg.text}
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-start w-full">
+          <div className="bg-gray-200 rounded-full py-1 px-2 border border-gray-200 max-w-[80%]">
+            {msg.text}
+          </div>
+        </div>
+      )}
+    </div>
+  ))}
+  {isTyping && <div className="text-sm text-gray-500 text-right">Generating Response...</div>}
+</div>
+
             <div className="flex items-center px-4 py-2 border-t border-gray-200">
               <input
                 type="text"
