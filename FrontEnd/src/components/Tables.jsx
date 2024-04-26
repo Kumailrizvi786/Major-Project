@@ -70,9 +70,9 @@ function Tables() {
     <Flex gap="3" align="center">
       <Avatar
         size="3"
-        src="./img/sahil.jpg"
+        // src="./img/sahil.jpg"
         radius="full"
-        fallback="T"
+        fallback={item.name[0]}
       />
       <Box>
         <Text as="div" size="2" weight="bold">
