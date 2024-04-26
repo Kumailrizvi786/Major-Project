@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Badge, Heading,
-  Callout, Dialog,Box,Card, Code,TextField,Text ,Grid ,Inset ,Popover, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator } from '@radix-ui/themes';
+  Callout, Dialog,Box,Card, Code,TextField,Text ,Grid ,Inset ,Popover, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator, 
+  Avatar} from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
@@ -110,7 +111,7 @@ function Profile() {
           <div>
             {/* Including profile pic */}
             <Flex justify="center">
-              <img src="../../../img/sahil.jpg" alt="Profile" className="rounded-full h-40 w-40 object-cover object-center overflow-hidden" />
+              <Avatar alt="Profile" fallback={userName[0]} size={"9"} className="rounded-full h-40 w-40 object-cover object-center overflow-hidden" />
             </Flex>
             {/* Edit profile button */}
          

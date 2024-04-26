@@ -6,11 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../features/authSlice';
 import {toast} from  "react-hot-toast"
 import axios from 'axios';
+import { getUserData } from '../services/authService';
 // import api from '../services/axiosConfig.js';
 
 function Dropdown() {
+  const {user} = getUserData();
+  const {userEmail, userName} = user;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+  
+  // const  username = localStorage.getItem('username');
+
+
 
   const handleLogout = async () => {
     try {
@@ -36,8 +44,9 @@ function Dropdown() {
         <Link href="#" color="gray">
           {/* Replace Avatar with your Avatar component */}
           <Avatar
-            src="./img/sahil.jpg"
-            fallback="A"
+            // src="./img/sahil.jpg"
+            fallback={userName[0]}
+            // color=''
             radius="full"
             onClick={(e) => e.preventDefault()} // Prevent default click action
           />
