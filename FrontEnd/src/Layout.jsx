@@ -9,7 +9,7 @@ import Chatbot from './pages/Chatbot/Chatbot';
 function Layout() {
 
 
-    const [themeMode, setThemeMode] = useState(getInitialThemeMode());
+    const [themeMode, setThemeMode] = useState("light");
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
