@@ -167,7 +167,7 @@ function Chatbot() {
   {messages.map((msg, index) => (
     <div key={index} className="flex justify-center">
       {msg.sender === 'user' ? (
-        <div className="flex justify-end w-full">
+        <div className="flex justify-end w-full my-3">
           <div className="bg-gray-100 rounded-full py-1 px-2 border border-gray-200 max-w-[80%]">
             {msg.text}
           </div>
