@@ -58,8 +58,8 @@ function Chatbot() {
     setMessage(value);
     const prompt = "Here is my Instructions for you \n\n" + 
     "1. if my question is not related to speed reading you must answer that 'its not related to speed reading try to ask that is related to speed reading' \n" +
-      "2. Keep answer short and max 50 character\n" +
-      "2. do not include special format like ** etc \n" +
+      "2. Keep your response in maximum 50 character\n" +
+      "3. include emoji but do not include special format like ** etc \n" +
       "4. here is my question \n\n" +
       `Question: ${value} \n\n` 
 
@@ -82,7 +82,7 @@ function Chatbot() {
     if (message.trim() === '') return;
   
     // Add user message to the messages state
-    setMessages([...messages, { text: message, sender: 'user' }]);
+    setMessages(prevMessages => [...prevMessages, { text: message, sender: 'user' }]);
     setMessage('');
     setIsTyping(true);
   
@@ -114,7 +114,6 @@ function Chatbot() {
           threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
         },
       ];
-    
   
       // Create history with the user message
       // const history = [{ role: 'user', parts: [{ text: message }] }];
@@ -136,16 +135,17 @@ function Chatbot() {
       const response = result.response;
   
       // Add chatbot response to the messages state
-      setMessages([...messages, { text: response.text(), sender: 'chatbot' }]);
+      setMessages(prevMessages => [...prevMessages, { text: response.text(), sender: 'chatbot' }]);
     } catch (error) {
       console.error('Error:', error);
       // Handle error by adding an error message to the messages state
-      setMessages([...messages, { text: "Something went wrong. Please try again.", sender: 'chatbot' }]);
+      setMessages(prevMessages => [...prevMessages, { text: "Something went wrong. Please try again.", sender: 'chatbot' }]);
     } finally {
       // Set isTyping to false after response is received or error occurs
       setIsTyping(false);
     }
   };
+  
   
 
   return (
