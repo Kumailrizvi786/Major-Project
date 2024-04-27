@@ -7,12 +7,16 @@ import { FaUserGroup } from 'react-icons/fa6';
 import { IoAdd } from 'react-icons/io5';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { FaUser } from 'react-icons/fa';
+
+
 
 function Usermanagement() {
   const [loading, setLoading] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filterType, setFilterType] = useState('all');
 
   const handleRemove = async (email) => {
     try {
@@ -50,9 +54,31 @@ function Usermanagement() {
     getAllUsers();
   }, []);
 
+  const handleAdmin = () => {
+    
+    const filtered = allUsers.filter((user) => user.role.name === 'admin');
+    setFilterType('admin');
+    
+    
+
+    setFilteredUsers(filtered);
+
+  };
+
+  const handleUser = () => {
+    const filtered = allUsers.filter((user) => user.role.name === 'user');
+    setFilterType('user');
+    setFilteredUsers(filtered);
+  };
+
+  const handleAll = () => {
+    setFilteredUsers(allUsers);
+  };
+
   const handleSearch = () => {
+    const trimmedInput = searchInput.trim(); // Trim trailing spaces
     const filtered = allUsers.filter((user) => {
-      const searchLowerCase = searchInput.toLowerCase();
+      const searchLowerCase = trimmedInput.toLowerCase(); // Use trimmed input
       const fullName = user.name.toLowerCase();
       const email = user.email.toLowerCase();
       const status = user.isEmailVerified ? 'verified' : 'not verified';
@@ -61,6 +87,7 @@ function Usermanagement() {
     });
     setFilteredUsers(filtered);
   };
+  
 
   const breadcrumbsItems = [
     { text: 'Home', link: '/', icon: <RiHome2Line /> },
@@ -72,18 +99,18 @@ function Usermanagement() {
       <>
         <div className='flex flex-col pt-16 p-4'>
           <Breadcrumbs items={breadcrumbsItems} />
-
           <div className='flex justify-between mt-4 mx-4'>
-            <div className='flex'>
-              <Button className='text-white p-2 rounded-md cursor-pointer'>All <FaUserGroup /></Button>
-              <Button className='text-white p-2 rounded-md ml-2 cursor-pointer'>Admin <RiAdminLine /></Button>
-              <Button className='text-white p-2 rounded-md ml-2 cursor-pointer'>User</Button>
-            </div>
-            <Button className='text-white p-2 rounded-md cursor-pointer'>Add User <IoAdd /></Button>
-          </div>
+  <div className='flex items-center'> {/* Updated to align items */}
+    <Button className={`text-white p-2 rounded-md cursor-pointer ${filterType === 'all' && 'bg-blue-500'}`} onClick={handleAll}>All <FaUserGroup /></Button> {/* Updated className */}
+    <Button className={`text-white p-2 rounded-md ml-2 cursor-pointer ${filterType === 'admin' && 'bg-blue-500'}`} onClick={handleAdmin}>Admin <RiAdminLine /></Button> {/* Updated className */}
+    <Button className={`text-white p-2 rounded-md ml-2 cursor-pointer ${filterType === 'user' && 'bg-blue-500'}`} onClick={handleUser}>User <FaUser /></Button> {/* Updated className */}
+  </div>
+  <Button className='text-white p-2 rounded-md cursor-pointer'>Add User <IoAdd /></Button>
+</div>
+
 
           <div className='flex justify-end mt-4 mr-6'>
-            <TextField.Root placeholder="Search user" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}>
+            <TextField.Root placeholder="Search user" value={searchInput} onChange={(e) => { setSearchInput(e.target.value); handleSearch(); }}>
               <TextField.Slot>
                 <MagnifyingGlassIcon height="16" width="16" />
               </TextField.Slot>
