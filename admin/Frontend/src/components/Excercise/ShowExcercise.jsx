@@ -1,19 +1,37 @@
 import React from 'react';
 import { Card, Text, Button, Badge, TextField, AlertDialog, Flex, Skeleton } from '@radix-ui/themes';
 import { ListBulletIcon, MagnifyingGlassIcon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-function ShowExcercise({loading, exercises }) {
+function ShowExercise({ loading, exercises }) {
+  const navigate = useNavigate();
+  // const {pname} = useParams();
 
-  console.log(loading);
-  const handleEdit = (exerciseId) => {
-    // Add logic to handle edit action
-    console.log('Editing exercise with ID:', exerciseId);
+  const handleEdit = ({id}) => {
+    console.log('Editing exercise with ID:', id);
+    // Redirect to the edit exercise page
+    alert(JSON.stringify(`/edit-exercise/${id}`))
+    navigate(`/edit-exercise/${id}`);
+  
   };
 
-  const handleDelete = (exerciseId) => {
-    // Add logic to handle delete action
-    console.log('Deleting exercise with ID:', exerciseId);
+  const handleDelete = async (exerciseId) => {
+    try {
+      const response = await axios.delete(`http://localhost:8000/admin/exercise/deleteById/${exerciseId}`);
+      if (response.status === 200) {
+        // Remove the deleted exercise from the state or re-fetch the exercises list
+        console.log('Exercise deleted successfully:', exerciseId);
+        toast.success('Exercise deleted successfully');
+      } else {
+        console.error('Failed to delete exercise:', response.statusText);
+        toast.error('Failed to delete exercise');
+      }
+    } catch (error) {
+      console.error('Error deleting exercise:', error.message);
+      toast.error('Failed to delete exercise');
+    }
   };
 
   return (
@@ -39,12 +57,12 @@ function ShowExcercise({loading, exercises }) {
       </div>
       <div className="space-y-4">
         {exercises.map((exercise) => (
-          <Skeleton loading={loading}>
-          <Card key={exercise._id} className="rounded p-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
-              <p className="text-gray-600 mb-4">{exercise.description}</p>
-              <div className="flex flex-wrap gap-2">
+          <Skeleton loading={loading} key={exercise._id}>
+            <Card className="rounded p-4 flex items-center justify-between">
+              <div>
+                <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
+                <p className="text-gray-600 mb-4">{exercise.description}</p>
+                <div className="flex flex-wrap gap-2">
                 <div className="flex items-center">
                   <span className="text-gray-700 font-semibold">Difficulty:</span>
                   <Badge className="ml-2">{exercise.difficulty.level}</Badge>
@@ -78,13 +96,12 @@ function ShowExcercise({loading, exercises }) {
                   <span className="ml-2">{exercise.content.mcqs[0].correctAnswer}</span>
                 </div>
               </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
-                <Pencil2Icon className="h-6 w-6" />
-              </button>
-              <button onClick={() => handleDelete(exercise._id)} className="text-red-500 hover:text-red-700">
+              </div>
+              <div className="flex items-center space-x-2">
+                <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
+                  <Pencil2Icon className="h-6 w-6" />
+                </button>
+                <button className="text-red-500 hover:text-red-700">
                 <AlertDialog.Root>
                   <AlertDialog.Trigger>
                     <TrashIcon className="h-6 w-6" />
@@ -101,7 +118,7 @@ function ShowExcercise({loading, exercises }) {
                         </Button>
                       </AlertDialog.Cancel>
                       <AlertDialog.Action>
-                        <Button variant="solid" color="red">
+                        <Button variant="solid" color="red" onClick={() => handleDelete(exercise._id)} >
                           Delete
                         </Button>
                       </AlertDialog.Action>
@@ -109,8 +126,8 @@ function ShowExcercise({loading, exercises }) {
                   </AlertDialog.Content>
                 </AlertDialog.Root>
               </button>
-            </div>
-          </Card>
+              </div>
+            </Card>
           </Skeleton>
         ))}
       </div>
@@ -118,4 +135,4 @@ function ShowExcercise({loading, exercises }) {
   );
 }
 
-export default ShowExcercise;
+export default ShowExercise;

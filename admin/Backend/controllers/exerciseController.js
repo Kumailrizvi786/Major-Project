@@ -3,12 +3,12 @@ import Content from '../models/ContentModel.js';
 import MCQ from '../models/MCQModel.js';
 import mongoose from 'mongoose';
 
-export const getExerciseByName = async (req, res) => {
+export const getExerciseById = async (req, res) => {
   try {
-    const { name } = req.params; // Assuming the exercise name comes from request params
+    const { id } = req.params; // Assuming the exercise name comes from request params
 
     // Fetch the exercise by name, populate 'content' and then populate 'mcqs' within content
-    const exercise = await Exercise.findOne({ name }).populate({
+    const exercise = await Exercise.findById(id).populate({
       path: 'content',
       populate: {
         path: 'mcqs'

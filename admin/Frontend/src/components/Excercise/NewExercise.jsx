@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRightIcon, ArrowUpIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Button,Text, TextArea, Card, Flex, TextField, Skeleton } from '@radix-ui/themes';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeLowVision } from 'react-icons/fa6';
 import { IoSparklesSharp } from 'react-icons/io5';
 import { Dialog } from '@radix-ui/themes';
@@ -10,7 +10,9 @@ import toast from 'react-hot-toast';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 
 
+
 function NewExercise() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [minAge, setMinAge] = useState('');
@@ -78,6 +80,7 @@ function NewExercise() {
       setOptions(['', '']);
       setCorrectAnswer('');
       toast.success('Exercise Created Successfully!');
+      navigate('/all-exercises')
     } catch (error) {
       console.error('Error:', error);
       setError('Something went wrong. Please try again.');
