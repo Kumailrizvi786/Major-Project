@@ -27,6 +27,7 @@ function NewExercise() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
+  const [disabled, setDisbled] = useState(false);
   const [generatedContent, setGeneratedContent] = useState({
     name: '',
     description: '',
@@ -41,6 +42,14 @@ function NewExercise() {
     options: ['', '', '', ''],
     correctAnswer: ''
   });
+
+  const handlechange = (e) => {
+    console.log(e.target.value)
+    if (e.target.value === 'text') {
+      setDisbled(true);
+    }
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +109,7 @@ function NewExercise() {
     const prompt = `Generate an exercise for children aged 6-12 years about history. The exercise should be easy and text-only. The exercise should contain a question with multiple-choice options. Here is an example of the exercise response data format:
       data should only be in this format , no other content should be there (dont include ''' also)
     {
-      name: 'keep it for exercise name(e.g Fixation or Subvocalization)',
+      name: 'keep it for exercise name( Fixation or Subvocalization)',
       description: 'generate description here in 50 characters',
       minAge: 'keep it according to the age group(e.g 6)',
       maxAge: 'keep it according to the age group(e.g 12)',
@@ -418,11 +427,12 @@ function NewExercise() {
   <select
     id="contentType"
     value={contentType}
-    onChange={(e) => setContentType(e.target.value)}
+    onChange={(e) =>{ setContentType(e.target.value); handlechange(e);}}
     required
+    // onChange={handlechange}
     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   >
-    <option value="">Select Content Type</option>
+    <option value="" >Select Content Type</option>
     {/* <option value="AI Generated">AI Generated</option> */}
     <option value="text">Text only</option>
     <option value="textOnImage">Image with Text</option>
@@ -442,8 +452,8 @@ function NewExercise() {
           ></TextArea>
         </div>
         {/* Image upload */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
+      { !disabled && <div className="mb-6">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="image" >
             Image Url
           </label>
           <TextField.Root
@@ -452,9 +462,11 @@ function NewExercise() {
             placeholder='Enter image url'
             onChange={handleImageChange}
             required
+            // disabled={disabled}
+            // readOnly={disabled}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-        </div>
+        </div>}
         {/* Content description */}
         <div className="mb-6">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="contentDescription">
