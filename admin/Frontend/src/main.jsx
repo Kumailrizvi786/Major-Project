@@ -14,6 +14,7 @@ import AllExercise from './pages/AllExercise.jsx'
 import Profile from './pages/Profile/Profile.jsx'
 import ExerciseMangement from './pages/ExerciseMangement.jsx'
 import Categories from './pages/Categories.jsx'
+import EditExercise from './components/Excercise/EditExercise.jsx'
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile/>,
       },
+      {
+        path: "/edit-exercise/:name",
+        element: <EditExercise/>, 
+      }
       
       
     ],
