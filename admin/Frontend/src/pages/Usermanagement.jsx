@@ -8,6 +8,7 @@ import { IoAdd } from 'react-icons/io5';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { FaUser } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 
 
@@ -105,7 +106,9 @@ function Usermanagement() {
     <Button className={`text-white p-2 rounded-md ml-2 cursor-pointer ${filterType === 'admin' && 'bg-blue-500'}`} onClick={handleAdmin}>Admin <RiAdminLine /></Button> {/* Updated className */}
     <Button className={`text-white p-2 rounded-md ml-2 cursor-pointer ${filterType === 'user' && 'bg-blue-500'}`} onClick={handleUser}>User <FaUser /></Button> {/* Updated className */}
   </div>
+  <Link to="/create-user">
   <Button className='text-white p-2 rounded-md cursor-pointer'>Add User <IoAdd /></Button>
+  </Link>
 </div>
 
 

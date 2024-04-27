@@ -100,12 +100,12 @@ function NewExercise() {
     const prompt = `Generate an exercise for children aged 6-12 years about history. The exercise should be easy and text-only. The exercise should contain a question with multiple-choice options. Here is an example of the exercise response data format:
       data should only be in this format , no other content should be there (dont include ''' also)
     {
-      name: 'generate exercise title here',
+      name: 'keep it for exercise name(e.g Fixation or Subvocalization)',
       description: 'generate description here in 50 characters',
       minAge: 'keep it according to the age group(e.g 6)',
       maxAge: 'keep it according to the age group(e.g 12)',
       level: 'according to the difficulty level(e.g easy, medium, hard)',
-      contentType: 'Text only',
+      contentType: 'text',
       text: 'generate text about title here in min 200 characters',
       image: 'https://via.placeholder.com/150',
       contentDescription: 'Additional content description.',
@@ -115,7 +115,7 @@ function NewExercise() {
     }`;
     
     //generating here
-    console.log('api key:',YOUR_GEMINI_API_KEY )
+    // console.log('api key:',YOUR_GEMINI_API_KEY )
     try {
       setLoading(true);
       //  console.log(prompt)

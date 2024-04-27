@@ -16,6 +16,7 @@ import ExerciseMangement from './pages/ExerciseMangement.jsx'
 import Categories from './pages/Categories.jsx'
 import EditExercise from './components/Excercise/EditExercise.jsx'
 import EditExercisePage from './pages/EditExercisePage.jsx'
+import AddUser from './pages/AddUser.jsx'
 
 
 
@@ -54,6 +55,9 @@ const router = createBrowserRouter([
       },  {
         path: "/profile",
         element: <Profile/>,
+      },  {
+        path: "/create-user",
+        element: <AddUser/>,
       },
       {
         path: "/edit-exercise/:name",
