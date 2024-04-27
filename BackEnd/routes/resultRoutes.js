@@ -4,7 +4,7 @@ import {createResult, getResultById, getResultByUserEmail} from "../controllers/
 const router = express.Router();
 
 router.post('/create', createResult);
-router.get('/getById', getResultById);
+router.get('/getById/:id', getResultById);
 router.get('/getByUser/:email', getResultByUserEmail);
 
 
