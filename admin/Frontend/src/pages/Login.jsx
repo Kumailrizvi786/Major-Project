@@ -68,7 +68,7 @@ const Login = () => {
     } catch (error) {
       console.error('Error:', error);
       setloading(false)
-      toast.error('Unable to Login due to ' + error.message);
+      toast.error('Unable to Login due to ' + error.response.data.message );
     }
 
     // clear form
