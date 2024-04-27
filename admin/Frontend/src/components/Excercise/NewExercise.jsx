@@ -18,11 +18,13 @@ function NewExercise() {
   const [level, setLevel] = useState('');
   const [contentType, setContentType] = useState('');
   const [text, setText] = useState('');
-  const [image, setImage] = useState(null);
   const [contentDescription, setContentDescription] = useState('');
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [correctAnswer, setCorrectAnswer] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [image, setImage] = useState(null);
   const [generatedContent, setGeneratedContent] = useState({
     name: '',
     description: '',
@@ -37,8 +39,53 @@ function NewExercise() {
     options: ['', '', '', ''],
     correctAnswer: ''
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/admin/exercise/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          difficulty: { minAge, maxAge, level },
+          contents: [
+            {
+              contentType,
+              text,
+              description: contentDescription,
+              mcqs: [{ question, options, correctAnswer }],
+            },
+          ],
+        }),
+      });
+      const data = await response.json();
+      console.log('Exercise created:', data);
+      // Optionally, you can reset the form fields after submission
+      setName('');
+      setDescription('');
+      setMinAge('');
+      setMaxAge('');
+      setLevel('');
+      setContentType('');
+      setText('');
+      setContentDescription('');
+      setQuestion('');
+      setOptions(['', '']);
+      setCorrectAnswer('');
+      toast.success('Exercise Created Successfully!');
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Something went wrong. Please try again.');
+      toast.error('Failed to create exercise. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
 
@@ -143,37 +190,37 @@ function NewExercise() {
   };
   
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your logic to handle form submission
-    console.log('Exercise created:', {
-      name,
-      description,
-      difficulty: { minAge, maxAge, level },
-      contents: [
-        {
-          contentType,
-          text,
-          image,
-          description: contentDescription,
-          mcqs: [{ question, options, correctAnswer }]
-        }
-      ]
-    });
-    // Optionally, you can reset the form fields after submission
-    setName('');
-    setDescription('');
-    setMinAge('');
-    setMaxAge('');
-    setLevel('');
-    setContentType('');
-    setText('');
-    setImage(null);
-    setContentDescription('');
-    setQuestion('');
-    setOptions(['', '']);
-    setCorrectAnswer('');
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Add your logic to handle form submission
+  //   console.log('Exercise created:', {
+  //     name,
+  //     description,
+  //     difficulty: { minAge, maxAge, level },
+  //     contents: [
+  //       {
+  //         contentType,
+  //         text,
+  //         image,
+  //         description: contentDescription,
+  //         mcqs: [{ question, options, correctAnswer }]
+  //       }
+  //     ]
+  //   });
+  //   // Optionally, you can reset the form fields after submission
+  //   setName('');
+  //   setDescription('');
+  //   setMinAge('');
+  //   setMaxAge('');
+  //   setLevel('');
+  //   setContentType('');
+  //   setText('');
+  //   setImage(null);
+  //   setContentDescription('');
+  //   setQuestion('');
+  //   setOptions(['', '']);
+  //   setCorrectAnswer('');
+  // };
 
   const handleClearForm = (e) => {
     e.preventDefault();
@@ -373,9 +420,9 @@ function NewExercise() {
     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   >
     <option value="">Select Content Type</option>
-    <option value="AI Generated">AI Generated</option>
-    <option value="Text only">Text only</option>
-    <option value="Image with Text">Image with Text</option>
+    {/* <option value="AI Generated">AI Generated</option> */}
+    <option value="text">Text only</option>
+    <option value="textOnImage">Image with Text</option>
   </select>
 </div>
 
