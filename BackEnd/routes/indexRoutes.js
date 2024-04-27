@@ -10,7 +10,7 @@ export const routes = (app) => {
     //     next();
     //   });      
     app.use('/user/', userRoutes);
-    app.use(checkAuth);
+    // app.use(checkAuth); //for time being commenting this.
     app.use('/email/', emailRoutes);
     app.use('/exercise', exerciseRoutes);
     app.get("/sayHello", (req, res) => {
