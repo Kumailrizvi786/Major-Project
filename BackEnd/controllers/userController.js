@@ -1,5 +1,6 @@
 import User from '../models/UserModel.js';
 import Role from '../models/RoleModel.js';
+import Exercise from '../models/ExerciseModel.js';
 import Result from '../models/ResultModel.js';
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs';
@@ -83,8 +84,6 @@ export const loginUser = async (req, res, next) => {
     }
 }
 
-
-
 //Logout
 // export const logoutUser = async (req, res, next) => {
 //     // console.log(`User: ${req.cookie.user}` );
@@ -107,7 +106,7 @@ export const getAllDetails = async (req, res) => {
         }
 
         const userResult = await getResultsByUserId(userObject._id);
-        console.log("User Result " + userResult);
+        // console.log("User Result " + userResult);
 
         //setting resoponse object
         const initialResponseObject = {
@@ -121,7 +120,7 @@ export const getAllDetails = async (req, res) => {
 
         //Setting response object
         const response = setResponseObject(initialResponseObject, userObject, userResult);
-        console.log("Response "+ response);
+        // console.log("Response "+ response);
 
         return res.status(200).json(response);
 
@@ -139,8 +138,10 @@ const getResultsByUserId = async (userId) => {
         }
 
         // Use populate to fetch results with their associated user data
-        const results = await Result.find({ user: userId })
-            .populate('user', 'name email'); // Specify user fields to populate
+        const results = await Result.find({ user: userId }).populate({
+            path: 'exercise'
+        })
+            // .populate('user', 'name email'); // Specify user fields to populate
 
         return results;
     } catch (error) {
