@@ -10,6 +10,8 @@ import Breadcrumbs from '../../components/Breadcrumb';
 
 
 function WordbyWord() {
+   
+  
   const navigate = useNavigate();
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');

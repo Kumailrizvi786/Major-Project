@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Card, Heading } from '@radix-ui/themes';
+import { Button, Card, Heading, Flex } from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { FaSave } from 'react-icons/fa';
 
 function Result() {
   // Dummy data for score, speed, and comprehension percentage
@@ -37,11 +38,18 @@ function Result() {
       </Card>
 
       {/* Home button */}
+      <Flex gap="4" justify="center" alignItems="center" mb="4">
       <Link to="/">
         <Button className="mr-2">
           Home <IoHomeOutline />
         </Button>
       </Link>
+      <Link to="/general-exercise">
+        <Button className="mr-2">
+          Save Result & Continue <FaSave />
+        </Button>
+      </Link>
+      </Flex>
     </div>
   );
 }

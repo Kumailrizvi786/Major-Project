@@ -1,28 +1,43 @@
 import React, { useState } from 'react';
 import { Heading } from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation} from 'react-router-dom';
 
 function Comprehension() {
+  const { state } = useLocation();
+  const { exercisedata } = state;
+  console.log(exercisedata);
+
   const [answers, setAnswers] = useState([]);
   const [speedReadingCalculation, setSpeedReadingCalculation] = useState('');
   const navigate = useNavigate();
 
   // Define your comprehension questions and answers here
-  const questions = [
+  const questions = exercisedata?.content?.mcqs || [
     {
       id: 1,
-      question: 'What is the main idea of the text?',
-      options: ['Option A', 'Option B', 'Option C', 'Option D'],
-      answer: 'Option A', // Correct answer
+      question: 'What is the capital of France?',
+      options: ['Paris', 'London', 'Berlin', 'Madrid'],
+      answer: 'Paris',
     },
     {
       id: 2,
-      question: 'Which statement is true according to the text?',
-      options: ['Option A', 'Option B', 'Option C', 'Option D'],
-      answer: 'Option B', // Correct answer
+      question: 'What is the largest planet in our solar system?',
+      options: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
+      answer: 'Jupiter',
     },
-    // Add more questions as needed
+    {
+      id: 3,
+      question: 'What is the powerhouse of the cell?',
+      options: ['Nucleus', 'Mitochondria', 'Chloroplast', 'Ribosome'],
+      answer: 'Mitochondria',
+    },
+    {
+      id: 4,
+      question: 'What is the largest mammal?',
+      options: ['Elephant', 'Blue whale', 'Giraffe', 'Hippopotamus'],
+      answer: 'Blue whale',
+    }
   ];
 
   const handleAnswerChange = (questionId, selectedOption) => {

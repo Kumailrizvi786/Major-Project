@@ -8,14 +8,35 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { IoSettingsOutline } from "react-icons/io5";
 import './ExerciseOne.css'; // Import CSS file for animations
 import { toast } from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function ExerciseOne() {
+    const [exercise, setExercise] = useState([]);
+    // const [exerciseRandom, setExerciseRandom] = useState([]);
+    const location  = useLocation()
+    const  {maxAge}  = location.state;
+    console.log(maxAge)
+
+    const getExercisebyAge = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/exercise/getByAge/${maxAge}`);
+            console.log(response.data);
+            setExercise(response.data);
+            toast.success('Exercise fetched successfully!');
+            // chooseRandomExercise();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
 
   const [isReading, setIsReading] = useState(false);
   const [timer, setTimer] = useState(0);
   const [animationSpeed, setAnimationSpeed] = useState(1); // Initial animation speed
 
   useEffect(() => {
+
     let interval;
     if (isReading) {
       interval = setInterval(() => {
@@ -25,8 +46,34 @@ function ExerciseOne() {
       clearInterval(interval);
       setTimer(0);
     }
+
     return () => clearInterval(interval);
+
   }, [isReading]);
+
+  useEffect(() => { 
+    getExercisebyAge();
+   
+    }, []);
+
+    // const chooseRandomExercise = () => {
+    //     // if (exercise.length === 0) {
+    //     //   // Handle case where there are no exercises
+    //     //   console.log("No exercises available.");
+    //     //   return;
+    //     // }
+      
+    //     // Choose a random index less than the length of the exercise array
+    //     console.log("exercise.length", exercise.length);
+    //     const randomIndex = Math.floor(Math.random() * (exercise.length));
+    //     const randomExercise = exercise[0];
+    //     console.log("randomIndex", randomIndex);
+      
+    //     console.log("chooseRandomExercise", randomExercise);
+    //     // Use or set the selected random exercise state as needed
+    //     setExerciseRandom(randomExercise);
+    //   };
+      
 
   const handleStartReading = () => {
     toast.success('Reading started!');
@@ -86,13 +133,12 @@ function ExerciseOne() {
         </Flex>
         <Card className="mb-8 w-48 mx-auto" id="reading-card">
           <p>
-          The Moon does not shine itself. We see it because it reflects light from the Sun. As it gets brighter, we call it "waxing." As it gets darker, we call it "waning." When we can't see it, we call it a "New Moon."
-          The Moon is always lit. We see different phases because it moves around the Earth. When it is away from the Sun, it looks light. When it is between the Earth and the Sun, it looks dark.
+            {exercise[0]?.content?.text}         
           </p>
           
         </Card>
         <Flex className="mr-40" gap="4" justify="center" alignItems="center" mb="4">
-          <Link to="/comprehension">
+          <Link to="/comprehension" state={{ exercisedata: exercise[0] }}>
             <Button onClick={handleEndReading} className="mr-2">
               End Reading <IoPauseCircleOutline />
             </Button>
