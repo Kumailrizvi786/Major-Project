@@ -6,11 +6,37 @@ import { Link } from 'react-router-dom';
 import professionalImage from '/img/skimming/img1.jpg'; // Import the professional image here
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
 
 function SkimmingExercise() {
   const [showContent, setShowContent] = useState(false);
   const [showImage, setShowImage] = useState(true);
   const [timer, setTimer] = useState(10); // Timer for 10 seconds
+  const [exercise, setExercise] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
+  const getAllSkimmingExercise = async () => {
+    const url = 'http://localhost:8080/exercise/getByName/Skimming';
+    try {
+      setLoading(true);
+      const response = await axios.get(url);
+      console.log(response.data);
+      setExercise(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+      toast.error('Unable to fetch data!');
+    }
+  };
+
+  useEffect(() => {
+    getAllSkimmingExercise();
+  }, []);
 
   const handleStartSkimming = () => {
     setShowImage(true);
@@ -106,7 +132,7 @@ function SkimmingExercise() {
 
       {showContent && (
        
-         <Link to="/comprehension" state={{ exercisedata: exercise[0] }}>
+         <Link to="/comprehension" state={{ exercisedata: exercise }}>
          <Button className="mr-2">
          Next  <FaRegArrowAltCircleRight />
          </Button>

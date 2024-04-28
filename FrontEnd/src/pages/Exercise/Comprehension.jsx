@@ -7,8 +7,9 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 function Comprehension() {
   const { state } = useLocation();
+  console.log('State:', state);
   const exercisedata = state?.exercisedata;
-  console.log(exercisedata);
+  // console.log(exercisedata);
   const questions = exercisedata?.content?.mcqs;
 
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -25,13 +26,13 @@ function Comprehension() {
   useEffect(() => {
     // Check if all questions are answered whenever selectedAnswers changes
     const answeredQuestions = Object.keys(selectedAnswers);
-    setAllQuestionsAnswered(answeredQuestions.length === questions.length);
+    setAllQuestionsAnswered(answeredQuestions?.length === questions?.length);
   }, [selectedAnswers, questions]);
 
   const handleCheckAnswers = () => {
     if (allQuestionsAnswered) {
       const correctAnswers = questions.map((question) => question.correctAnswer);
-      const numQuestions = questions.length;
+      const numQuestions = questions?.length;
       let numCorrect = 0;
 
       // Loop through each question and compare the selected answer with the correct answer
