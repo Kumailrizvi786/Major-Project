@@ -151,7 +151,7 @@ function Chatbot() {
   return (
     <div>
       {isChatOpen && (
-        <div className="fixed bottom-20 right-8 z-50" style={{ width: '450px' }}> 
+        <div className="fixed bottom-20 right-8 z-50" style={{ width: '450px'}}> 
           <div className="bg-white rounded-lg shadow-lg border border-gray-200 ">
             <div className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded-t-lg">
               <h2 className="text-lg font-semibold text-gray-800">Tips with Chatbot</h2>
@@ -174,7 +174,7 @@ function Chatbot() {
         </div>
       ) : (
         <div className="flex justify-start w-full">
-          <div className="bg-gray-200 rounded-full py-1 px-2 border border-gray-200 max-w-[80%]">
+          <div className="bg-gray-200 rounded-full py-4 px-8 border border-gray-200 max-w-[80%]">
             {msg.text}
           </div>
         </div>
