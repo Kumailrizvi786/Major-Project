@@ -25,9 +25,9 @@ function GeneralExercise() {
 
   const exercises = [
     { title: 'Exercise 1: Practice Fixation', level: 'Easy', path: "/exercise-one" },
-    { title: 'Exercise 2: Subvocalization', level: 'Medium', path: "/fixations" },
-    { title: 'Exercise 3: Comprehension', level: 'Hard', path: "/generative-exercise" },
-    { title: 'Exercise 4: Skimming Exercise', level: 'Hard', path: "/generative-exercise" },
+    { title: 'Exercise 2: Subvocalization', level: 'Medium', path: "/subvocalization" },
+    { title: 'Exercise 3: Fixation type 2 Exercise', level: 'Hard', path: "/fixations" },
+    { title: 'Exercise 4: Skimming Exercise', level: 'Hard', path: "/skimming" },
   ];
 
   return (

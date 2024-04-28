@@ -367,6 +367,8 @@ const usersalldata = async ()=>{
                 if (data) {
                     // Check if response indicates success
                     toast.success("Email Verify Successfully!");
+                    usersalldata();
+
                     // setOtpStatus("OTP Sent Successfully!"); // Update state to reflect OTP sent status
                 } else {
                     // Handle cases where response indicates failure

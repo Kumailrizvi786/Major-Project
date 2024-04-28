@@ -41,6 +41,8 @@ import EyeTrackingComponent from './pages/Exercise/EyeTrackingComponent.jsx';
 import ExerciseOne from './pages/Exercise/ExerciseOne.jsx';
 import Comprehension from './pages/Exercise/Comprehension.jsx';
 import Result from './pages/Exercise/Result.jsx';
+import WordbyWord from './pages/Exercise/WordbyWord.jsx';
+import SkimmingExercise from './pages/Exercise/SkimmingExercise.jsx';
 
 
 const router = createBrowserRouter([
@@ -122,6 +124,12 @@ const router = createBrowserRouter([
       {
         path: "/generative-exercise",
         element: <Exercise/>,
+      },{
+        path: "/subvocalization",
+        element: <WordbyWord/>,
+      },{
+        path: "/skimming",
+        element: <SkimmingExercise/>,
       },
       {
         path: "/text-import",
