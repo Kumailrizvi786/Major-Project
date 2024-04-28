@@ -109,91 +109,28 @@ export const createExercise = async (req, res) => {
   }
 };
 
-export const updateExerciseByName = async (req, res) => {
-  try {
-    const { name, description, difficulty, contents } = req.body; // Update data
 
-    // Find the exercise by name
-    const exercise = await Exercise.findOne({ name });
+export const updateExerciseById = async (req, res) => {
+  try {
+    const { id, ...updateInfo } = req.body; // Destructure exercise ID and update data
+
+    // Find the exercise by ID
+    const exercise = await Exercise.findById(id).populate('content');
 
     if (!exercise) {
       return res.status(404).json({ message: 'Exercise not found' });
     }
 
     // Update exercise properties (if provided)
-    if (description) exercise.description = description;
-    if (difficulty) exercise.difficulty = difficulty;
+    Object.assign(exercise, updateInfo); // Concisely update exercise properties
 
     // Update content and MCQs (if provided)
-    if (contents) {
-      const updatedContentIds = []; // Track updated content IDs
-
-      for (const contentData of contents) {
-        const { contentId, ...contentUpdates } = contentData; // Destructure content data
-
-        // Check if contentId is provided for update
-        if (!contentId) {
-          return res.status(400).json({ message: 'Missing content ID for update' });
-        }
-
-        // Find the content to update
-        const contentToUpdate = await Content.findById(contentId);
-
-        if (!contentToUpdate) {
-          return res.status(404).json({ message: 'Content not found for update' });
-        }
-
-        // Update content properties (if provided)
-        if (contentUpdates.contentType) contentToUpdate.contentType = contentUpdates.contentType;
-        if (contentUpdates.text) contentToUpdate.text = contentUpdates.text;
-        if (contentUpdates.imageUrl) contentToUpdate.imageUrl = contentUpdates.imageUrl;
-        if (contentUpdates.description) contentToUpdate.description = contentUpdates.description;
-
-        // Update MCQs within the content (if provided in contentUpdates)
-        if (contentUpdates.mcqs) {
-          const updatedMCQIds = []; // Track updated MCQ IDs
-
-          for (const mcqData of contentUpdates.mcqs) {
-            const { mcqId, ...mcqUpdates } = mcqData; // Destructure MCQ data
-
-            // Check if mcqId is provided for update
-            if (!mcqId) {
-              return res.status(400).json({ message: 'Missing MCQ ID for update within content' });
-            }
-
-            // Find the MCQ to update
-            const mcqToUpdate = await MCQ.findById(mcqId);
-
-            if (!mcqToUpdate) {
-              return res.status(404).json({ message: 'MCQ not found for update within content' });
-            }
-
-            // Update MCQ properties (if provided)
-            if (mcqUpdates.question) mcqToUpdate.question = mcqUpdates.question;
-            if (mcqUpdates.options) mcqToUpdate.options = mcqUpdates.options;
-            if (mcqUpdates.correctAnswer) mcqToUpdate.correctAnswer = mcqUpdates.correctAnswer;
-
-            // Save the updated MCQ
-            const updatedMCQ = await mcqToUpdate.save();
-            updatedMCQIds.push(updatedMCQ._id);
-          }
-
-          // Update the content's mcqs array with updated MCQ IDs (if any)
-          if (updatedMCQIds.length > 0) {
-            contentToUpdate.mcqs = updatedMCQIds;
-          }
-        }
-
-        // Save the updated content
-        const updatedContent = await contentToUpdate.save();
-        updatedContentIds.push(updatedContent._id);
-      }
-
-      // Update the exercise's content references with the updated IDs
-      exercise.content = updatedContentIds;
+    if (updateInfo.content) {
+      const updatedContent = await updateContent(exercise.content, updateInfo.content);
+      exercise.content = updatedContent._id; // Update exercise's content reference
     }
 
-    // Save the updated exercise and populate content and MCQs
+    // Save the updated exercise
     const updatedExercise = await exercise.save();
 
     // Send the updated exercise in the response
@@ -203,6 +140,130 @@ export const updateExerciseByName = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+const updateContent = async (existingContent, contentUpdates) => {
+  // Update content properties (if provided)
+  Object.assign(existingContent, contentUpdates);
+
+  // Update MCQs within the content (if provided)
+  if (contentUpdates.mcqs) {
+    existingContent.mcqs = await Promise.all(
+      contentUpdates.mcqs.map(async (mcqData) => {
+        return await updateMCQ(mcqData);
+      })
+    );
+  }
+
+  // Save the updated content
+  return await existingContent.save();
+};
+
+const updateMCQ = async (mcqData) => {
+  const { mcqId, ...mcqUpdates } = mcqData;
+
+  // Find the MCQ to update (if ID provided)
+  const mcqToUpdate = mcqId ? await MCQ.findByIdAndUpdate(mcqId, mcqUpdates, { new: true }) : null;
+
+  return mcqToUpdate || new MCQ(mcqUpdates); // Create new MCQ if no ID provided
+};
+
+
+
+
+// export const updateExerciseByName = async (req, res) => {
+//   try {
+//     const { name, description, difficulty, contents } = req.body; // Update data
+
+//     // Find the exercise by name
+//     const exercise = await Exercise.findOne({ name });
+
+//     if (!exercise) {
+//       return res.status(404).json({ message: 'Exercise not found' });
+//     }
+
+//     // Update exercise properties (if provided)
+//     if (description) exercise.description = description;
+//     if (difficulty) exercise.difficulty = difficulty;
+
+//     // Update content and MCQs (if provided)
+//     if (contents) {
+//       const updatedContentIds = []; // Track updated content IDs
+
+//       for (const contentData of contents) {
+//         const { contentId, ...contentUpdates } = contentData; // Destructure content data
+
+//         // Check if contentId is provided for update
+//         if (!contentId) {
+//           return res.status(400).json({ message: 'Missing content ID for update' });
+//         }
+
+//         // Find the content to update
+//         const contentToUpdate = await Content.findById(contentId);
+
+//         if (!contentToUpdate) {
+//           return res.status(404).json({ message: 'Content not found for update' });
+//         }
+
+//         // Update content properties (if provided)
+//         if (contentUpdates.contentType) contentToUpdate.contentType = contentUpdates.contentType;
+//         if (contentUpdates.text) contentToUpdate.text = contentUpdates.text;
+//         if (contentUpdates.imageUrl) contentToUpdate.imageUrl = contentUpdates.imageUrl;
+//         if (contentUpdates.description) contentToUpdate.description = contentUpdates.description;
+
+//         // Update MCQs within the content (if provided in contentUpdates)
+//         if (contentUpdates.mcqs) {
+//           const updatedMCQIds = []; // Track updated MCQ IDs
+
+//           for (const mcqData of contentUpdates.mcqs) {
+//             const { mcqId, ...mcqUpdates } = mcqData; // Destructure MCQ data
+
+//             // Check if mcqId is provided for update
+//             if (!mcqId) {
+//               return res.status(400).json({ message: 'Missing MCQ ID for update within content' });
+//             }
+
+//             // Find the MCQ to update
+//             const mcqToUpdate = await MCQ.findById(mcqId);
+
+//             if (!mcqToUpdate) {
+//               return res.status(404).json({ message: 'MCQ not found for update within content' });
+//             }
+
+//             // Update MCQ properties (if provided)
+//             if (mcqUpdates.question) mcqToUpdate.question = mcqUpdates.question;
+//             if (mcqUpdates.options) mcqToUpdate.options = mcqUpdates.options;
+//             if (mcqUpdates.correctAnswer) mcqToUpdate.correctAnswer = mcqUpdates.correctAnswer;
+
+//             // Save the updated MCQ
+//             const updatedMCQ = await mcqToUpdate.save();
+//             updatedMCQIds.push(updatedMCQ._id);
+//           }
+
+//           // Update the content's mcqs array with updated MCQ IDs (if any)
+//           if (updatedMCQIds.length > 0) {
+//             contentToUpdate.mcqs = updatedMCQIds;
+//           }
+//         }
+
+//         // Save the updated content
+//         const updatedContent = await contentToUpdate.save();
+//         updatedContentIds.push(updatedContent._id);
+//       }
+
+//       // Update the exercise's content references with the updated IDs
+//       exercise.content = updatedContentIds;
+//     }
+
+//     // Save the updated exercise and populate content and MCQs
+//     const updatedExercise = await exercise.save();
+
+//     // Send the updated exercise in the response
+//     res.status(200).json(updatedExercise);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// };
 
 export const deleteExerciseById = async (req, res) => {
   try {
