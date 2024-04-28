@@ -24,9 +24,10 @@ function GeneralExercise() {
   };
 
   const exercises = [
-    { title: 'Exercise Level 1', level: 'Easy', path: "/general-exercise" },
-    { title: 'Fixations Exercise', level: 'Medium', path: "/fixations" },
-    { title: 'Generative Exercise', level: 'Hard', path: "/generative-exercise" },
+    { title: 'Exercise 1: Practice Fixation', level: 'Easy', path: "/fixations" },
+    { title: 'Exercise 2: Subvocalization', level: 'Medium', path: "/fixations" },
+    { title: 'Exercise 3: Comprehension', level: 'Hard', path: "/generative-exercise" },
+    { title: 'Exercise 4: Skimming Exercise', level: 'Hard', path: "/generative-exercise" },
   ];
 
   return (
@@ -66,11 +67,13 @@ function GeneralExercise() {
             <Select.Root onValueChange={handleGradeChange} defaultValue={selectedGrade}>
     <Select.Trigger variant="classic" />
     <Select.Content>
-      <Select.Item value="SelectyourGrade">Select Your Grade</Select.Item>
-      <Select.Item value="grade1">Grade 1</Select.Item>
-      <Select.Item value="grade2">Grade 2</Select.Item>
-      <Select.Item value="grade3">Grade 3</Select.Item>
-      <Select.Item value="grade4">Grade 3</Select.Item>
+      <Select.Item value="SelectyourGrade">Select Your Age Group</Select.Item>
+      <Select.Item value="grade1">Grade 1 (6-8 Year Old)</Select.Item>
+      <Select.Item value="grade2">Grade 2 (8-10 Year Old)</Select.Item>
+      <Select.Item value="grade3">Grade 3 (10-12 Year Old)</Select.Item>
+      <Select.Item value="grade4">Grade 4 (12-14 Year Old)</Select.Item>
+      <Select.Item value="grade5">Grade 5 (14-16 Year Old)</Select.Item>
+      <Select.Item value="grade6">Grade 6 (16-18+ Year Old)</Select.Item>
     </Select.Content>
   </Select.Root>
       </Flex>
@@ -97,7 +100,7 @@ const ExerciseCard = ({ title, icon, path, level }) => {
     }
   
     return (
-        <Card className="p-4 w-70 max-w-xs rounded-lg">
+        <Card size={"5"} className="p-4 w-84 max-w-xs rounded-lg">
         <Flex alignItems="center" justify="space-between" gap="2">
           <Flex alignItems="center" gap="2">
             <Box className="flex-shrink-0 mt-1">{icon}</Box>
