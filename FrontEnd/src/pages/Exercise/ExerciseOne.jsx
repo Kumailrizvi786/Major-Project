@@ -10,9 +10,11 @@ import './ExerciseOne.css'; // Import CSS file for animations
 import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 function ExerciseOne() {
     const [exercise, setExercise] = useState([]);
+    const [endreading, setEndReading] = useState(true);
     // const [exerciseRandom, setExerciseRandom] = useState([]);
     const location  = useLocation()
     const  {maxAge}  = location.state;
@@ -85,6 +87,7 @@ function ExerciseOne() {
 
   const handleEndReading = () => {
     setIsReading(false);
+    setEndReading(false);
     // Remove animation class after reading ends
     const card = document.getElementById('reading-card');
     card.classList.remove('start-reading-animation');
@@ -137,10 +140,15 @@ function ExerciseOne() {
           </p>
           
         </Card>
-        <Flex className="mr-40" gap="4" justify="center" alignItems="center" mb="4">
-          <Link to="/comprehension" state={{ exercisedata: exercise[0] }}>
-            <Button onClick={handleEndReading} className="mr-2">
+        <Flex className="" gap="4" justify="center" alignItems="center" mb="4">
+          {/* <Link to="/comprehension" state={{ exercisedata: exercise[0] }}> */}
+            <Button onClick={handleEndReading} className="mr-2" disabled={!endreading}>
               End Reading <IoPauseCircleOutline />
+            </Button>
+          {/* </Link> */}
+          <Link to="/comprehension" state={{ exercisedata: exercise[0] }}>
+            <Button  className="mr-2" disabled={endreading}>
+              Next <FaRegArrowAltCircleRight />
             </Button>
           </Link>
         </Flex>
