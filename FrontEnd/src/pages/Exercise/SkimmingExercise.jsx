@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Dialog, Heading, Text, Flex, Badge, Card } from '@radix-ui/themes';
+import { Button, Dialog, Heading, Text, Flex, Badge, Card , Callout} from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import professionalImage from '/img/skimming/img1.jpg'; // Import the professional image here
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 function SkimmingExercise() {
   const [showContent, setShowContent] = useState(false);
@@ -45,7 +46,17 @@ function SkimmingExercise() {
       <Heading as="h1" className="text-3xl font-bold mb-8">
         Skimming Exercise
       </Heading>
-<Card className="p-6 mb-8">
+      <Callout.Root>
+        <Callout.Icon>
+            <InfoCircledIcon />
+        </Callout.Icon>
+        <Callout.Text>
+            Skim through the image that will be shown for 10 seconds. Try to get a general idea of its content.
+            After 10 seconds, a comprehension question related to the image will be asked.
+        </Callout.Text>
+        </Callout.Root>
+
+<Card className="p-6 mb-8 mt-4">
       <Dialog.Root>
         <Dialog.Trigger>
           <Button color='blue' variant='soft'>Show Instructions</Button>
@@ -56,8 +67,9 @@ function SkimmingExercise() {
             Instructions
           </Heading>
           <Text size="2" mb="4">
-            Skim through the image that will be shown for 10 seconds. Try to get a general idea of its content.
-            After 10 seconds, a comprehension question related to the image will be asked.
+           1. Skim through the image that will be shown for 10 seconds.  <br />
+           2. Try to get a general idea of its content. <br />
+           3. After 10 seconds, a comprehension question related to the image will be asked.
           </Text>
 
           <Flex gap="3" mt="4" justify="end">
