@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
-import { Button, Dialog, Heading, Text, TextField, Flex } from '@radix-ui/themes';
+import { Button, Dialog, Heading, Text, Flex, Badge } from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import professionalImage from '/img/skimming/img1.jpg'; // Import the professional image here
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 function SkimmingExercise() {
   const [showContent, setShowContent] = useState(false);
-  const [showImage, setShowImage] = useState(false);
+  const [showImage, setShowImage] = useState(true);
+  const [timer, setTimer] = useState(10); // Timer for 10 seconds
 
   const handleStartSkimming = () => {
     setShowImage(true);
     setShowContent(false);
-    // Scroll to the top of the content for better skimming experience
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimer(10); // Reset timer to 10 seconds
+    // Start the countdown timer
+    const countdown = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer === 1) {
+          clearInterval(countdown);
+          setShowImage(false);
+          setShowContent(true);
+        }
+        if (prevTimer === 0) {
+          clearInterval(countdown);
+          setShowImage(false);
+          setShowContent(false);
+        }
+        return prevTimer - 1;
+      });
+    }, 1000);
   };
 
   return (
@@ -20,7 +38,7 @@ function SkimmingExercise() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'Skimming Exercise' , href: '/skimming'},
+          { label: 'Skimming Exercise', href: '/skimming' },
         ]}
         icon={IoHomeOutline}
       />
@@ -30,7 +48,7 @@ function SkimmingExercise() {
 
       <Dialog.Root>
         <Dialog.Trigger>
-          <Button>Show Instructions</Button>
+          <Button color='blue' variant='soft'>Show Instructions</Button>
         </Dialog.Trigger>
 
         <Dialog.Content>
@@ -52,23 +70,32 @@ function SkimmingExercise() {
         </Dialog.Content>
       </Dialog.Root>
 
-      {showImage && (
-        <div className="p-6 mb-8 border border-gray-300 rounded-lg">
-          <p>Display image here...</p>
-          {/* You can add image component here */}
-        </div>
+      {showImage &&(
+        <Dialog.Root>
+             <Dialog.Trigger>
+          <Button onClick={handleStartSkimming} variant="outline" color="cyan" className="mr-2">Start Skimming</Button>
+        </Dialog.Trigger>
+          <Dialog.Content>
+            <div className=" p-6 mb-8 border border-gray-300 rounded-lg">
+              <Badge size="3" color="gray" variant="outline" align={"center"}>
+                <Heading as="h6" >Time remaining: {timer} seconds</Heading>
+              </Badge>
+                <Heading as="h2" className="flex justify-center text-lg font-bold mb-4">
+                    Skim through the image below
+                </Heading>
+                <div className="flex justify-center">
+              <img src={professionalImage} alt="Professional Image" style={{ maxWidth: '50%' }} />
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
       )}
 
-      {!showContent && !showImage && (
-        <Button onClick={handleStartSkimming} className="mr-2">
-          Start Skimming
-        </Button>
-      )}
 
       {showContent && (
-        <Link to="/skimming-comprehension">
+        <Link to="/comprehension">
           <Button className="mr-2">
-            Next <IoHomeOutline />
+            Next <FaRegArrowAltCircleRight />
           </Button>
         </Link>
       )}
