@@ -30,7 +30,7 @@ import ChangePassword from './pages/Login/ChangePassword.jsx';
 import Test from './components/Test.jsx';
 import Community from './pages/Community.jsx';
 import SpeedReadingPage from './pages/Reading/SpeedReadingPage.jsx';
-import Comprehension from './pages/Reading/Comprehension.jsx';
+// import Comprehension from './pages/Reading/Comprehension.jsx';
 import ResultPage from './pages/Reading/Result.jsx';
 import AllExercise from './pages/AllExercise.jsx';
 import FixationPage from './pages/Exercise/FixationPage.jsx';
@@ -38,6 +38,9 @@ import TextImportAndSyncPage from './pages/Exercise/TextImportAndSyncPage.jsx';
 import GeneralExercise from './pages/Exercise/GeneralExercise.jsx';
 import VoiceReadingPage from './pages/Exercise/VoiceReadingPage.jsx';
 import EyeTrackingComponent from './pages/Exercise/EyeTrackingComponent.jsx';
+import ExerciseOne from './pages/Exercise/ExerciseOne.jsx';
+import Comprehension from './pages/Exercise/Comprehension.jsx';
+import Result from './pages/Exercise/Result.jsx';
 
 
 const router = createBrowserRouter([
@@ -138,7 +141,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/result",
-        element: <ResultPage/>,
+        element: <Result/>,
+      },{
+        path: "/exercise-one",
+        element: <ExerciseOne/>,
       },
     ],
     errorElement: <ErrorPage />

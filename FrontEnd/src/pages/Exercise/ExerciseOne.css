@@ -1,0 +1,16 @@
+/* ExerciseOne.css */
+.start-reading-animation p {
+    animation: slideUp 20s linear forwards;
+  }
+  
+  @keyframes slideUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(-100%);
+    }
+  }
+  
