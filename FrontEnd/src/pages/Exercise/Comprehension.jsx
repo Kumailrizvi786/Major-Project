@@ -9,10 +9,12 @@ function Comprehension() {
   const { state } = useLocation();
   console.log('State:', state);
   const exercisedata = state?.exercisedata;
+  const readingSpeed = state?.readingSpeed;
   // console.log(exercisedata);
   const questions = exercisedata?.content?.mcqs;
 
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [percentageCorrect, setPercentageCorrect] = useState(0);
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
   const [answersChecked, setAnswersChecked] = useState(false);
 
@@ -62,6 +64,7 @@ function Comprehension() {
       // Display the results
       console.log(`Number of Correct Answers: ${numCorrect}`);
       console.log(`Percentage Correct: ${percentageCorrect}%`);
+      setPercentageCorrect(percentageCorrect);
 
       // Set answers checked to true
       setAnswersChecked(true);
@@ -135,7 +138,7 @@ function Comprehension() {
         </div>
       )}
 
-      <Link to="/result">
+      <Link to="/result" state={{readingSpeed:readingSpeed,  percentageCorrect:percentageCorrect, exercisedata:exercisedata}}>
         <Button className="mr-2 mt-4">
           Next <IoHomeOutline />
         </Button>
