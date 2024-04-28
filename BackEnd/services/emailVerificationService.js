@@ -76,11 +76,10 @@ export const emailVerification = async (req, res) => {
         else {
             if (verificationObj.otp === otp) {
                 userObject.isEmailVerified = true;
-                //save the user object
-                const updatedUser = await User.findOneAndUpdate(userObject);
-                const deletedObject = await Verification.deleteOne({email: verificationObj.email});
+                await User.updateOne({ email }, { $set: { isEmailVerified: true } });
+                const deletedObject = await Verification.deleteOne({ email: verificationObj.email });
                 return res.status(200).json({ "success": true });
-            }
+              }
             else {
                 return res.status(400).json({ "error": "Invalid"});
             }
