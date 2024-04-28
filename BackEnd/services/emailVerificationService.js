@@ -33,10 +33,10 @@ export const generateEmail1 = async (req, res) => {
         const { email } = req.body;
         const userObj = await User.findOne({ email: email});
         if (!email) {
-            res.status(401).json({ "error": "Invalid email" })
+            return res.status(401).json({ "error": "Invalid email" })
         }
         if(!userObj){
-            res.status(404).json({ "error": "User not found" });
+            return res.status(404).json({ "error": "User not found" });
         }
         const otp = await generateAndStoreOTP(email)
         const info = await transporter.sendMail({
