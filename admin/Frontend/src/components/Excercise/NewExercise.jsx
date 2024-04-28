@@ -27,6 +27,7 @@ function NewExercise() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
+  const [disabled, setDisbled] = useState(false);
   const [generatedContent, setGeneratedContent] = useState({
     name: '',
     description: '',
@@ -41,6 +42,14 @@ function NewExercise() {
     options: ['', '', '', ''],
     correctAnswer: ''
   });
+
+  const handlechange = (e) => {
+    console.log(e.target.value)
+    if (e.target.value === 'text') {
+      setDisbled(true);
+    }
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,12 +109,12 @@ function NewExercise() {
     const prompt = `Generate an exercise for children aged 6-12 years about history. The exercise should be easy and text-only. The exercise should contain a question with multiple-choice options. Here is an example of the exercise response data format:
       data should only be in this format , no other content should be there (dont include ''' also)
     {
-      name: 'generate exercise title here',
+      name: 'keep it for exercise name( Fixation or Subvocalization)',
       description: 'generate description here in 50 characters',
       minAge: 'keep it according to the age group(e.g 6)',
       maxAge: 'keep it according to the age group(e.g 12)',
       level: 'according to the difficulty level(e.g easy, medium, hard)',
-      contentType: 'Text only',
+      contentType: 'text',
       text: 'generate text about title here in min 200 characters',
       image: 'https://via.placeholder.com/150',
       contentDescription: 'Additional content description.',
@@ -115,7 +124,7 @@ function NewExercise() {
     }`;
     
     //generating here
-    console.log('api key:',YOUR_GEMINI_API_KEY )
+    // console.log('api key:',YOUR_GEMINI_API_KEY )
     try {
       setLoading(true);
       //  console.log(prompt)
@@ -192,38 +201,6 @@ function NewExercise() {
     toast.success('Exercise Generated Successfully!')
   };
   
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Add your logic to handle form submission
-  //   console.log('Exercise created:', {
-  //     name,
-  //     description,
-  //     difficulty: { minAge, maxAge, level },
-  //     contents: [
-  //       {
-  //         contentType,
-  //         text,
-  //         image,
-  //         description: contentDescription,
-  //         mcqs: [{ question, options, correctAnswer }]
-  //       }
-  //     ]
-  //   });
-  //   // Optionally, you can reset the form fields after submission
-  //   setName('');
-  //   setDescription('');
-  //   setMinAge('');
-  //   setMaxAge('');
-  //   setLevel('');
-  //   setContentType('');
-  //   setText('');
-  //   setImage(null);
-  //   setContentDescription('');
-  //   setQuestion('');
-  //   setOptions(['', '']);
-  //   setCorrectAnswer('');
-  // };
 
   const handleClearForm = (e) => {
     e.preventDefault();
@@ -418,11 +395,12 @@ function NewExercise() {
   <select
     id="contentType"
     value={contentType}
-    onChange={(e) => setContentType(e.target.value)}
+    onChange={(e) =>{ setContentType(e.target.value); handlechange(e);}}
     required
+    // onChange={handlechange}
     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   >
-    <option value="">Select Content Type</option>
+    <option value="" >Select Content Type</option>
     {/* <option value="AI Generated">AI Generated</option> */}
     <option value="text">Text only</option>
     <option value="textOnImage">Image with Text</option>
@@ -442,8 +420,8 @@ function NewExercise() {
           ></TextArea>
         </div>
         {/* Image upload */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
+      { !disabled && <div className="mb-6">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="image" >
             Image Url
           </label>
           <TextField.Root
@@ -452,9 +430,11 @@ function NewExercise() {
             placeholder='Enter image url'
             onChange={handleImageChange}
             required
+            // disabled={disabled}
+            // readOnly={disabled}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-        </div>
+        </div>}
         {/* Content description */}
         <div className="mb-6">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="contentDescription">
@@ -514,9 +494,9 @@ function NewExercise() {
         </div>
         {/* Submit button */}
         <div className="flex justify-center jusmb-6 gap-2">
-        <Button type="submit" className="w-half cursor-not-allowed" disabled>
+        <Button className="w-half">
           Add more Question <PlusCircledIcon/>
-        </Button>
+        </Button> 
         <Button type="submit" className="w-half cursor-pointer">
         Submit Excercise  <ArrowRightIcon/>
         </Button>

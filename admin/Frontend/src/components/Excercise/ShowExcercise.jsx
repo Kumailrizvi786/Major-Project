@@ -5,11 +5,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-function ShowExercise({ loading, exercises }) {
+function ShowExercise({ loading, exercises, getAllExercise }) {
   const navigate = useNavigate();
   // const {pname} = useParams();
 
-  const handleEdit = ({id}) => {
+  const handleEdit = (id) => {
     console.log('Editing exercise with ID:', id);
     // Redirect to the edit exercise page
     alert(JSON.stringify(`/edit-exercise/${id}`))
@@ -24,6 +24,8 @@ function ShowExercise({ loading, exercises }) {
         // Remove the deleted exercise from the state or re-fetch the exercises list
         console.log('Exercise deleted successfully:', exerciseId);
         toast.success('Exercise deleted successfully');
+        getAllExercise();
+
       } else {
         console.error('Failed to delete exercise:', response.statusText);
         toast.error('Failed to delete exercise');
