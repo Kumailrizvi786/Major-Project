@@ -53,7 +53,7 @@ function EditExercise({ exerciseName,name }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put(`http://localhost:8000/admin/exercise/updateByName/${exerciseName}`, exerciseData);
+      const response = await axios.put(`http://localhost:8000/admin/exercise/updateByName/`, exerciseData);
       console.log('Exercise updated:', response.data);
       toast.success('Exercise updated successfully');
     } catch (error) {
