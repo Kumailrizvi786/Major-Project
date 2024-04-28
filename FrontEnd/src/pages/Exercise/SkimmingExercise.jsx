@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Dialog, Heading, Text, Flex, Badge } from '@radix-ui/themes';
+import { Button, Dialog, Heading, Text, Flex, Badge, Card } from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ function SkimmingExercise() {
       <Heading as="h1" className="text-3xl font-bold mb-8">
         Skimming Exercise
       </Heading>
-
+<Card className="p-6 mb-8">
       <Dialog.Root>
         <Dialog.Trigger>
           <Button color='blue' variant='soft'>Show Instructions</Button>
@@ -99,7 +99,9 @@ function SkimmingExercise() {
           </Button>
         </Link>
       )}
+    </Card>
     </div>
+
   );
 }
 
