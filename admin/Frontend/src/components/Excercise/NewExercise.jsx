@@ -50,11 +50,35 @@ function NewExercise() {
     }
   }
 
+  const [questions, setQuestions] = useState([
+    { question: '', options: [], correctAnswer: '' },
+  ]);
+
+  const handleAddQuestion = () => {
+    setQuestions((prevQuestions) => [
+      ...prevQuestions,
+      { question: '', options: [], correctAnswer: '' },
+    ]);
+  };
+
+  const handleQuestionChange = (index, field, value) => {
+    setQuestions((prevQuestions) => {
+      const updatedQuestions = [...prevQuestions];
+      updatedQuestions[index][field] = value;
+      return updatedQuestions;
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const formattedQuestions = questions.map((question) => ({
+        question: question.question,
+        options: question.options,
+        correctAnswer: question.correctAnswer,
+      }));
+  
       const response = await fetch('http://localhost:8000/admin/exercise/create', {
         method: 'POST',
         headers: {
@@ -69,7 +93,7 @@ function NewExercise() {
               contentType,
               text,
               description: contentDescription,
-              mcqs: [{ question, options, correctAnswer }],
+              mcqs: formattedQuestions,
             },
           ],
         }),
@@ -85,11 +109,9 @@ function NewExercise() {
       setContentType('');
       setText('');
       setContentDescription('');
-      setQuestion('');
-      setOptions(['', '']);
-      setCorrectAnswer('');
+      setQuestions([{ question: '', options: ['', ''], correctAnswer: '' }]);
       toast.success('Exercise Created Successfully!');
-      navigate('/all-exercises')
+      navigate('/all-exercises');
     } catch (error) {
       console.error('Error:', error);
       setError('Something went wrong. Please try again.');
@@ -98,7 +120,7 @@ function NewExercise() {
       setLoading(false);
     }
   };
-
+  
 
 
   const YOUR_GEMINI_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -447,56 +469,64 @@ function NewExercise() {
             placeholder="Enter content description"
           ></TextArea>
         </div>
-        {/* Question */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="question">
-            Question
-          </label>
-          <TextField.Root
-            id="question"
-            type="text"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Enter question"
-            required
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+        <div>
+      {questions.map((question, index) => (
+        <div key={index}>
+          {/* Question */}
+          <div className="mb-6">
+            <label className="block text-gray-700 font-bold mb-2" htmlFor={`question-${index}`}>
+              Question {index + 1}
+            </label>
+            <TextField.Root
+              id={`question-${index}`}
+              type="text"
+              value={question.question}
+              onChange={(e) => handleQuestionChange(index, 'question', e.target.value)}
+              placeholder="Enter question"
+              required
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          {/* Options */}
+          <div className="mb-6">
+            <label className="block text-gray-700 font-bold mb-2" htmlFor={`options-${index}`}>
+              Options for Q-{index + 1}
+            </label>
+            <TextField.Root
+              id={`options-${index}`}
+              type="text"
+              value={question.options.join(',')}
+              onChange={(e) => handleQuestionChange(index, 'options', e.target.value.split(','))}
+              placeholder="Enter comma-separated options"
+              required
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          {/* Correct answer */}
+          <div className="mb-6">
+            <label className="block text-gray-700 font-bold mb-2" htmlFor={`correctAnswer-${index}`}>
+              Correct Answer for Q-{index + 1}
+            </label>
+            <TextField.Root
+              id={`correctAnswer-${index}`}
+              type="text"
+              value={question.correctAnswer}
+              onChange={(e) => handleQuestionChange(index, 'correctAnswer', e.target.value)}
+              placeholder="Enter correct answer"
+              required
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
         </div>
-        {/* Options */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="options">
-            Options
-          </label>
-          <TextField.Root
-            id="options"
-            type="text"
-            value={options}
-            onChange={(e) => setOptions(e.target.value.split(','))}
-            placeholder="Enter comma-separated options"
-            required
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        {/* Correct answer */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="correctAnswer">
-            Correct Answer
-          </label>
-          <TextField.Root
-            id="correctAnswer"
-            type="text"
-            value={correctAnswer}
-            onChange={(e) => setCorrectAnswer(e.target.value)}
-            placeholder="Enter correct answer"
-            required
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        {/* Submit button */}
-        <div className="flex justify-center jusmb-6 gap-2">
-        <Button className="w-half">
-          Add more Question <PlusCircledIcon/>
-        </Button> 
+      ))}
+      </div>
+      {/* Add more question button */}
+      <div className="flex justify-center gap-2">
+        <Button onClick={handleAddQuestion} className="w-half">
+          Add more Question <PlusCircledIcon />
+        </Button>
+     
+   
         <Button type="submit" className="w-half cursor-pointer">
         Submit Excercise  <ArrowRightIcon/>
         </Button>
