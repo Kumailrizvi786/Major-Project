@@ -47,7 +47,7 @@ function AddExercise() {
             <div className='flex flex-col pt-16 p-4'>
         <Breadcrumbs items={breadcrumbsItems} />
         
-                <ShowExcercise loading={loading} exercises={exercises}/>
+                <ShowExcercise loading={loading} exercises={exercises} getAllExercise={getAllExercise}/>
         
         {/* <CreateExercise/> */}
        

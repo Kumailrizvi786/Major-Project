@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRightIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Button, Text, TextArea, Card, TextField, Skeleton } from '@radix-ui/themes';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { IoSparklesSharp } from 'react-icons/io5';
 import { RiEdit2Line, RiFormatClear } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
 
-function EditExercise({ exerciseName }) {
+function EditExercise({ exerciseName,name }) {
 
-  const {name} = useParams();
+  // const {id} = useParams();
+  console.log('ID:', name)
   const [exerciseData, setExerciseData] = useState({
     name: '',
     description: '',
@@ -31,7 +32,8 @@ function EditExercise({ exerciseName }) {
     const fetchExerciseData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:8000/admin/exercise/getByName/${exerciseName}`);
+        const response = await axios.get(`http://localhost:8000/admin/exercise/getById/${name}`);
+        console.log('Exercise data:', response.data);
         setExerciseData(response.data);
         setLoading(false);
       } catch (error) {
@@ -137,7 +139,7 @@ function EditExercise({ exerciseName }) {
                 id="minAge"
                 name="minAge"
                 type="number"
-                value={exerciseData.minAge}
+                value={exerciseData?.difficulty?.minAge}
                 onChange={handleInputChange}
                 placeholder="Enter minimum age"
                 required
@@ -154,7 +156,7 @@ function EditExercise({ exerciseName }) {
                 id="maxAge"
                 name="maxAge"
                 type="number"
-                value={exerciseData.maxAge}
+                value={exerciseData?.difficulty?.maxAge}
                 onChange={handleInputChange}
                 placeholder="Enter maximum age"
                 required
@@ -170,7 +172,7 @@ function EditExercise({ exerciseName }) {
           <select
             id="level"
             name="level"
-            value={exerciseData.level}
+            value={exerciseData?.difficulty?.level}
             onChange={handleInputChange}
             required
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -188,7 +190,7 @@ function EditExercise({ exerciseName }) {
           <select
             id="contentType"
             name="contentType"
-            value={exerciseData.contentType}
+            value={exerciseData?.content?.contentType}
             onChange={handleInputChange}
             required
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -205,7 +207,7 @@ function EditExercise({ exerciseName }) {
           <TextArea
             id="text"
             name="text"
-            value={exerciseData.text}
+            value={exerciseData?.content?.text}
             onChange={handleInputChange}
             placeholder="Enter text"
           ></TextArea>
@@ -217,7 +219,7 @@ function EditExercise({ exerciseName }) {
           <TextArea
             id="contentDescription"
             name="contentDescription"
-            value={exerciseData.contentDescription}
+            value={exerciseData?.content?.description}
             onChange={handleInputChange}
             placeholder="Enter content description"
           ></TextArea>
@@ -230,7 +232,7 @@ function EditExercise({ exerciseName }) {
             id="question"
             name="question"
             type="text"
-            value={exerciseData.question}
+            value={exerciseData?.mcqs}
             onChange={handleInputChange}
             placeholder="Enter question"
             required
@@ -245,7 +247,7 @@ function EditExercise({ exerciseName }) {
             id="options"
             name="options"
             type="text"
-            value={exerciseData.options.join(',')}
+            value={exerciseData?.options}
             onChange={(e) => setExerciseData({ ...exerciseData, options: e.target.value.split(',') })}
             placeholder="Enter comma-separated options"
             required

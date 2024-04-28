@@ -4,10 +4,14 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ShowExcercise from '../components/Excercise/ShowExcercise';
 import axios from 'axios';
 import EditExercise from '../components/Excercise/EditExercise';
+import { useParams } from 'react-router-dom';
 
 function EditExercisePage() {
+  const {name} = useParams();
+  console.log('ID2:', name);
   const [exercises, setExercise] = useState([]);
   const [loading, setLoading] = useState(false);
+
 
   const getAllExercise = async () => {
     const url = 'http://localhost:8000/admin/exercise/getAll';
@@ -47,7 +51,7 @@ function EditExercisePage() {
             <div className='flex flex-col pt-16 p-4'>
         <Breadcrumbs items={breadcrumbsItems} />
         
-                <EditExercise exercises={exercises}/>
+                <EditExercise exercises={exercises} name={name}/>
         
         {/* <CreateExercise/> */}
        
