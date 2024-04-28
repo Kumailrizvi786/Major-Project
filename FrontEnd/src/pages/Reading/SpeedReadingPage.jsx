@@ -4,7 +4,7 @@ import { Button, Heading } from '@radix-ui/themes';
 import { Box, TextArea } from '@radix-ui/themes';
 import { useNavigate } from 'react-router-dom';
 
-function SpeedReadingPage({ content }) {
+function SpeedReadingPage({ content, filteredExercises }) {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1); // Default speed
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -57,7 +57,7 @@ function SpeedReadingPage({ content }) {
 
   const handleNext = () => {
     // Navigate to the comprehension page
-    navigate('/comprehension');
+    navigate('/comprehension', { state: { exercisedata:filteredExercises[0]  } });
   };
 
   return (
