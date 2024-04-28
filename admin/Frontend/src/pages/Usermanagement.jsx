@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { RiAdminLine, RiHome2Line } from 'react-icons/ri';
-import { AlertDialog, Badge, Button, Flex, Table, TextField } from '@radix-ui/themes';
+import { AlertDialog, Badge, Button, Flex, Skeleton, Table, TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon, TrashIcon } from '@radix-ui/react-icons';
 import { FaUserGroup } from 'react-icons/fa6';
 import { IoAdd } from 'react-icons/io5';
@@ -131,9 +131,12 @@ function Usermanagement() {
                   <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
                 </Table.Row>
               </Table.Header>
-
+              <Skeleton loading={loading}>
               <Table.Body>
-                {filteredUsers.map((user) => (
+                {  filteredUsers.length === 0 ? ( <Table.Row><Table.Cell colSpan={5} align='center'>No users found</Table.Cell></Table.Row> )  :
+                
+                
+                filteredUsers.map((user) => (
                   <Table.Row key={user._id}>
                     <Table.RowHeaderCell>{user.name}</Table.RowHeaderCell>
                     <Table.Cell>{user.email}</Table.Cell>
@@ -165,8 +168,12 @@ function Usermanagement() {
                       </AlertDialog.Root>
                     </Table.Cell>
                   </Table.Row>
+                  // Add this line
+                  
+
                 ))}
               </Table.Body>
+              </Skeleton>
             </Table.Root>
           </div>
         </div>

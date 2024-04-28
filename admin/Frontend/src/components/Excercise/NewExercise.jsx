@@ -202,38 +202,6 @@ function NewExercise() {
   };
   
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Add your logic to handle form submission
-  //   console.log('Exercise created:', {
-  //     name,
-  //     description,
-  //     difficulty: { minAge, maxAge, level },
-  //     contents: [
-  //       {
-  //         contentType,
-  //         text,
-  //         image,
-  //         description: contentDescription,
-  //         mcqs: [{ question, options, correctAnswer }]
-  //       }
-  //     ]
-  //   });
-  //   // Optionally, you can reset the form fields after submission
-  //   setName('');
-  //   setDescription('');
-  //   setMinAge('');
-  //   setMaxAge('');
-  //   setLevel('');
-  //   setContentType('');
-  //   setText('');
-  //   setImage(null);
-  //   setContentDescription('');
-  //   setQuestion('');
-  //   setOptions(['', '']);
-  //   setCorrectAnswer('');
-  // };
-
   const handleClearForm = (e) => {
     e.preventDefault();
    
@@ -526,9 +494,9 @@ function NewExercise() {
         </div>
         {/* Submit button */}
         <div className="flex justify-center jusmb-6 gap-2">
-        <Button type="submit" className="w-half cursor-not-allowed" disabled>
+        <Button className="w-half">
           Add more Question <PlusCircledIcon/>
-        </Button>
+        </Button> 
         <Button type="submit" className="w-half cursor-pointer">
         Submit Excercise  <ArrowRightIcon/>
         </Button>
