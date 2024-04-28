@@ -10,11 +10,11 @@ function ShowExercise({ loading, exercises, getAllExercise }) {
   // const {pname} = useParams();
   console.log('Exercises:', exercises);
 
-  const handleEdit = (id) => {
+  const handleEdit = (id, name) => {
     console.log('Editing exercise with ID:', id);
     // Redirect to the edit exercise page
-    alert(JSON.stringify(`/edit-exercise/${id}`))
-    navigate(`/edit-exercise/${id}`);
+    // alert(JSON.stringify(`/edit-exercise/${id}`))
+    navigate(`/edit-exercise/${id}`, { state: { id, name } });
   
   };
 
@@ -107,7 +107,7 @@ function ShowExercise({ loading, exercises, getAllExercise }) {
       </div>
       {/* Action buttons */}
       <div className="flex items-center space-x-2">
-        <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
+        <button onClick={() => handleEdit(exercise._id, exercise.name)} className="text-indigo-500 hover:text-indigo-700">
           <Pencil2Icon className="h-6 w-6" />
         </button>
         <button className="text-red-500 hover:text-red-700">

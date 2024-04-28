@@ -105,11 +105,12 @@ function SkimmingExercise() {
 
 
       {showContent && (
-        <Link to="/comprehension">
-          <Button className="mr-2">
-            Next <FaRegArrowAltCircleRight />
-          </Button>
-        </Link>
+       
+         <Link to="/comprehension" state={{ exercisedata: exercise[0] }}>
+         <Button className="mr-2">
+         Next  <FaRegArrowAltCircleRight />
+         </Button>
+       </Link>
       )}
     </Card>
     </div>

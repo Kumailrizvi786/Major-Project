@@ -10,20 +10,18 @@ import { FaEdit } from 'react-icons/fa';
 
 function EditExercise({ exerciseName,name }) {
 
-  // const {id} = useParams();
-  console.log('ID:', name)
+  // const {state} = useParams();
+  
+  console.log('ID:', exerciseName)
   const [exerciseData, setExerciseData] = useState({
     name: '',
     description: '',
-    minAge: '',
-    maxAge: '',
-    level: '',
-    contentType: '',
-    text: '',
-    contentDescription: '',
-    question: '',
-    options: [],
-    correctAnswer: '',
+    difficulty: {
+      minAge: '',
+      maxAge: '',
+      level: ''
+    },
+    contents: []
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -55,7 +53,7 @@ function EditExercise({ exerciseName,name }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put(`http://localhost:8000/admin/exercise/${exerciseData._id}`, exerciseData);
+      const response = await axios.put(`http://localhost:8000/admin/exercise/updateByName/`, exerciseData);
       console.log('Exercise updated:', response.data);
       toast.success('Exercise updated successfully');
     } catch (error) {
@@ -72,15 +70,12 @@ function EditExercise({ exerciseName,name }) {
     setExerciseData({
       name: '',
       description: '',
-      minAge: '',
-      maxAge: '',
-      level: '',
-      contentType: '',
-      text: '',
-      contentDescription: '',
-      question: '',
-      options: [],
-      correctAnswer: '',
+      difficulty: {
+        minAge: '',
+        maxAge: '',
+        level: ''
+      },
+      contents: []
     });
     toast.success('Form cleared successfully');
   };
@@ -232,7 +227,7 @@ function EditExercise({ exerciseName,name }) {
             id="question"
             name="question"
             type="text"
-            value={exerciseData?.mcqs}
+            value={exerciseData?.content?.mcqs[0]?.question}
             onChange={handleInputChange}
             placeholder="Enter question"
             required
@@ -247,7 +242,7 @@ function EditExercise({ exerciseName,name }) {
             id="options"
             name="options"
             type="text"
-            value={exerciseData?.options}
+            value={exerciseData?.content?.mcqs[0]?.options}
             onChange={(e) => setExerciseData({ ...exerciseData, options: e.target.value.split(',') })}
             placeholder="Enter comma-separated options"
             required
@@ -262,7 +257,7 @@ function EditExercise({ exerciseName,name }) {
             id="correctAnswer"
             name="correctAnswer"
             type="text"
-            value={exerciseData.correctAnswer}
+            value={exerciseData?.content?.mcqs[0]?.correctAnswer}
             onChange={handleInputChange}
             placeholder="Enter correct answer"
             required
@@ -271,7 +266,7 @@ function EditExercise({ exerciseName,name }) {
         </div>
         <div className="flex justify-center jusmb-6 gap-2">
           <Button type="submit" className="w-half cursor-pointer">
-            Submit Exercise <ArrowRightIcon/>
+            Update Exercise <ArrowRightIcon/>
           </Button>
           <Button onClick={handleClearForm} type="button" className="w-half cursor-pointer">
             Clear Form <RiFormatClear/>
