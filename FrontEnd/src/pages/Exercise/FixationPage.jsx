@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Badge, Button, Card, Heading, Text } from '@radix-ui/themes';
 import { IoPlayCircleOutline, IoPauseCircleOutline } from 'react-icons/io5';
 import { FiChevronRight, FiSettings } from 'react-icons/fi';
+import Breadcrumbs from '../../components/Breadcrumb';
+import { IoHomeOutline } from 'react-icons/io5';
 
 function FixationExercise() {
+
   const [words, setWords] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -72,8 +75,15 @@ function FixationExercise() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+        <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Exercise 1: Fixation Exercise', href: '/general-exercise' },
+        ]}
+        icon={IoHomeOutline}
+      />
       <Heading as="h1" className="text-3xl font-bold mb-8">
-        Fixation Exercise
+      Exercise 1: Fixation Exercise
       </Heading>
       <Card className="p-6 mb-8">
         <div className="flex justify-between items-center">
