@@ -15,14 +15,36 @@ import axios from "axios"
 import {InfoCircledIcon} from '@radix-ui/react-icons'
 import {Share2Icon, Link1Icon} from '@radix-ui/react-icons'
 import api from '../../services/axiosConfig.js';
+import { useEffect } from 'react';
 // import { getUser } from '../../Utils/helper';
 
 function Profile() {
   const loggedIn = getLoggedIn();
 
-  if (!loggedIn) {
-    return <Navigate to="/login" />;
-  }
+const [userDetails, setUserDetails] = useState(null);
+const [loading, setLoading] = useState(true);
+
+const usersalldata = async ()=>{
+  console.log(user);
+  // user data from this api /user/getAllDetails
+ const response = await axios.post('http://localhost:8080/user/getAllDetails', {email: userEmail})
+  console.log(response.data);
+  setUserDetails(response.data);
+
+
+}
+
+
+  useEffect(() => {
+    if (!loggedIn) {
+      return <Navigate to="/login" />;
+     
+
+    }
+    usersalldata();
+
+  }, []);
+
 
   const [OtpStatus , setOtpStatus] = useState("Sending OTP...");
   const [Otp, setOtp] = useState(null);
@@ -31,6 +53,7 @@ function Profile() {
   // console.log(user);
   // const userEmail = 'user@example.com';
   
+
 
   const data = [
     {
@@ -237,7 +260,7 @@ function Profile() {
                 <DataList.Value>
                 <Flex align="center" gap="2">
                   {
-                    !userEmail ?(<Badge color="jade" variant="soft" radius="full">
+                    userDetails?.isEmailVerified ?(<Badge color="jade" variant="soft" radius="full">
                     Authorized
                   </Badge>): <Badge color="plum" variant="soft" radius="full">
                     Not Authorized
@@ -246,7 +269,7 @@ function Profile() {
                   
                  {/* verify now */}
                  { 
-                  userName &&
+                  !userDetails?.isEmailVerified &&
                    <Dialog.Root>
   <Dialog.Trigger
   
@@ -340,6 +363,7 @@ function Profile() {
                     otp: Otp
                 });
                 const data = response.data;
+                console.log(data);
                 if (data) {
                     // Check if response indicates success
                     toast.success("Email Verify Successfully!");
