@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 function ShowExercise({ loading, exercises, getAllExercise }) {
   const navigate = useNavigate();
   // const {pname} = useParams();
+  console.log('Exercises:', exercises);
 
   const handleEdit = (id) => {
     console.log('Editing exercise with ID:', id);
@@ -58,80 +59,87 @@ function ShowExercise({ loading, exercises, getAllExercise }) {
         </Link>
       </div>
       <div className="space-y-4">
-        {exercises.map((exercise) => (
-          <Skeleton loading={loading} key={exercise._id}>
-            <Card className="rounded p-4 flex items-center justify-between">
-              <div>
-                <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
-                <p className="text-gray-600 mb-4">{exercise.description}</p>
-                <div className="flex flex-wrap gap-2">
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Difficulty:</span>
-                  <Badge className="ml-2">{exercise.difficulty.level}</Badge>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Min Age:</span>
-                  <span className="ml-2">{exercise.difficulty.minAge}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Max Age:</span>
-                  <span className="ml-2">{exercise.difficulty.maxAge}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Content Type:</span>
-                  <span className="ml-2">{exercise.content.contentType}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Content Description:</span>
-                  <span className="ml-2">{exercise.content.description}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Question:</span>
-                  <span className="ml-2">{exercise.content.mcqs[0].question}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Options:</span>
-                  <span className="ml-2">{exercise.content.mcqs[0].options.join(', ')}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-700 font-semibold">Correct Answer:</span>
-                  <span className="ml-2">{exercise.content.mcqs[0].correctAnswer}</span>
-                </div>
+      {exercises.map((exercise) => (
+  <Skeleton loading={loading} key={exercise._id}>
+    <Card className="rounded p-4 flex items-center justify-between">
+      <div>
+        <h3 className="text-2xl font-bold mb-2">{exercise.name}</h3>
+        <p className="text-gray-600 mb-4">{exercise.description}</p>
+        <div className="flex flex-wrap gap-2">
+          <div className="flex items-center">
+            <span className="text-gray-700 font-semibold">Difficulty:</span>
+            <Badge className="ml-2">{exercise.difficulty.level}</Badge>
+          </div>
+          <div className="flex items-center">
+            <span className="text-gray-700 font-semibold">Min Age:</span>
+            <span className="ml-2">{exercise.difficulty.minAge}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-gray-700 font-semibold">Max Age:</span>
+            <span className="ml-2">{exercise.difficulty.maxAge}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-gray-700 font-semibold">Content Type:</span>
+            <span className="ml-2">{exercise.content.contentType}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-gray-700 font-semibold">Content Description:</span>
+            <span className="ml-2">{exercise.content.description}</span>
+          </div>
+          {/* Display all questions for this exercise */}
+          {exercise.content.mcqs.map((mcq, index) => (
+            <div key={mcq._id}>
+              <div className="flex items-center">
+                <span className="text-gray-700 font-semibold">Question {index + 1}:</span>
+                <span className="ml-2">{mcq.question}</span>
               </div>
+              <div className="flex items-center">
+                <span className="text-gray-700 font-semibold">Options:</span>
+                <span className="ml-2">{mcq.options.join(', ')}</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
-                  <Pencil2Icon className="h-6 w-6" />
-                </button>
-                <button className="text-red-500 hover:text-red-700">
-                <AlertDialog.Root>
-                  <AlertDialog.Trigger>
-                    <TrashIcon className="h-6 w-6" />
-                  </AlertDialog.Trigger>
-                  <AlertDialog.Content maxWidth="450px">
-                    <AlertDialog.Title>Delete Exercise</AlertDialog.Title>
-                    <AlertDialog.Description size="2">
-                      Are you sure you want to delete this exercise?
-                    </AlertDialog.Description>
-                    <Flex gap="3" mt="4" justify="end">
-                      <AlertDialog.Cancel>
-                        <Button variant="soft" color="gray">
-                          Cancel
-                        </Button>
-                      </AlertDialog.Cancel>
-                      <AlertDialog.Action>
-                        <Button variant="solid" color="red" onClick={() => handleDelete(exercise._id)} >
-                          Delete
-                        </Button>
-                      </AlertDialog.Action>
-                    </Flex>
-                  </AlertDialog.Content>
-                </AlertDialog.Root>
-              </button>
+              <div className="flex items-center">
+                <span className="text-gray-700 font-semibold">Correct Answer:</span>
+                <span className="ml-2">{mcq.correctAnswer}</span>
               </div>
-            </Card>
-          </Skeleton>
-        ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Action buttons */}
+      <div className="flex items-center space-x-2">
+        <button onClick={() => handleEdit(exercise._id)} className="text-indigo-500 hover:text-indigo-700">
+          <Pencil2Icon className="h-6 w-6" />
+        </button>
+        <button className="text-red-500 hover:text-red-700">
+          <AlertDialog.Root>
+            <AlertDialog.Trigger>
+              <TrashIcon className="h-6 w-6" />
+            </AlertDialog.Trigger>
+            <AlertDialog.Content maxWidth="450px">
+              <AlertDialog.Title>Delete Exercise</AlertDialog.Title>
+              <AlertDialog.Description size="2">
+                Are you sure you want to delete this exercise?
+              </AlertDialog.Description>
+              <Flex gap="3" mt="4" justify="end">
+                <AlertDialog.Cancel>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button variant="solid" color="red" onClick={() => handleDelete(exercise._id)}>
+                    Delete
+                  </Button>
+                </AlertDialog.Action>
+              </Flex>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
+        </button>
+      </div>
+    </Card>
+  </Skeleton>
+))}
+
       </div>
     </Card>
   );
