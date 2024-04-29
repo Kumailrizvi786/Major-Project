@@ -11,7 +11,7 @@ function SpeedReadingPage({ content, filteredExercises }) {
   const [contentWords, setContentWords] = useState([]);
   const [textComplete, setTextComplete] = useState(false);
   const navigate = useNavigate();
-
+  const [startTime, setStartTime] = useState(null);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +21,12 @@ function SpeedReadingPage({ content, filteredExercises }) {
   }, [content]);
 
   const handlePlayPause = () => {
+    if (!playing) {
+      setStartTime(Date.now());
+    } else {
+      clearInterval(intervalRef.current);
+      setTextComplete(true); // Text is complete
+    }
     setPlaying(!playing);
   };
 
@@ -32,6 +38,8 @@ function SpeedReadingPage({ content, filteredExercises }) {
     setCurrentWordIndex(0);
     setPlaying(false);
     setTextComplete(false);
+    setStartTime(null); // Reset start time
+    clearInterval(intervalRef.current);
   };
 
   useEffect(() => {
@@ -48,25 +56,31 @@ function SpeedReadingPage({ content, filteredExercises }) {
           }
         });
       }, 60000 / (speed * 300)); // Calculate interval based on speed
-    } else {
-      clearInterval(intervalRef.current);
     }
 
     return () => clearInterval(intervalRef.current);
   }, [playing, speed, contentWords]);
 
+  const calculateReadingSpeed = () => {
+    if (startTime !== null) {
+      const totalTime = (Date.now() - startTime) / 1000; // Convert to seconds
+      const wordsRead = currentWordIndex;
+      return Math.round((wordsRead / totalTime) * 60); // Calculate words per minute (wpm)
+    }
+    return 0; // If start time is null, reading speed is 0
+  };
+
   const handleNext = () => {
     // Navigate to the comprehension page
-    navigate('/comprehension', { state: { exercisedata:filteredExercises[0]  } });
+    navigate('/comprehension', { state: { exercisedata: filteredExercises[0], readingSpeed: calculateReadingSpeed() } });
   };
 
   return (
     <Box css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box className='text-center'>
-      <Heading size="2" className="text-4xl border border-gray-300 rounded-md p-12">
+        <Heading size="2" className="text-4xl border border-gray-300 rounded-md p-12">
           {contentWords[currentWordIndex]}
         </Heading>
-        {/* <TextArea value={contentWords[currentWordIndex]} className="mt-4" readOnly /> */}
       </Box>
       <Box className='text-center mt-2'>
         <Button
@@ -110,7 +124,11 @@ function SpeedReadingPage({ content, filteredExercises }) {
             Next
           </Button>
         )}
-        {/* Add more speed options */}
+      </Box>
+      <Box className='text-center mt-2'>
+        <Heading size="3" className="text-lg">
+          Reading Speed: {calculateReadingSpeed()} words per minute
+        </Heading>
       </Box>
     </Box>
   );

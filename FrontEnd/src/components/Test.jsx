@@ -7,7 +7,7 @@ import SpeedReadingPage from '../pages/Reading/SpeedReadingPage'; // Import the 
 
 function Test() {
   const location = useLocation();
-  const { filteredExercises } = location.state;
+  const { filteredExercises } = location?.state;
   // console.log('Generated Content:', location);
   // console.log('Generated Content:', generatedContent);
 

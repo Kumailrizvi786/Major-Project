@@ -8,6 +8,7 @@ import {Button, Heading, Skeleton, TextArea} from '@radix-ui/themes';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { useLocation } from 'react-router-dom';
+import { RiSpeakFill } from "react-icons/ri";
 
 
 function WordbyWord() {
@@ -93,14 +94,14 @@ const handleBegin = async (e) => {
   };
   const breadcrumbs = [
     { label: 'Home', href: '/' },
-    { label: 'Exercise', href: '/exercise' },
+    { label: 'Exercise 2: Subvocalization', href: '/exercise' },
   ];
 
   return (
     <div className="max-w-4xl mx-auto mt-8 px-4">
        <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} /> 
        
-      <Heading size="8" className="mb-4">Subvocalization <IoSparklesSharp className={`ml-1 inline ${loading && "animate-ping"}  `} /></Heading>
+      <Heading size="8" className="mb-4">Exercise 2: Subvocalization <RiSpeakFill className={`ml-1 inline ${loading && "animate-ping"}  `} /></Heading>
       <div className="flex space-x-4 mb-4">
       <select
   value={ageGroup1}
