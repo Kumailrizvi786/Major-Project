@@ -75,6 +75,10 @@ function SpeedReadingPage({ content, filteredExercises }) {
     navigate('/comprehension', { state: { exercisedata: filteredExercises[0], readingSpeed: calculateReadingSpeed() } });
   };
 
+  const handleAnother = () => {
+    // Navigate to the exercise page
+    navigate('/general-exercise');
+  }
   return (
     <Box css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box className='text-center'>
@@ -116,12 +120,20 @@ function SpeedReadingPage({ content, filteredExercises }) {
         >
           Replay
         </Button>
-        {textComplete && (
+        {filteredExercises && textComplete && (
           <Button
             onClick={handleNext}
             className="inline-flex items-center justify-center px-4 py-2 ml-2 rounded-md bg-blue-500 text-white focus:outline-none"
           >
             Next
+          </Button>
+        )}
+        {!filteredExercises && textComplete && (
+          <Button
+            onClick={handleAnother}
+            className="inline-flex items-center justify-center px-4 py-2 ml-2 rounded-md bg-blue-500 text-white focus:outline-none"
+          >
+            Practice Compelete - Try Another Exercise
           </Button>
         )}
       </Box>

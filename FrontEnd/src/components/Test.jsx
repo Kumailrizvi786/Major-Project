@@ -8,8 +8,11 @@ import SpeedReadingPage from '../pages/Reading/SpeedReadingPage'; // Import the 
 function Test() {
   const location = useLocation();
   const { filteredExercises } = location?.state;
+  console.log('Filtered Exercises:', location);
+  const { generatedContent } = location?.state;
+  console.log('Filtered Exercises:', filteredExercises);
   // console.log('Generated Content:', location);
-  // console.log('Generated Content:', generatedContent);
+  console.log('Generated Content:', generatedContent);
 
   const breadcrumbs = [
     { label: 'Home', href: '/' },
@@ -23,7 +26,8 @@ function Test() {
       <Breadcrumbs items={breadcrumbs} icon={IoHomeOutline} />
       <Heading size="8" className="mb-4">Start Reading</Heading>
       {/* Use SpeedReadingPage component and pass generatedContent */}
-      <SpeedReadingPage content={filteredExercises[0]?.content?.text} filteredExercises={filteredExercises} />
+      {filteredExercises && <SpeedReadingPage content={filteredExercises[0]?.content?.text} filteredExercises={filteredExercises} />} 
+     { generatedContent && <SpeedReadingPage content={generatedContent} filteredExercises={filteredExercises} /> }
     </div>
   );
 }

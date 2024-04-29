@@ -88,7 +88,7 @@ const generateContent = async (prompt) => {
   };
 
   const handleStartReading = () => {
-    navigate('/start-reading',{ state: { ageGroup, category, generatedContent }}); // Navigate to the StartReading page
+    navigate('/start-reading',{ state: { ageGroup, category, generatedContent:generatedContent }}); // Navigate to the StartReading page
   };
   const breadcrumbs = [
     { label: 'Home', href: '/' },
