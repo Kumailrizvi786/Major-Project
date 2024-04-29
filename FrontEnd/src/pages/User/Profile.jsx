@@ -24,7 +24,9 @@ import UserProgressChart from './UserProgressChart.jsx';
 function Profile() {
   const loggedIn = getLoggedIn();
 
+
 const [userDetails, setUserDetails] = useState(null);
+const [filterResults, setFilterResults] = useState(null);
 const [loading, setLoading] = useState(true);
 
 const usersalldata = async ()=>{
@@ -36,6 +38,21 @@ const usersalldata = async ()=>{
 
 
 }
+const filterResultsByLevel = (event) => {
+  const level = event.target.getAttribute('value'); // Extract the value attribute
+ 
+ 
+  console.log('Filtering results by level:', level);
+  if (level === 'inbox') {
+    setFilterResults(userDetails?.result);
+    toast.success('Filtered results by all levels');
+  } else {
+    const filteredResults = userDetails?.result.filter(result => result.exercise.difficulty.level === level);
+    setFilterResults(filteredResults);
+    toast.success(`Filtered results by ${level} level`);
+  }
+};
+
 
 
   useEffect(() => {
@@ -599,16 +616,17 @@ const usersalldata = async ()=>{
       {/* Reading list */}
       <div className="container mx-auto px-32 py-8">
 
-        <Heading as="h2" className="text-2xl font-bold">Reading List</Heading>
+        <Heading as="h2" className="text-2xl font-bold">Exercise Reading List</Heading>
         <p className="text-gray-500 mt-2">List of all your reading sessions</p>
         <div className="flex justify-center">
         {/* including segmented control */}
 
 
-        <SegmentedControl.Root defaultValue="inbox">
+
+        <SegmentedControl.Root defaultValue="inbox" onClick={filterResultsByLevel}>
   <SegmentedControl.Item value="inbox">All</SegmentedControl.Item>
-  <SegmentedControl.Item value="drafts">Completed</SegmentedControl.Item>
-  <SegmentedControl.Item value="sent">Pending</SegmentedControl.Item>
+  <SegmentedControl.Item value="Medium">Medium</SegmentedControl.Item>
+  <SegmentedControl.Item value="Hard">Hard</SegmentedControl.Item>
 </SegmentedControl.Root>
         </div>
         <div className="mt-4">
