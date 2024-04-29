@@ -18,6 +18,12 @@ function SkimmingExercise() {
   const [exercise, setExercise] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const calculateReadingSpeed = () => {
+    // Professional formula to calculate reading speed
+    const readingSpeed = Math.round(200 / 1); // 200 words per minute
+    return readingSpeed;
+  };
+  
 
   const getAllSkimmingExercise = async () => {
     const url = 'http://localhost:8080/exercise/getByName/Skimming';
@@ -132,7 +138,7 @@ function SkimmingExercise() {
 
       {showContent && (
        
-         <Link to="/comprehension" state={{ exercisedata: exercise }}>
+         <Link to="/comprehension" state={{ exercisedata: exercise, readingSpeed: calculateReadingSpeed() }}>
          <Button className="mr-2">
          Next  <FaRegArrowAltCircleRight />
          </Button>
