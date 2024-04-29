@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Badge, Heading,
-  Callout, Dialog,Box,Card, Code,TextField,Text ,Grid ,Inset ,Popover, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator, 
+  Callout, Dialog,Box,Card, Code,TextField,Text ,Grid,Inset ,Popover, DataList,SegmentedControl,Switch, Flex,Button, IconButton, Link, Separator, 
   Avatar} from '@radix-ui/themes';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { FaEdit, FaLock, FaPen, FaReadme } from 'react-icons/fa';
@@ -18,6 +18,7 @@ import api from '../../services/axiosConfig.js';
 // import { TbMathAvg } from "react-icons/tb";
 import { FaLevelUpAlt } from "react-icons/fa";
 import { useEffect } from 'react';
+import UserProgressChart from './UserProgressChart.jsx';
 // import { getUser } from '../../Utils/helper';
 
 function Profile() {
@@ -578,8 +579,26 @@ const usersalldata = async ()=>{
       </div>
       <Separator size="4" />
 
+      <div className="container mx-auto px-32 py-8">
+        <Heading as="h2" className="text-2xl font-bold">Progress Chart</Heading>
+        <p className="text-gray-500 mt-2 mb-2">Your reading progress over time</p>
+        <Callout.Root>
+            <Callout.Icon>
+              <RiPassPendingLine />
+            </Callout.Icon>
+            <Callout.Text>
+             Note: Scoring 0 points is considered as a incomplete sessions.
+            </Callout.Text>
+          </Callout.Root>
+        {/* <div className="mt-8"> */}
+        { userDetails && <UserProgressChart userDetails={userDetails}  />}
+        {/* </div> */}
+      </div>
+      <Separator size="4" />
+
       {/* Reading list */}
       <div className="container mx-auto px-32 py-8">
+
         <Heading as="h2" className="text-2xl font-bold">Reading List</Heading>
         <p className="text-gray-500 mt-2">List of all your reading sessions</p>
         <div className="flex justify-center">
@@ -618,6 +637,13 @@ const usersalldata = async ()=>{
             </div>
           ))}
         </div>
+         {/* callout  */}
+        <Separator size="4" className='my-4' />
+          
+        {/* </div> */}
+        {/* chart here */}
+
+       
       </div>
     </>
   );
