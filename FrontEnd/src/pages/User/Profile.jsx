@@ -53,6 +53,9 @@ const usersalldata = async ()=>{
   // console.log(user);
   // const userEmail = 'user@example.com';
   
+  const results = userDetails?.result;
+  console.log(results);
+
 
 
   const data = [
@@ -63,48 +66,10 @@ const usersalldata = async ()=>{
       avgSpeed: '52 w/m',
       status: 'Completed',
       duration: '1h 20m',
-    },
-    {
-      id: 2,
-      date: '2021-08-02',
-      title: 'Story of my life',
-      avgSpeed: '124 w/m',
-      status: 'Pending',
-      duration: '2h 10m',
-    },
-    {
-      id: 3,
-      date: '2021-08-03',
-      title: 'History of india',
-      avgSpeed: '31 w/m',
-      status: 'Completed',
-      duration: '45m',
-    },
-    {
-      id: 4,
-      date: '2021-08-04',
-      title: 'Science and technology',
-      avgSpeed: '52 w/m',
-      status: 'Completed',
-      duration: '1h 20m',
-    },
-    {
-      id: 5,
-      date: '2021-08-05',
-      title: 'Evening Ride',
-      avgSpeed: '124 w/m',
-      status: 'Completed',
-      duration: '2h 10m',
-    },
-    {
-      id: 6,
-      date: '2021-08-06',
-      title: 'One more story',
-      avgSpeed: '31 w/m',
-      status: 'Completed',
-      duration: '45m',
-    },
+    }
   ];
+
+
   // Breadcrumbs for navigation
   const breadcrumbs = [
     { label: 'Home', href: '/' },
@@ -488,7 +453,7 @@ const usersalldata = async ()=>{
                 Total Reading
               </Text>
               <Text as="div" size="2" color="gray">
-                1000
+               { results?.length || 0} Exercise
               </Text>
             </Box>
           </Flex>
@@ -559,19 +524,27 @@ const usersalldata = async ()=>{
 </SegmentedControl.Root>
         </div>
         <div className="mt-4">
-          {data.map((item) => (
+          { results?.length === 0 && 
+          <Card>
+            <p className="text-gray-500 text-center">No reading sessions found</p> 
+            </Card>
+            }
+          { 
+
+          
+          results?.map((item) => (
             <div key={item.id} className="border border-gray-200 rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
-                <Heading as="h3" className="text-lg font-semibold ">{item.title}</Heading>
-                <span className="text-gray-500">{item.date}</span>
+                <Heading as="h3" className="text-lg font-semibold ">{item.exercise.name}</Heading>
+                <span className="text-gray-500"> Level: <Badge color={"plum"} variant="soft" radius="full"> {item.exercise.difficulty.level} </Badge></span>
               </div>
               <div className="flex justify-between items-center mt-2">
-                <span className="text-gray-500">Avg Speed: {item.avgSpeed}</span>
-                <span className="text-gray-500">Duration: {item.duration}</span>
+                <span className="text-gray-500">Avg Speed: {item.wpm}</span>
+                <span className="text-gray-500">Score: {item.score}</span>
               </div>
               <div className="mt-2">
-              <Badge color={item.status === "Pending" ? "plum" : "jade"} variant="soft" radius="full">
-  {item.status}
+              <Badge color={"jade"} variant="soft" radius="full">
+  Completed
 </Badge>
 
               </div>

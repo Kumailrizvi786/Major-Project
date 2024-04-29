@@ -52,7 +52,8 @@ const getExercisebyAge = async () => {
     console.error(error);
   }
 };
-const handleBegin = async () => {
+const handleBegin = async (e) => {
+  e.preventDefault();
   getExercisebyAge();
   console.log("Level:", level);
   if (level) { 

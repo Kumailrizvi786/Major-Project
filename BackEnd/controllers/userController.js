@@ -110,6 +110,7 @@ export const getAllDetails = async (req, res) => {
 
         //setting resoponse object
         const initialResponseObject = {
+            _id: userObject._id,
             name: "",
             email: "",
             isEmailVerified: false,

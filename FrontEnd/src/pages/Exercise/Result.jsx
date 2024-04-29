@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Heading, Flex, Badge, Callout } from '@radix-ui/themes';
 import Breadcrumbs from '../../components/Breadcrumb';
 import { IoHomeOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSave } from 'react-icons/fa';
 import axios from 'axios';
 import ConfettiExplosion from 'react-confetti-explosion';
@@ -15,6 +15,8 @@ import { toast } from 'react-hot-toast';
 
 function Result() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState(null);
   console.log('State:', state);
   // const [userId, setUserId] = useState(null);
   const userdata = getUserData();
@@ -22,9 +24,30 @@ function Result() {
   const readingSpeed = state?.readingSpeed;
   const exercisedata = state?.exercisedata;
 
-  const userId = userdata?.user?.userEmail;
+  const userEmail = userdata?.user?.userEmail;
   // setUserId(userdata?.user?.userEmail);
   // cons
+  const usersalldata = async ()=>{
+    // console.log(user);
+    // user data from this api /user/getAllDetails
+   const response = await axios.post('http://localhost:8080/user/getAllDetails', {email: userEmail})
+    console.log(response.data);
+    setUserDetails(response.data);
+  
+  
+  }
+ useEffect(()=>{
+
+  usersalldata();
+  },[])
+
+
+    const userId = userDetails?._id;
+
+
+    console.log('User ID:', userDetails);
+
+
 
   const speed = readingSpeed;
   const comprehensionPercentage = percentageCorrect;
@@ -40,6 +63,7 @@ function Result() {
   const score = calculateScore();
 
   const handleResult = async (userId) => {
+    
     // Save the result to the database
     // need userId, exerciseId, score, wpm 
     try {
@@ -55,6 +79,7 @@ function Result() {
       // Show a success message
       toast.success('Result saved successfully!');
       // Redirect to the home page
+      navigate('/general-exercise');
       
     } catch (error) {
       console.error(error);
