@@ -440,7 +440,7 @@ const usersalldata = async ()=>{
                 My Score
               </Text>
               <Text as="div" size="2" color="gray">
-                500
+                0 Points
               </Text>
             </Box>
           </Flex>
@@ -542,10 +542,8 @@ const usersalldata = async ()=>{
                 <span className="text-gray-500">Avg Speed: {item.wpm}</span>
                 <span className="text-gray-500">Score: {item.score}</span>
               </div>
-              <div className="mt-2">
-              <Badge color={"jade"} variant="soft" radius="full">
-  Completed
-</Badge>
+              <div className="mt-2 text-gray-500">Exercise:  {item.exercise.description}
+{/* </Badge> */}
 
               </div>
             </div>
