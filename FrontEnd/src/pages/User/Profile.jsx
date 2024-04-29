@@ -15,6 +15,8 @@ import axios from "axios"
 import {InfoCircledIcon} from '@radix-ui/react-icons'
 import {Share2Icon, Link1Icon} from '@radix-ui/react-icons'
 import api from '../../services/axiosConfig.js';
+// import { TbMathAvg } from "react-icons/tb";
+import { FaLevelUpAlt } from "react-icons/fa";
 import { useEffect } from 'react';
 // import { getUser } from '../../Utils/helper';
 
@@ -50,24 +52,9 @@ const usersalldata = async ()=>{
   const [Otp, setOtp] = useState(null);
   const {user} = getUserData();
   const {userEmail, userName} = user;
-  // console.log(user);
-  // const userEmail = 'user@example.com';
   
   const results = userDetails?.result;
-  console.log(results);
 
-
-
-  const data = [
-    {
-      id: 1,
-      date: '2021-08-01',
-      title: 'Reading with Sahil',
-      avgSpeed: '52 w/m',
-      status: 'Completed',
-      duration: '1h 20m',
-    }
-  ];
 
 
   // Breadcrumbs for navigation
@@ -81,6 +68,67 @@ const usersalldata = async ()=>{
     console.log(response.json());
   }
 
+  const calculateAverageSpeed = (results) => {
+    // Filter out null or undefined speed values
+    const validSpeeds = results.filter(result => result.wpm !== null && result.wpm !== undefined);
+    
+    // Calculate total speed
+    const totalSpeed = validSpeeds.reduce((acc, curr) => acc + curr.wpm, 0);
+    
+    // Calculate average speed
+    const averageSpeed = validSpeeds.length > 0 ? totalSpeed / validSpeeds.length : 0;
+  
+    // Return the average speed rounded to two decimal places
+    return averageSpeed.toFixed(2);
+  };
+
+  const calculateHighestSpeed = (results) => {
+    // Filter out null or undefined speed values
+    const validSpeeds = results.filter(result => result.wpm !== null && result.wpm !== undefined);
+    
+    // Sort the valid speeds in descending order
+    const sortedSpeeds = validSpeeds.sort((a, b) => b.wpm - a.wpm);
+    
+    // Return the highest speed
+    return sortedSpeeds.length > 0 ? sortedSpeeds[0].wpm : 0;
+  };
+  
+  const calculateAverageLevel = (results) => {
+    // Create a map to assign numerical values to difficulty levels
+    const difficultyValues = {
+      1: "Easy",
+      2: "Medium",
+      3: "Hard"
+      // Add more difficulty levels as needed
+    };
+    
+    // Extract all difficulty levels from results and convert them to numerical values
+    const levels = results.map(result => {
+      switch (result.exercise.difficulty.level) {
+        case "Easy":
+          return 1;
+        case "Medium":
+          return 2;
+        case "Hard":
+          return 3;
+        // Add more cases if necessary
+        default:
+          return 0; // Default to 0 if difficulty level is not recognized
+      }
+    });
+    
+    // Calculate total levels
+    const totalLevels = levels.length > 0 ? levels.reduce((acc, level) => acc + level, 0) : 0;
+    
+    // Calculate average level
+    const averageLevel = levels.length > 0 ? totalLevels / levels.length : 0;
+  
+    // Return the corresponding difficulty level string based on the average numerical value
+    return difficultyValues[Math.round(averageLevel)] || 'No data available';
+  };
+  
+  
+  
   return (
     <>
       {/* Profile for user to show their details */}
@@ -436,13 +484,34 @@ const usersalldata = async ()=>{
           <Flex gap="3" align="center">
             <RiAwardLine size="32" />
             <Box>
-              <Text as="div" size="2" weight="bold">
-                My Score
-              </Text>
-              <Text as="div" size="2" color="gray">
-                0 Points
-              </Text>
-            </Box>
+  {(results && results.length > 0) ? (
+    <>
+      {results.map((result, index) => (
+        <div key={index}>
+          {/* Render individual scores */}
+        </div>
+      ))}
+      <Text as="div" size="2" weight="bold">
+        Total Score
+      </Text>
+      <Text as="div" size="2" color="gray">
+        {results.reduce((acc, curr) => acc + curr.score, 0)} Points
+      </Text>
+    </>
+  ) : (
+    // Display score of 0 if results array is null or empty
+    <>
+      <Text as="div" size="2" weight="bold">
+        Total Score
+      </Text>
+      <Text as="div" size="2" color="gray">
+        0 Points
+      </Text>
+    </>
+  )}
+</Box>
+
+
           </Flex>
         </Card>
         <Card>
@@ -462,13 +531,15 @@ const usersalldata = async ()=>{
           <Flex gap="3" align="center">
             <IoSpeedometer size="32" />
             <Box>
-              <Text as="div" size="2" weight="bold">
-              Avg Speed
-              </Text>
-              <Text as="div" size="2" color="gray">
-                200 w/m
-              </Text>
-            </Box>
+  <Text as="div" size="2" weight="bold">
+    Avg Speed
+  </Text>
+  {/* Logic for calculating average speed */}
+  <Text as="div" size="2" color="gray">
+    {results && results.length > 0 ? `${calculateAverageSpeed(results)} w/m` : 'No data available'}
+  </Text>
+</Box>
+
           </Flex>
         </Card>
        
@@ -476,26 +547,30 @@ const usersalldata = async ()=>{
           <Flex gap="3" align="center">
             <RiSpeedUpLine size="32" />
             <Box>
-              <Text as="div" size="2" weight="bold">
-              Highest Speed
-              </Text>
-              <Text as="div" size="2" color="gray">
-                150 w/m
-              </Text>
-            </Box>
+  <Text as="div" size="2" weight="bold">
+    Highest Speed
+  </Text>
+  {/* Logic for calculating highest speed */}
+  <Text as="div" size="2" color="gray">
+    {results && results.length > 0 ? `${calculateHighestSpeed(results)} w/m` : 'No data available'}
+  </Text>
+</Box>
+
           </Flex>
         </Card>
         <Card>
           <Flex gap="3" align="center">
-            <RiSpeedUpLine size="32" />
-            <Box>
-              <Text as="div" size="2" weight="bold">
-              Highest Speed
-              </Text>
-              <Text as="div" size="2" color="gray">
-                150 w/m
-              </Text>
-            </Box>
+          <FaLevelUpAlt   size="32" />
+          <Box>
+  <Text as="div" size="2" weight="bold">
+    Average Level
+  </Text>
+  {/* Logic for calculating average level */}
+  <Text as="div" size="2" color="gray">
+    {results && results.length > 0 ? calculateAverageLevel(results) : 'No data available'}
+  </Text>
+</Box>
+
           </Flex>
         </Card>
       </Flex>
@@ -510,13 +585,7 @@ const usersalldata = async ()=>{
         <div className="flex justify-center">
         {/* including segmented control */}
 
-         {/* <div className="flex justify-center mt-4">
-          <div className="flex items-center space-x-4">
-            <button className="text-blue-500">All</button>
-            <button className="text-gray-500">Completed</button>
-            <button className="text-gray-500">Pending</button>
-          </div>
-        </div> */}
+
         <SegmentedControl.Root defaultValue="inbox">
   <SegmentedControl.Item value="inbox">All</SegmentedControl.Item>
   <SegmentedControl.Item value="drafts">Completed</SegmentedControl.Item>
